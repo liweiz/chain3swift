@@ -1,6 +1,6 @@
 //
 //  IBAN.swift
-//  web3swift
+//  chain3swift
 //
 //  Created by Alexander Vlasov on 25.05.2018.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
@@ -147,7 +147,7 @@ public struct IBAN {
         return address.addressData.base36.count <= 30
     }
     /// init with address
-    /// - important: [Not every address is IBAN compatible](https://github.com/BANKEX/web3swift/issues/137)
+    /// - important: [Not every address is IBAN compatible](https://github.com/BANKEX/chain3swift/issues/137)
     public init(_ address: Address) {
         let padded = address.addressData.base36.leftPadding(toLength: 30, withPad: "0")
         let prefix = "XE"

@@ -1,6 +1,6 @@
 //
 //  Address.swift
-//  web3swift
+//  chain3swift
 //
 //  Created by Alexander Vlasov on 07.01.2018.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.

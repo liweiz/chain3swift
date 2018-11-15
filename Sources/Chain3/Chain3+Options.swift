@@ -15,14 +15,14 @@ public protocol Chain3OptionsInheritable {
     var options: Chain3Options { get }
 }
 
-/// Options for sending or calling a particular Ethereum transaction
+/// Options for sending or calling a particular MOAC transaction
 public struct Chain3Options {
     /// Sets the transaction destination. It can either be a contract address or a private key controlled wallet address.
     ///
     /// Usually should never be nil.
     public var to: Address?
-    /// Sets from what account a transaction should be sent. Used only internally as the sender of Ethereum transaction
-    /// is determined purely from the transaction signature. Indicates to the Ethereum node or to the local keystore what private key
+    /// Sets from what account a transaction should be sent. Used only internally as the sender of MOAC transaction
+    /// is determined purely from the transaction signature. Indicates to the MOAC node or to the local keystore what private key
     /// should be used to sign a transaction.
     ///
     /// Can be nil if one reads the information from the blockchain.

@@ -1,6 +1,6 @@
 //
 //  W3Contract.swift
-//  web3swift
+//  chain3swift
 //
 //  Created by Dmitry on 10/11/2018.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
@@ -45,7 +45,7 @@ extension ContractProtocol {
 
 @objc public class W3Contract: NSObject, W3OptionsInheritable, SwiftContainer {
     public var swift: ContractV2
-    var _swiftOptions: Web3Options {
+    var _swiftOptions: Chain3Options {
         get { return swift.options }
         set { swift.options = newValue }
     }
@@ -74,12 +74,12 @@ extension ContractProtocol {
         swift = try ContractV2(abiString, at: address?.swift)
     }
     
-    @objc public func deploy(bytecode: Data, parameters: [Any], extraData: Data?, options: W3Options?) throws -> W3EthereumTransaction {
+    @objc public func deploy(bytecode: Data, parameters: [Any], extraData: Data?, options: W3Options?) throws -> W3MOACTransaction {
         let extraData = extraData ?? Data()
         return try swift.deploy(bytecode: bytecode, parameters: parameters, extraData: extraData, options: options?.swift).objc
     }
     
-    @objc public func method(_ method: String, parameters: [Any], extraData: Data?, options: W3Options?) throws -> W3EthereumTransaction {
+    @objc public func method(_ method: String, parameters: [Any], extraData: Data?, options: W3Options?) throws -> W3MOACTransaction {
         let extraData = extraData ?? Data()
         return try swift.method(method, parameters: parameters, extraData: extraData, options: options?.swift).objc
     }
@@ -89,7 +89,7 @@ extension ContractProtocol {
         return W3ContractParsedEvent(eventName: name, eventData: data)
     }
     
-    @objc public func testBloomForEventPrecence(eventName: String, bloom: W3EthereumBloomFilter) -> Bool {
+    @objc public func testBloomForEventPrecence(eventName: String, bloom: W3MOACBloomFilter) -> Bool {
         return swift.testBloomForEventPrecence(eventName: eventName, bloom: bloom.swift) ?? false
     }
     

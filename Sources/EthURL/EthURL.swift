@@ -1,6 +1,6 @@
 //
 //  EthURL.swift
-//  web3swift
+//  chain3swift
 //
 //  Created by Dmitry on 02/10/2018.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
@@ -24,7 +24,7 @@ public class EthURL {
     public var functionName: String?
     public var parameters = [String: String]()
     public var string: String {
-        var string = "ethereum:"
+        var string = "MOAC:"
         if isPay {
             string += "pay-"
         }
@@ -51,7 +51,7 @@ public class EthURL {
     }
 
     public init(string: String) throws {
-        let prefix = "ethereum:"
+        let prefix = "MOAC:"
         guard string.hasPrefix(prefix) else { throw Error.wrongScheme }
         var string = string
         if !string[prefix.endIndex...].hasPrefix("//") {

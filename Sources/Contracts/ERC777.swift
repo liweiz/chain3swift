@@ -1,6 +1,6 @@
 //
 //  ERC777.swift
-//  web3swift
+//  chain3swift
 //
 //  Created by Dmitry on 17/10/2018.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
@@ -13,7 +13,7 @@ public class ERC777 {
 	/// Token address
 	public let address: Address
 	/// Transaction options
-	public var options: Web3Options = .default
+	public var options: Chain3Options = .default
 	/// Password to unlock private key for sender address
 	public var password: String = "BANKEXFOUNDATION"
 	/**
@@ -93,7 +93,7 @@ public class ERC777 {
 	public struct GasPrice {
 		let parent: ERC777
 		var address: Address { return parent.address }
-		var options: Web3Options { return parent.options }
+		var options: Chain3Options { return parent.options }
 		
 		/**
 		Native implementation of ERC20 token

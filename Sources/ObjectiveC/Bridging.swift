@@ -1,6 +1,6 @@
 //
 //  Bridging.swift
-//  web3swift
+//  chain3swift
 //
 //  Created by Dmitry on 09/11/2018.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.

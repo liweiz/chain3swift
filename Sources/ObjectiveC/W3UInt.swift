@@ -1,6 +1,6 @@
 //
 //  W3UInt.swift
-//  web3swift
+//  chain3swift
 //
 //  Created by Dmitry on 11/8/18.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
@@ -9,7 +9,7 @@
 import Foundation
 import BigInt
 
-//typealias BigUInt = web3swift.BigUInt
+//typealias BigUInt = chain3swift.BigUInt
 
 extension NSNumber {
 	@objc public var bn: W3UInt {
@@ -222,7 +222,7 @@ extension BigInt {
 	}
 }
 
-extension Web3Units {
+extension Chain3Units {
     public var objc: W3Units {
 		return W3Units(rawValue: rawValue)!
 	}
@@ -235,8 +235,8 @@ extension Web3Units {
     case Gwei = 9
     case Microether = 12
     case Finney = 15
-    public var swift: Web3Units {
-        return Web3Units(rawValue: rawValue)!
+    public var swift: Chain3Units {
+        return Chain3Units(rawValue: rawValue)!
     }
 }
 

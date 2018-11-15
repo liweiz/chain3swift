@@ -1,6 +1,6 @@
 //
 //  W3Structs.swift
-//  web3swift
+//  chain3swift
 //
 //  Created by Dmitry on 11/8/18.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
@@ -94,15 +94,15 @@ extension Address.AddressType {
 	}
 }
 
-extension Web3Options {
+extension Chain3Options {
     public var objc: W3Options {
 		return W3Options(self)
 	}
 }
 @objc public class W3Options: NSObject, SwiftContainer {
 	weak var object: W3OptionsInheritable?
-	var options: Web3Options!
-    public var swift: Web3Options {
+	var options: Chain3Options!
+    public var swift: Chain3Options {
 		get { return object?._swiftOptions ?? options }
 		set {
 			if let object = object {
@@ -137,29 +137,29 @@ extension Web3Options {
 	init(object: W3OptionsInheritable) {
 		self.object = object
 	}
-	public required init(_ swift: Web3Options) {
+	public required init(_ swift: Chain3Options) {
 		self.options = swift
 	}
 	@objc public override init() {
-		self.options = Web3Options()
+		self.options = Chain3Options()
 	}
 	@objc public static var `default`: W3Options {
-		return Web3Options.default.objc
+		return Chain3Options.default.objc
 	}
 	
 	@objc public init(_ json: [String: Any]) throws {
-		self.options = try Web3Options(json)
+		self.options = try Chain3Options(json)
 	}
 	
 	/// merges two sets of options along with a gas estimate to try to guess the final gas limit value required by user.
 	///
 	/// Please refer to the source code for a logic.
 	@objc public static func smartMergeGasLimit(originalOptions: W3Options?, extraOptions: W3Options?, gasEstimate: W3UInt) -> W3UInt {
-		return Web3Options.smartMergeGasLimit(originalOptions: originalOptions?.swift, extraOptions: extraOptions?.swift, gasEstimate: gasEstimate.swift).objc
+		return Chain3Options.smartMergeGasLimit(originalOptions: originalOptions?.swift, extraOptions: extraOptions?.swift, gasEstimate: gasEstimate.swift).objc
 	}
 	
 	@objc public static func smartMergeGasPrice(originalOptions: W3Options?, extraOptions: W3Options?, priceEstimate: W3UInt) -> W3UInt {
-		return Web3Options.smartMergeGasPrice(originalOptions: originalOptions?.swift, extraOptions: extraOptions?.swift, priceEstimate: priceEstimate.swift).objc
+		return Chain3Options.smartMergeGasPrice(originalOptions: originalOptions?.swift, extraOptions: extraOptions?.swift, priceEstimate: priceEstimate.swift).objc
 	}
 }
 
@@ -206,9 +206,9 @@ extension TransactionSendingResult {
         return TransactionSendingResult(transaction: transaction.swift, hash: transactionHash)
     }
     
-	@objc public var transaction: W3EthereumTransaction
+	@objc public var transaction: W3MOACTransaction
 	@objc public var transactionHash: String
-	@objc public init(transaction: W3EthereumTransaction, hash: String) {
+	@objc public init(transaction: W3MOACTransaction, hash: String) {
 		self.transaction = transaction
 		self.transactionHash = hash
 	}
@@ -277,7 +277,7 @@ extension TransactionDetails {
 	@objc public var transactionIndex: W3UInt? {
 		return swift.transactionIndex?.objc
 	}
-	@objc public var transaction: W3EthereumTransaction {
+	@objc public var transaction: W3MOACTransaction {
 		return swift.transaction.objc
 	}
 }
@@ -319,7 +319,7 @@ extension TransactionReceipt {
 	@objc public var status: W3TXStatus {
 		return swift.status.objc
 	}
-	@objc public var logsBloom: W3EthereumBloomFilter? {
+	@objc public var logsBloom: W3MOACBloomFilter? {
 		return swift.logsBloom?.objc
 	}
 	
@@ -413,7 +413,7 @@ extension TransactionInBlock {
 	}
 	
 	var transactionHash: Data?
-	var transaction: W3EthereumTransaction?
+	var transaction: W3MOACTransaction?
 }
 
 
@@ -443,7 +443,7 @@ extension Block {
 	@objc public var sha3Uncles: Data {
 		return swift.sha3Uncles
 	}
-	@objc public var logsBloom: W3EthereumBloomFilter? {
+	@objc public var logsBloom: W3MOACBloomFilter? {
 		return swift.logsBloom?.objc
 	}
 	@objc public var transactionsRoot: Data {
@@ -521,15 +521,15 @@ extension EventParserResultProtocol {
 	}
 }
 
-extension EthereumBloomFilter {
-    public var objc: W3EthereumBloomFilter {
-		return W3EthereumBloomFilter(self)
+extension MOACBloomFilter {
+    public var objc: W3MOACBloomFilter {
+		return W3MOACBloomFilter(self)
 	}
 }
 
-@objc public class W3EthereumBloomFilter: NSObject, SwiftContainer {
-	public let swift: EthereumBloomFilter
-	public required init(_ swift: EthereumBloomFilter) {
+@objc public class W3MOACBloomFilter: NSObject, SwiftContainer {
+	public let swift: MOACBloomFilter
+	public required init(_ swift: MOACBloomFilter) {
 		self.swift = swift
 	}
 	

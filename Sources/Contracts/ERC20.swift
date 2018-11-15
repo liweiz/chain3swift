@@ -1,6 +1,6 @@
 //
 //  ERC20.swift
-//  web3swift-iOS
+//  chain3swift-iOS
 //
 //  Created by Dmitry on 12/10/2018.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
@@ -18,7 +18,7 @@ public class ERC20 {
     /// Token address
     public let address: Address
     /// Transaction Options
-    public var options: Web3Options = .default
+    public var options: Chain3Options = .default
     /// Password to unlock private key for sender address
     public var password: String = "BANKEXFOUNDATION"
     /**
@@ -154,7 +154,7 @@ public class ERC20 {
     public struct GasPrice {
         let erc20: ERC20
         var address: Address { return erc20.address }
-        var options: Web3Options { return erc20.options }
+        var options: Chain3Options { return erc20.options }
         init(_ erc20: ERC20) {
             self.erc20 = erc20
         }

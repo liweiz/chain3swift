@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "1317BCE2218C50D100D6D095"
-               BuildableName = "web3swift.framework"
-               BlueprintName = "web3swift"
-               ReferencedContainer = "container:web3swift.xcodeproj">
+               BuildableName = "chain3swift.framework"
+               BlueprintName = "chain3swift"
+               ReferencedContainer = "container:chain3swift.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
                BlueprintIdentifier = "139751B6219AF76D0044D2B0"
                BuildableName = "Tests.xctest"
                BlueprintName = "Tests"
-               ReferencedContainer = "container:web3swift.xcodeproj">
+               ReferencedContainer = "container:chain3swift.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -43,9 +43,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1317BCE2218C50D100D6D095"
-            BuildableName = "web3swift.framework"
-            BlueprintName = "web3swift"
-            ReferencedContainer = "container:web3swift.xcodeproj">
+            BuildableName = "chain3swift.framework"
+            BlueprintName = "chain3swift"
+            ReferencedContainer = "container:chain3swift.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -65,9 +65,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1317BCE2218C50D100D6D095"
-            BuildableName = "web3swift.framework"
-            BlueprintName = "web3swift"
-            ReferencedContainer = "container:web3swift.xcodeproj">
+            BuildableName = "chain3swift.framework"
+            BlueprintName = "chain3swift"
+            ReferencedContainer = "container:chain3swift.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -83,9 +83,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "1317BCE2218C50D100D6D095"
-            BuildableName = "web3swift.framework"
-            BlueprintName = "web3swift"
-            ReferencedContainer = "container:web3swift.xcodeproj">
+            BuildableName = "chain3swift.framework"
+            BlueprintName = "chain3swift"
+            ReferencedContainer = "container:chain3swift.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

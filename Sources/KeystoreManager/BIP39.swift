@@ -1,6 +1,6 @@
 //
 //  BIP39.swift
-//  web3swift
+//  chain3swift
 //
 //  Created by Alexander Vlasov on 11.01.2018.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
@@ -60,7 +60,7 @@ public enum EntropySize: Int {
 }
 
 /**
- Mnemonics class. Used to generate/create/import ethereum account
+ Mnemonics class. Used to generate/create/import MOAC account
  
  To generate mnemonics use:
  ```
@@ -81,9 +81,9 @@ public enum EntropySize: Int {
  let keystore = try BIP32Keystore(mnemonics: mnemonics)
  let address = keystore.addresses[0]
  let privateKey = try keystore.UNSAFE_getPrivateKeyData(password: "", account: address)
- let publicKey = try Web3Utils.privateToPublic(privateKey, compressed: true)
+ let publicKey = try Chain3Utils.privateToPublic(privateKey, compressed: true)
  ```
- In the most cases you don't need to manager your public and private keys. web3swift doing this for you.
+ In the most cases you don't need to manager your public and private keys. chain3swift doing this for you.
  */
 public class Mnemonics {
     /// Mnemonics init with data error

@@ -1,6 +1,6 @@
 //
 //  ContractProtocol.swift
-//  web3swift
+//  chain3swift
 //
 //  Created by Alexander Vlasov on 04.04.2018.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
@@ -11,17 +11,17 @@ import Foundation
 
 public protocol ContractProtocol {
     var address: Address? { get set }
-    var options: Web3Options { get set }
+    var options: Chain3Options { get set }
     var allMethods: [String] { get }
     var allEvents: [String] { get }
-    func deploy(bytecode: Data, parameters: [Any], extraData: Data, options: Web3Options?) throws -> EthereumTransaction
-    func method(_ method: String, parameters: [Any], extraData: Data, options: Web3Options?) throws -> EthereumTransaction
+    func deploy(bytecode: Data, parameters: [Any], extraData: Data, options: Chain3Options?) throws -> MOACTransaction
+    func method(_ method: String, parameters: [Any], extraData: Data, options: Chain3Options?) throws -> MOACTransaction
     init(_ abiString: String, at address: Address?) throws
     func decodeReturnData(_ method: String, data: Data) -> [String: Any]?
     func decodeInputData(_ method: String, data: Data) -> [String: Any]?
     func decodeInputData(_ data: Data) -> [String: Any]?
     func parseEvent(_ eventLog: EventLog) -> (eventName: String?, eventData: [String: Any]?)
-    func testBloomForEventPrecence(eventName: String, bloom: EthereumBloomFilter) -> Bool?
+    func testBloomForEventPrecence(eventName: String, bloom: MOACBloomFilter) -> Bool?
 //    func allEvents() -> [String: [String: Any]?]
 }
 

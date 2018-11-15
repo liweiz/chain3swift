@@ -29,11 +29,11 @@ extension Chain3Contract {
         
         /**
          Parses the transaction for events matching the EventParser settings.
-         - parameter transaction: chain3swift native EthereumTransaction object
+         - parameter transaction: chain3swift native MOACTransaction object
          - returns: array of events
          - important: This call is synchronous
          */
-        public func parseTransaction(_ transaction: EthereumTransaction) throws -> [EventParserResultProtocol] {
+        public func parseTransaction(_ transaction: MOACTransaction) throws -> [EventParserResultProtocol] {
             return try parseTransactionPromise(transaction).wait()
         }
 
@@ -49,7 +49,7 @@ extension Chain3Contract {
         
         /**
          Parses the block for events matching the EventParser settings.
-         - parameter blockNumber: Ethereum network block number
+         - parameter blockNumber: MOAC network block number
          - returns: array of events
          - important: This call is synchronous
          */
@@ -72,11 +72,11 @@ extension Chain3Contract {
 extension Chain3Contract.EventParser {
     /**
      Parses the transaction for events matching the EventParser settings.
-     - parameter transaction: chain3swift native EthereumTransaction object
+     - parameter transaction: chain3swift native MOACTransaction object
      - returns: promise that returns array of events
      - important: This call is synchronous
      */
-    public func parseTransactionPromise(_ transaction: EthereumTransaction) -> Promise<[EventParserResultProtocol]> {
+    public func parseTransactionPromise(_ transaction: MOACTransaction) -> Promise<[EventParserResultProtocol]> {
         let queue = chain3.requestDispatcher.queue
         do {
             guard let hash = transaction.hash else {
@@ -109,7 +109,7 @@ extension Chain3Contract.EventParser {
 
     /**
      Parses the block for events matching the EventParser settings.
-     - parameter blockNumber: Ethereum network block number
+     - parameter blockNumber: MOAC network block number
      - returns: promise that returns array of events
      - important: This call is synchronous
      */

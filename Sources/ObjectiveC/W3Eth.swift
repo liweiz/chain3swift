@@ -1,6 +1,6 @@
 //
 //  W3Eth.swift
-//  web3swift
+//  chain3swift
 //
 //  Created by Dmitry on 11/8/18.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
@@ -9,39 +9,39 @@
 import Foundation
 
 @objc public class W3Eth: NSObject {
-    public var swift: Web3Eth {
-        return web3.swift.eth
+    public var swift: Chain3Eth {
+        return chain3.swift.eth
     }
-    unowned var web3: W3Web3
-    @objc public init(web3: W3Web3) {
-        self.web3 = web3
+    unowned var chain3: W3Chain3
+    @objc public init(chain3: W3Chain3) {
+        self.chain3 = chain3
     }
-    /// Send an W3EthereumTransaction object to the network. Transaction is either signed locally if there is a KeystoreManager
-    /// object bound to the web3 instance, or sent unsigned to the node. For local signing the password is required.
+    /// Send an W3MOACTransaction object to the network. Transaction is either signed locally if there is a KeystoreManager
+    /// object bound to the chain3 instance, or sent unsigned to the node. For local signing the password is required.
     ///
     /// "options" object can override the "to", "gasPrice", "gasLimit" and "value" parameters is pre-formed transaction.
     /// "from" field in "options" is mandatory for both local and remote signing.
     ///
     /// This function is synchronous!
-    @objc public func sendTransaction(_ transaction: W3EthereumTransaction, options: W3Options, password: String = "BANKEXFOUNDATION") throws -> W3TransactionSendingResult {
+    @objc public func sendTransaction(_ transaction: W3MOACTransaction, options: W3Options, password: String = "BANKEXFOUNDATION") throws -> W3TransactionSendingResult {
         return try swift.sendTransaction(transaction.swift, options: options.swift, password: password).objc
     }
 
-    /// Send raw Ethereum transaction data to the network.
+    /// Send raw MOAC transaction data to the network.
     ///
     /// This function is synchronous!
     @objc public func sendRawTransaction(data: Data) throws -> W3TransactionSendingResult {
         return try swift.sendRawTransaction(data).objc
     }
 
-    /// Send raw Ethereum transaction data to the network by first serializing the W3EthereumTransaction object.
+    /// Send raw MOAC transaction data to the network by first serializing the W3MOACTransaction object.
     ///
     /// This function is synchronous!
-    @objc public func sendRawTransaction(_ transaction: W3EthereumTransaction) throws -> W3TransactionSendingResult {
+    @objc public func sendRawTransaction(_ transaction: W3MOACTransaction) throws -> W3TransactionSendingResult {
         return try swift.sendRawTransaction(transaction.swift).objc
     }
 
-    /// Returns a total number of transactions sent by the particular Ethereum address.
+    /// Returns a total number of transactions sent by the particular MOAC address.
     ///
     /// "onBlock" field determines if value is returned based on the state of a blockchain on the latest mined block ("latest")
     /// or the expected state after all the transactions in memory pool are applied ("pending").
@@ -51,7 +51,7 @@ import Foundation
         return try swift.getTransactionCount(address: address.swift, onBlock: onBlock).objc
     }
 
-    /// Returns a balance of particular Ethereum address in Wei units (1 ETH = 10^18 Wei).
+    /// Returns a balance of particular MOAC address in Wei units (1 ETH = 10^18 Wei).
     ///
     /// "onString" field determines if value is returned based on the state of a blockchain on the latest mined block ("latest")
     /// or the expected state after all the transactions in memory pool are applied ("pending").
@@ -61,7 +61,7 @@ import Foundation
         return try swift.getBalance(address: address.swift, onBlock: onBlock).objc
     }
 
-    /// Returns a block number of the last mined block that Ethereum node knows about.
+    /// Returns a block number of the last mined block that MOAC node knows about.
     ///
     /// This function is synchronous!
     @objc public func getBlockNumber() throws -> W3UInt {
@@ -113,7 +113,7 @@ import Foundation
         return try swift.getTransactionReceipt(txHashString).objc
     }
 
-    /// Estimates a minimal amount of gas required to run a transaction. To do it the Ethereum node tries to run it and counts
+    /// Estimates a minimal amount of gas required to run a transaction. To do it the MOAC node tries to run it and counts
     /// how much gas it consumes for computations. Setting the transaction gas limit lower than the estimate will most likely
     /// result in a failing transaction.
     ///
@@ -125,12 +125,12 @@ import Foundation
     /// Returns the Result object that indicates either success of failure.
     /// Error can also indicate that transaction is invalid in the current state, so formally it's gas limit is infinite.
     /// An example of such transaction can be sending an amount of ETH that is larger than the current account balance.
-    @objc public func estimateGas(_ transaction: W3EthereumTransaction, options: W3Options?, onBlock: String = "latest") throws -> W3UInt {
+    @objc public func estimateGas(_ transaction: W3MOACTransaction, options: W3Options?, onBlock: String = "latest") throws -> W3UInt {
         return try swift.estimateGas(transaction.swift, options: options?.swift, onBlock: onBlock).objc
     }
 
-    /// Get a list of Ethereum accounts that a node knows about.
-    /// If one has attached a Keystore Manager to the web3 object it returns accounts known to the keystore.
+    /// Get a list of MOAC accounts that a node knows about.
+    /// If one has attached a Keystore Manager to the chain3 object it returns accounts known to the keystore.
     ///
     /// This function is synchronous!
     ///
@@ -139,9 +139,9 @@ import Foundation
         return try swift.getAccounts().map { $0.objc }
     }
 
-    /// Get information about the particular block in Ethereum network. If "fullTransactions" parameter is set to "true"
+    /// Get information about the particular block in MOAC network. If "fullTransactions" parameter is set to "true"
     /// this call fill do a virtual join and fetch not just transaction hashes from this block,
-    /// but full decoded W3EthereumTransaction objects.
+    /// but full decoded W3MOACTransaction objects.
     ///
     /// This function is synchronous!
     ///
@@ -150,9 +150,9 @@ import Foundation
         return try swift.getBlockByHash(hash, fullTransactions: fullTransactions).objc
     }
 
-    /// Get information about the particular block in Ethereum network. If "fullTransactions" parameter is set to "true"
+    /// Get information about the particular block in MOAC network. If "fullTransactions" parameter is set to "true"
     /// this call fill do a virtual join and fetch not just transaction hashes from this block,
-    /// but full decoded W3EthereumTransaction objects.
+    /// but full decoded W3MOACTransaction objects.
     ///
     /// This function is synchronous!
     ///
@@ -161,9 +161,9 @@ import Foundation
         return try swift.getBlockByHash(hash, fullTransactions: fullTransactions).objc
     }
 
-    /// Get information about the particular block in Ethereum network. If "fullTransactions" parameter is set to "true"
+    /// Get information about the particular block in MOAC network. If "fullTransactions" parameter is set to "true"
     /// this call fill do a virtual join and fetch not just transaction hashes from this block,
-    /// but full decoded W3EthereumTransaction objects.
+    /// but full decoded W3MOACTransaction objects.
     ///
     /// This function is synchronous!
     ///
@@ -172,9 +172,9 @@ import Foundation
         return try swift.getBlockByNumber(byNumber.swift, fullTransactions: fullTransactions).objc
     }
 
-    /// Get information about the particular block in Ethereum network. If "fullTransactions" parameter is set to "true"
+    /// Get information about the particular block in MOAC network. If "fullTransactions" parameter is set to "true"
     /// this call fill do a virtual join and fetch not just transaction hashes from this block,
-    /// but full decoded W3EthereumTransaction objects.
+    /// but full decoded W3MOACTransaction objects.
     ///
     /// This function is synchronous!
     ///
@@ -184,7 +184,7 @@ import Foundation
     }
 
     /**
-    Convenience wrapper to send Ethereum to another address. Internally it creates a virtual contract and encodes all the options and data.
+    Convenience wrapper to send MOAC to another address. Internally it creates a virtual contract and encodes all the options and data.
     - Parameters:
     - to: W3Address to send funds to
     - amount: W3UInt indicating the amount in wei

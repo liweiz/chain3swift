@@ -1,6 +1,6 @@
 //
 //  SolidityTypes.swift
-//  web3swift
+//  chain3swift
 //
 //  Created by Dmitry on 16/10/2018.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
@@ -61,7 +61,7 @@ public class SolidityType: Equatable, CustomStringConvertible {
     public var description: String { return "" }
     /// returns true if type input parameters is valid: default true
     public var isValid: Bool { return true }
-    /// returns true if type is supported in web3swift
+    /// returns true if type is supported in chain3swift
     public var isSupported: Bool { return true }
     
     public static func == (lhs: SolidityType, rhs: SolidityType) -> Bool {

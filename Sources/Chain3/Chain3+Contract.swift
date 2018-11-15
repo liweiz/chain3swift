@@ -24,7 +24,7 @@ public class Chain3Contract {
     var chain3: Chain3
     public var options: Chain3Options
     
-    /// Initialize the bound contract instance by supplying the Chain3 provider bound object, ABI, Ethereum address and some default
+    /// Initialize the bound contract instance by supplying the Chain3 provider bound object, ABI, MOAC address and some default
     /// options for further function calls. By default the contract inherits options from the chain3 object. Additionally supplied "options"
     /// do override inherited ones.
     public init(chain3 chain3Instance: Chain3, abiString: String, at: Address? = nil, options: Chain3Options? = nil) throws {

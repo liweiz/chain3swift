@@ -1,15 +1,17 @@
 //
-//  EthereumKeystoreV3.swift
-//  web3swift
+//  MOACKeystoreV3.swift
+//  chain3swift
 //
 //  Created by Alexander Vlasov on 18.12.2017.
 //  Copyright © 2017 Bankex Foundation. All rights reserved.
+//
+//  Modifications copyright © 2018 Liwei Zhang. All rights reserved.
 //
 
 import CryptoSwift
 import Foundation
 
-public class EthereumKeystoreV3: AbstractKeystore {
+public class MOACKeystoreV3: AbstractKeystore {
     // Class
 
     public func getAddress() -> Address? {
@@ -101,8 +103,8 @@ public class EthereumKeystoreV3: AbstractKeystore {
         let kdfparams = KdfParamsV3(salt: saltData.toHexString(), dklen: dkLen, n: N, p: P, r: R, c: nil, prf: nil)
         let cipherparams = CipherParamsV3(iv: IV.toHexString())
         let crypto = CryptoParamsV3(ciphertext: encryptedKeyData.toHexString(), cipher: aesMode, cipherparams: cipherparams, kdf: "scrypt", kdfparams: kdfparams, mac: mac.toHexString(), version: nil)
-        let pubKey = try Web3Utils.privateToPublic(keyData!)
-        let addr = try Web3Utils.publicToAddress(pubKey)
+        let pubKey = try Chain3Utils.privateToPublic(keyData!)
+        let addr = try Chain3Utils.publicToAddress(pubKey)
         address = addr
         let keystoreparams = KeystoreParamsV3(address: addr.address.lowercased(), crypto: crypto, id: UUID().uuidString.lowercased(), version: 3)
         keystoreParams = keystoreparams

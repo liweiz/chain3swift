@@ -1,6 +1,6 @@
 //
 //  W3Contracts.swift
-//  web3swift
+//  chain3swift
 //
 //  Created by Dmitry on 11/8/18.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
@@ -10,10 +10,10 @@ import Foundation
 import BigInt
 
 protocol W3OptionsInheritable: class {
-    var _swiftOptions: Web3Options { get set }
+    var _swiftOptions: Chain3Options { get set }
 }
 
-/// Options for sending or calling a particular Ethereum transaction
+/// Options for sending or calling a particular MOAC transaction
 
 // MARK:- ERC20
 @objc public class W3ERC20: NSObject, SwiftBridgeable {

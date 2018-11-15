@@ -1,6 +1,6 @@
 //
 //  EIP67CodeGenerator.swift
-//  web3swift
+//  chain3swift
 //
 //  Created by Alexander Vlasov on 09.04.2018.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
@@ -49,7 +49,7 @@ public struct EIP67Code {
 
     public func toString() -> String {
         var urlComponents = URLComponents()
-        let mainPart = "ethereum:" + address.address.lowercased()
+        let mainPart = "MOAC:" + address.address.lowercased()
         var queryItems = [URLQueryItem]()
         if let amount = self.amount {
             queryItems.append(URLQueryItem(name: "value", value: String(amount, radix: 10)))
@@ -98,8 +98,8 @@ public struct EIP67CodeParser {
     }
 
     public static func parse(_ string: String) -> EIP67Code? {
-        guard string.hasPrefix("ethereum:") else { return nil }
-        let striped = string.components(separatedBy: "ethereum:")
+        guard string.hasPrefix("MOAC:") else { return nil }
+        let striped = string.components(separatedBy: "MOAC:")
         guard striped.count == 2 else { return nil }
         guard let encoding = striped[1].removingPercentEncoding else { return nil }
         guard let url = URL(string: encoding) else { return nil }

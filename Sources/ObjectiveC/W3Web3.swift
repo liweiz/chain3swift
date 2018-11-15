@@ -1,6 +1,6 @@
 //
-//  W3Web3.swift
-//  web3swift
+//  W3Chain3.swift
+//  chain3swift
 //
 //  Created by Dmitry on 11/9/18.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
@@ -8,36 +8,36 @@
 
 import Foundation
 
-extension Web3Provider {
-    public var objc: W3Web3HttpProvider {
-		guard let provider = self as? Web3HttpProvider else { fatalError("\(self) is not convertable to objective-c W3Web3HttpProvider") }
+extension Chain3Provider {
+    public var objc: W3Chain3HttpProvider {
+		guard let provider = self as? Chain3HttpProvider else { fatalError("\(self) is not convertable to objective-c W3Chain3HttpProvider") }
 		return provider.objc
 	}
 }
 
-extension Web3 {
-    public var objc: W3Web3 {
-		return W3Web3(self)
+extension Chain3 {
+    public var objc: W3Chain3 {
+		return W3Chain3(self)
 	}
 }
 
-@objc public class W3Web3: NSObject, W3OptionsInheritable, SwiftContainer {
-	public var swift: Web3
-    var _swiftOptions: Web3Options {
+@objc public class W3Chain3: NSObject, W3OptionsInheritable, SwiftContainer {
+	public var swift: Chain3
+    var _swiftOptions: Chain3Options {
         get { return swift.options }
         set { swift.options = newValue }
     }
-	public required init(_ swift: Web3) {
+	public required init(_ swift: Chain3) {
 		self.swift = swift
 		super.init()
 		options = W3Options(object: self)
 	}
 	
-	@objc public static var `default`: W3Web3 {
-		get { return Web3.default.objc }
-		set { Web3.default = newValue.swift }
+	@objc public static var `default`: W3Chain3 {
+		get { return Chain3.default.objc }
+		set { Chain3.default = newValue.swift }
 	}
-	@objc public var provider: W3Web3HttpProvider {
+	@objc public var provider: W3Chain3HttpProvider {
 		get { return swift.provider.objc }
 		set { swift.provider = newValue.swift }
 	}
@@ -55,7 +55,7 @@ extension Web3 {
 		set { swift.provider.attachedKeystoreManager = newValue?.swift }
 	}
 	@objc public var txpool: W3TxPool {
-		return W3TxPool(web3: self)
+		return W3TxPool(chain3: self)
 	}
 	
 	@objc public func dispatch(_ request: W3JsonRpcRequest, completion: @escaping (W3JsonRpcResponse?,Error?)->()) {
@@ -66,30 +66,30 @@ extension Web3 {
 		}
 	}
 	
-	@objc public init(provider prov: W3Web3HttpProvider, queue: OperationQueue? = nil) {
-		swift = Web3(provider: prov.swift, queue: queue)
+	@objc public init(provider prov: W3Chain3HttpProvider, queue: OperationQueue? = nil) {
+		swift = Chain3(provider: prov.swift, queue: queue)
 		super.init()
 		options = W3Options(object: self)
 	}
 	
-    @objc public lazy var eth = W3Eth(web3: self)
-    @objc public lazy var personal = W3Personal(web3: self)
-    @objc public lazy var wallet = W3Wallet(web3: self)
+    @objc public lazy var eth = W3Eth(chain3: self)
+    @objc public lazy var personal = W3Personal(chain3: self)
+    @objc public lazy var wallet = W3Wallet(chain3: self)
 	
 	@objc public init(infura networkId: W3NetworkId) {
-		swift = Web3(infura: networkId.swift)
+		swift = Chain3(infura: networkId.swift)
 		super.init()
 		options = W3Options(object: self)
 	}
 	
 	@objc public init(infura networkId: W3NetworkId, accessToken: String) {
-		swift = Web3(infura: networkId.swift, accessToken: accessToken)
+		swift = Chain3(infura: networkId.swift, accessToken: accessToken)
 		super.init()
 		options = W3Options(object: self)
 	}
 	
 	@objc public init?(url: URL) {
-		guard let swift = Web3(url: url) else { return nil }
+		guard let swift = Chain3(url: url) else { return nil }
 		self.swift = swift
 		super.init()
 		options = W3Options(object: self)

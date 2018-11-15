@@ -1,6 +1,6 @@
 //
 //  W3TransactionIntermediate.swift
-//  web3swift
+//  chain3swift
 //
 //  Created by Dmitry on 09/11/2018.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
@@ -8,15 +8,15 @@
 
 import Foundation
 
-extension Web3DataResponse {
+extension Chain3DataResponse {
     public var objc: W3DataResponse {
         return W3DataResponse(self)
     }
 }
 
 @objc public class W3DataResponse: NSObject, SwiftContainer {
-    public let swift: Web3DataResponse
-    public required init(_ swift: Web3DataResponse) {
+    public let swift: Chain3DataResponse
+    public required init(_ swift: Chain3DataResponse) {
         self.swift = swift
     }
     
@@ -118,14 +118,14 @@ extension Web3DataResponse {
     }
 }
 
-extension Web3Response {
+extension Chain3Response {
     public var objc: W3Response {
         return W3Response(self)
     }
 }
 @objc public class W3Response: NSObject, SwiftContainer {
-    public let swift: Web3Response
-    public required init(_ swift: Web3Response) {
+    public let swift: Chain3Response
+    public required init(_ swift: Chain3Response) {
         self.swift = swift
     }
     
@@ -143,22 +143,22 @@ extension Web3Response {
     }
     
     /// Returns next response argument as W3UInt (like self[n] as? W3UInt; n += 1)
-    /// throws Web3ResponseError.notFound if there is no value at self[n]
-    /// throws Web3ResponseError.wrongType if it cannot cast self[n] to W3UInt
+    /// throws Chain3ResponseError.notFound if there is no value at self[n]
+    /// throws Chain3ResponseError.wrongType if it cannot cast self[n] to W3UInt
     @objc public func uint256() throws -> W3UInt {
         return try swift.uint256().objc
     }
     
     /// Returns next response argument as W3Address (like self[n] as? W3Address; n += 1)
-    /// throws Web3ResponseError.notFound if there is no value at self[n]
-    /// throws Web3ResponseError.wrongType if it cannot cast self[n] to W3Address
+    /// throws Chain3ResponseError.notFound if there is no value at self[n]
+    /// throws Chain3ResponseError.wrongType if it cannot cast self[n] to W3Address
     @objc public func address() throws -> W3Address {
         return try swift.address().objc
     }
     
     /// Returns next response argument as String (like self[n] as? String; n += 1)
-    /// throws Web3ResponseError.notFound if there is no value at self[n]
-    /// throws Web3ResponseError.wrongType if it cannot cast self[n] to String
+    /// throws Chain3ResponseError.notFound if there is no value at self[n]
+    /// throws Chain3ResponseError.wrongType if it cannot cast self[n] to String
     @objc public func string() throws -> String {
         return try swift.string()
     }
@@ -179,7 +179,7 @@ extension TransactionIntermediate {
 /// to the blockchain.
 @objc public class W3TransactionIntermediate: NSObject, W3OptionsInheritable, SwiftContainer {
     public var swift: TransactionIntermediate
-    var _swiftOptions: Web3Options {
+    var _swiftOptions: Chain3Options {
         get { return swift.options }
         set { swift.options = newValue }
     }
@@ -189,7 +189,7 @@ extension TransactionIntermediate {
         options = W3Options(object: self)
     }
     
-    @objc public var transaction: W3EthereumTransaction {
+    @objc public var transaction: W3MOACTransaction {
         return swift.transaction.objc
     }
     @objc public var contract: W3Contract {
@@ -200,15 +200,15 @@ extension TransactionIntermediate {
         set { swift.method = newValue }
     }
     @objc public var options: W3Options!
-    @objc public init(transaction: W3EthereumTransaction, web3: W3Web3, contract: W3Contract, method: String, options: W3Options) {
-        swift = TransactionIntermediate(transaction: transaction.swift, web3: web3.swift, contract: contract.swift, method: method, options: options.swift)
+    @objc public init(transaction: W3MOACTransaction, chain3: W3Chain3, contract: W3Contract, method: String, options: W3Options) {
+        swift = TransactionIntermediate(transaction: transaction.swift, chain3: chain3.swift, contract: contract.swift, method: method, options: options.swift)
     }
     
     /**
      *Send a prepared transaction to the blockchain. Internally checks the nonce for a sending account, assigns it, get a gas estimate and signs a transaction either locally or on the remote node.*
      
      - parameter password: Password for a private key if transaction is signed locally
-     - parameter options: Web3Options to override the previously assigned gas price, gas limit and value.
+     - parameter options: Chain3Options to override the previously assigned gas price, gas limit and value.
      - parameter onBlock: String field determines if nonce value and the gas estimate are based on the state of a blockchain on the latest mined block ("latest") or the expected state after all the transactions in memory pool are applied ("pending"). Using "pending" allows to send transactions one after another without waiting for inclusion of the previous one in some block.
      
      - returns: W3TransactionSendingResult
@@ -222,7 +222,7 @@ extension TransactionIntermediate {
     /**
      *Calls a function of the smart-contract and parses the returned data to native objects.*
      
-     - parameter options: Web3Options to override the previously assigned gas price, gas limit and value.
+     - parameter options: Chain3Options to override the previously assigned gas price, gas limit and value.
      - parameter onBlock: String field determines if nonce value and the gas estimate are based on the state of a blockchain on the latest mined block ("latest") or the expected state after all the transactions in memory pool are applied ("pending"). Using "pending" allows to send transactions one after another without waiting for inclusion of the previous one in some block.
      
      - returns: W3Response from node
@@ -238,7 +238,7 @@ extension TransactionIntermediate {
     /**
      *Estimates gas required to execute the transaction. Setting a gas limit lower than the estimate will most likely result in a failed transaction. If this call returns an error it can also indicate that transaction is invalid as itself.*
      
-     - parameter options: Web3Options to override the previously assigned gas price, gas limit and value.
+     - parameter options: Chain3Options to override the previously assigned gas price, gas limit and value.
      - parameter onBlock: String field determines if nonce value and the gas estimate are based on the state of a blockchain on the latest mined block ("latest") or the expected state after all the transactions in memory pool are applied ("pending"). Using "pending" allows to send transactions one after another without waiting for inclusion of the previous one in some block.
      
      - returns: gas price
@@ -252,25 +252,25 @@ extension TransactionIntermediate {
     /**
      *Assembles (but does not sign!) a transaction by fetching the nonce value and applying provided options.*
      
-     - parameter options: Web3Options to override the previously assigned gas price, gas limit and value.
+     - parameter options: Chain3Options to override the previously assigned gas price, gas limit and value.
      - parameter onBlock: String field determines if nonce value and the gas estimate are based on the state of a blockchain on the latest mined block ("latest") or the expected state after all the transactions in memory pool are applied ("pending"). Using "pending" allows to send transactions one after another without waiting for inclusion of the previous one in some block.
      
      - returns: transaction
      - important: This call is synchronous
      
      */
-    @objc public func assemble(options: W3Options?, onBlock: String = "pending") throws -> W3EthereumTransaction {
+    @objc public func assemble(options: W3Options?, onBlock: String = "pending") throws -> W3MOACTransaction {
         return try swift.assemble(options: options?.swift, onBlock: onBlock).objc
     }
     /**
      *Assembles (but does not sign!) a transaction by fetching the nonce value and applying provided options.*
      
-     - parameter options: Web3Options to override the previously assigned gas price, gas limit and value.
+     - parameter options: Chain3Options to override the previously assigned gas price, gas limit and value.
      - parameter onBlock: String field determines if nonce value and the gas estimate are based on the state of a blockchain on the latest mined block ("latest") or the expected state after all the transactions in memory pool are applied ("pending"). Using "pending" allows to send transactions one after another without waiting for inclusion of the previous one in some block.
      
-     - returns: Promise for ethereum transaction
+     - returns: Promise for MOAC transaction
      */
-    @objc public func assembleAsync(options: W3Options?, onBlock: String = "pending", completion: @escaping  (W3EthereumTransaction?,Error?)->()) {
+    @objc public func assembleAsync(options: W3Options?, onBlock: String = "pending", completion: @escaping  (W3MOACTransaction?,Error?)->()) {
         swift.assemblePromise(options: options?.swift, onBlock: onBlock)
             .done { completion($0.objc,nil) }
             .catch { completion(nil, $0) }
@@ -280,7 +280,7 @@ extension TransactionIntermediate {
      *Send a prepared transaction to the blockchain. Internally checks the nonce for a sending account, assigns it, get a gas estimate and signs a transaction either locally or on the remote node.*
      
      - parameter password: Password for a private key if transaction is signed locally
-     - parameter options: Web3Options to override the previously assigned gas price, gas limit and value.
+     - parameter options: Chain3Options to override the previously assigned gas price, gas limit and value.
      - parameter onBlock: String field determines if nonce value and the gas estimate are based on the state of a blockchain on the latest mined block ("latest") or the expected state after all the transactions in memory pool are applied ("pending"). Using "pending" allows to send transactions one after another without waiting for inclusion of the previous one in some block.
      
      - returns: Promise for TransactionResult which contains transaction hash and other info
@@ -295,7 +295,7 @@ extension TransactionIntermediate {
     /**
      *Calls a function of the smart-contract and parses the returned data to native objects.*
      
-     - parameter options: Web3Options to override the previously assigned gas price, gas limit and value.
+     - parameter options: Chain3Options to override the previously assigned gas price, gas limit and value.
      - parameter onBlock: String field determines if nonce value and the gas estimate are based on the state of a blockchain on the latest mined block ("latest") or the expected state after all the transactions in memory pool are applied ("pending"). Using "pending" allows to send transactions one after another without waiting for inclusion of the previous one in some block.
      
      - returns: Promise for W3Response from node
@@ -311,7 +311,7 @@ extension TransactionIntermediate {
     /**
      *Estimates gas required to execute the transaction. Setting a gas limit lower than the estimate will most likely result in a failed transaction. If this call returns an error it can also indicate that transaction is invalid as itself.*
      
-     - parameter options: Web3Options to override the previously assigned gas price, gas limit and value.
+     - parameter options: Chain3Options to override the previously assigned gas price, gas limit and value.
      - parameter onBlock: String field determines if nonce value and the gas estimate are based on the state of a blockchain on the latest mined block ("latest") or the expected state after all the transactions in memory pool are applied ("pending"). Using "pending" allows to send transactions one after another without waiting for inclusion of the previous one in some block.
      
      - returns: Promise for gas price

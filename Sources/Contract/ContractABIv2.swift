@@ -1,6 +1,6 @@
 //
 //  ContractABIv2.swift
-//  web3swift
+//  chain3swift
 //
 //  Created by Alexander Vlasov on 04.04.2018.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
@@ -78,7 +78,7 @@ public struct ContractV2: ContractProtocol {
         return toReturn
     }
 
-    public var options: Web3Options = .default
+    public var options: Chain3Options = .default
 
     public init(_ abiString: String, at address: Address? = nil) throws {
         let abi = try JSONDecoder().decode([ABIv2.Record].self, from: abiString.data)
@@ -107,11 +107,11 @@ public struct ContractV2: ContractProtocol {
         case cannotEncodeDataWithGivenParameters
     }
 
-    public func deploy(bytecode: Data, args: Any..., extraData: Data = Data(), options: Web3Options?) throws -> EthereumTransaction {
+    public func deploy(bytecode: Data, args: Any..., extraData: Data = Data(), options: Chain3Options?) throws -> MOACTransaction {
         return try deploy(bytecode: bytecode, parameters: args, extraData: extraData, options: options)
     }
 
-    public func deploy(bytecode: Data, parameters: [Any], extraData: Data = Data(), options: Web3Options?) throws -> EthereumTransaction {
+    public func deploy(bytecode: Data, parameters: [Any], extraData: Data = Data(), options: Chain3Options?) throws -> MOACTransaction {
         let to: Address = .contractDeployment
         let options = self.options.merge(with: options)
         guard let gasLimit = options.gasLimit else { throw MethodError.noGasLimit }
@@ -126,14 +126,14 @@ public struct ContractV2: ContractProtocol {
         } else if extraData != Data() {
             fullData.append(extraData)
         }
-        return EthereumTransaction(gasPrice: gasPrice, gasLimit: gasLimit, to: to, value: value, data: fullData)
+        return MOACTransaction(gasPrice: gasPrice, gasLimit: gasLimit, to: to, value: value, data: fullData)
     }
 
-    public func method(_ name: String, args: Any..., extraData: Data = Data(), options: Web3Options?) throws -> EthereumTransaction {
+    public func method(_ name: String, args: Any..., extraData: Data = Data(), options: Chain3Options?) throws -> MOACTransaction {
         return try method(name, parameters: args, extraData: extraData, options: options)
     }
 
-    public func method(_ method: String, parameters: [Any], extraData: Data = Data(), options: Web3Options?) throws -> EthereumTransaction {
+    public func method(_ method: String, parameters: [Any], extraData: Data = Data(), options: Chain3Options?) throws -> MOACTransaction {
         var to: Address
         let options = self.options.merge(with: options)
         if let address = address {
@@ -148,11 +148,11 @@ public struct ContractV2: ContractProtocol {
         let value = options.value ?? 0
 
         if method == "fallback" {
-            return EthereumTransaction(gasPrice: gasPrice, gasLimit: gasLimit, to: to, value: value, data: extraData)
+            return MOACTransaction(gasPrice: gasPrice, gasLimit: gasLimit, to: to, value: value, data: extraData)
         } else {
             guard let abiMethod = methods[method] else { throw MethodError.notFound }
             guard let encodedData = abiMethod.encodeParameters(parameters as [AnyObject]) else { throw MethodError.cannotEncodeDataWithGivenParameters }
-            return EthereumTransaction(gasPrice: gasPrice, gasLimit: gasLimit, to: to, value: value, data: encodedData)
+            return MOACTransaction(gasPrice: gasPrice, gasLimit: gasLimit, to: to, value: value, data: encodedData)
         }
     }
 
@@ -177,7 +177,7 @@ public struct ContractV2: ContractProtocol {
         return (nil, nil)
     }
 
-    public func testBloomForEventPrecence(eventName: String, bloom: EthereumBloomFilter) -> Bool? {
+    public func testBloomForEventPrecence(eventName: String, bloom: MOACBloomFilter) -> Bool? {
         guard let event = events[eventName] else { return nil }
         if event.anonymous {
             return true

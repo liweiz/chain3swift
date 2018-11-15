@@ -12,7 +12,7 @@ import BigInt
 import Foundation
 import class PromiseKit.Promise
 
-/// Protocol for generic Ethereum event parsing results
+/// Protocol for generic MOAC event parsing results
 public protocol EventParserResultProtocol {
     var eventName: String { get }
     var decodedResult: [String: Any] { get }
@@ -21,19 +21,19 @@ public protocol EventParserResultProtocol {
     var eventLog: EventLog? { get }
 }
 
-/// Protocol for generic Ethereum event parser
+/// Protocol for generic MOAC event parser
 public protocol EventParserProtocol {
-    func parseTransaction(_ transaction: EthereumTransaction) throws -> [EventParserResultProtocol]
+    func parseTransaction(_ transaction: MOACTransaction) throws -> [EventParserResultProtocol]
     func parseTransactionByHash(_ hash: Data) throws -> [EventParserResultProtocol]
     func parseBlock(_ block: Block) throws -> [EventParserResultProtocol]
     func parseBlockByNumber(_ blockNumber: UInt64) throws -> [EventParserResultProtocol]
-    func parseTransactionPromise(_ transaction: EthereumTransaction) -> Promise<[EventParserResultProtocol]>
+    func parseTransactionPromise(_ transaction: MOACTransaction) -> Promise<[EventParserResultProtocol]>
     func parseTransactionByHashPromise(_ hash: Data) -> Promise<[EventParserResultProtocol]>
     func parseBlockByNumberPromise(_ blockNumber: UInt64) -> Promise<[EventParserResultProtocol]>
     func parseBlockPromise(_ block: Block) -> Promise<[EventParserResultProtocol]>
 }
 
-/// Enum for the most-used Ethereum networks. Network ID is crucial for EIP155 support
+/// Enum for the most-used MOAC networks. Network ID is crucial for EIP155 support
 public struct NetworkId: RawRepresentable, CustomStringConvertible, ExpressibleByIntegerLiteral {
     public typealias IntegerLiteralType = Int
     public var rawValue: BigUInt

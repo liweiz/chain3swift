@@ -1,6 +1,6 @@
 //
 //  W3Personal.swift
-//  web3swift
+//  chain3swift
 //
 //  Created by Dmitry on 10/11/2018.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
@@ -9,12 +9,12 @@
 import Foundation
 
 @objc public class W3Personal: NSObject {
-    public var swift: Web3Personal {
-        return web3.swift.personal
+    public var swift: Chain3Personal {
+        return chain3.swift.personal
     }
-    unowned var web3: W3Web3
-    @objc public init(web3: W3Web3) {
-        self.web3 = web3
+    unowned var chain3: W3Chain3
+    @objc public init(chain3: W3Chain3) {
+        self.chain3 = chain3
     }
     /**
      *Locally or remotely sign a message (arbitrary data) with the private key. To avoid potential signing of a transaction the message is first prepended by a special header and then hashed.*
@@ -35,7 +35,7 @@ import Foundation
      
      - parameter account: W3Address of the account to unlock
      - parameter password: Password to use for the account
-     - parameter seconds: Time inteval before automatic account lock by Ethereum node
+     - parameter seconds: Time inteval before automatic account lock by MOAC node
      - returns: isUnlocked
      - important: This call is synchronous. Does nothing if private keys are stored locally.
      

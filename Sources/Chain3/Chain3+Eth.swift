@@ -25,18 +25,18 @@ public class Chain3Eth: Chain3OptionsInheritable {
         provider = prov
         chain3 = chain3instance
     }
-    /// Send an EthereumTransaction object to the network. Transaction is either signed locally if there is a KeystoreManager
+    /// Send a MOACTransaction object to the network. Transaction is either signed locally if there is a KeystoreManager
     /// object bound to the chain3 instance, or sent unsigned to the node. For local signing the password is required.
     ///
     /// "options" object can override the "to", "gasPrice", "gasLimit" and "value" parameters is pre-formed transaction.
     /// "from" field in "options" is mandatory for both local and remote signing.
     ///
     /// This function is synchronous!
-    public func sendTransaction(_ transaction: EthereumTransaction, options: Chain3Options, password: String = "BANKEXFOUNDATION") throws -> TransactionSendingResult {
+    public func sendTransaction(_ transaction: MOACTransaction, options: Chain3Options, password: String = "BANKEXFOUNDATION") throws -> TransactionSendingResult {
         return try sendTransactionPromise(transaction, options: options, password: password).wait()
     }
 
-    /// Performs a non-mutating "call" to some smart-contract. EthereumTransaction bears all function parameters required for the call.
+    /// Performs a non-mutating "call" to some smart-contract. MOACTransaction bears all function parameters required for the call.
     /// Does NOT decode the data returned from the smart-contract.
     /// "options" object can override the "to", "gasPrice", "gasLimit" and "value" parameters is pre-formed transaction.
     /// "from" field in "options" is mandatory for both local and remote signing.
@@ -45,25 +45,25 @@ public class Chain3Eth: Chain3OptionsInheritable {
     /// or the expected state after all the transactions in memory pool are applied ("pending").
     ///
     /// This function is synchronous!
-    func call(_ transaction: EthereumTransaction, options: Chain3Options, onBlock: String = "latest") throws -> Data {
+    func call(_ transaction: MOACTransaction, options: Chain3Options, onBlock: String = "latest") throws -> Data {
         return try callPromise(transaction, options: options, onBlock: onBlock).wait()
     }
 
-    /// Send raw Ethereum transaction data to the network.
+    /// Send raw MOAC transaction data to the network.
     ///
     /// This function is synchronous!
     public func sendRawTransaction(_ transaction: Data) throws -> TransactionSendingResult {
         return try sendRawTransactionPromise(transaction).wait()
     }
 
-    /// Send raw Ethereum transaction data to the network by first serializing the EthereumTransaction object.
+    /// Send raw MOAC transaction data to the network by first serializing the MOACTransaction object.
     ///
     /// This function is synchronous!
-    public func sendRawTransaction(_ transaction: EthereumTransaction) throws -> TransactionSendingResult {
+    public func sendRawTransaction(_ transaction: MOACTransaction) throws -> TransactionSendingResult {
         return try sendRawTransactionPromise(transaction).wait()
     }
 
-    /// Returns a total number of transactions sent by the particular Ethereum address.
+    /// Returns a total number of transactions sent by the particular MOAC address.
     ///
     /// "onBlock" field determines if value is returned based on the state of a blockchain on the latest mined block ("latest")
     /// or the expected state after all the transactions in memory pool are applied ("pending").
@@ -73,7 +73,7 @@ public class Chain3Eth: Chain3OptionsInheritable {
         return try getTransactionCountPromise(address: address, onBlock: onBlock).wait()
     }
 
-    /// Returns a balance of particular Ethereum address in Wei units (1 ETH = 10^18 Wei).
+    /// Returns a balance of particular MOAC address in Wei units (1 ETH = 10^18 Wei).
     ///
     /// "onString" field determines if value is returned based on the state of a blockchain on the latest mined block ("latest")
     /// or the expected state after all the transactions in memory pool are applied ("pending").
@@ -83,7 +83,7 @@ public class Chain3Eth: Chain3OptionsInheritable {
         return try getBalancePromise(address: address, onBlock: onBlock).wait()
     }
 
-    /// Returns a block number of the last mined block that Ethereum node knows about.
+    /// Returns a block number of the last mined block that MOAC node knows about.
     ///
     /// This function is synchronous!
     public func getBlockNumber() throws -> BigUInt {
@@ -135,7 +135,7 @@ public class Chain3Eth: Chain3OptionsInheritable {
         return try getTransactionReceiptPromise(txhash).wait()
     }
 
-    /// Estimates a minimal amount of gas required to run a transaction. To do it the Ethereum node tries to run it and counts
+    /// Estimates a minimal amount of gas required to run a transaction. To do it the MOAC node tries to run it and counts
     /// how much gas it consumes for computations. Setting the transaction gas limit lower than the estimate will most likely
     /// result in a failing transaction.
     ///
@@ -147,11 +147,11 @@ public class Chain3Eth: Chain3OptionsInheritable {
     /// Returns the Result object that indicates either success of failure.
     /// Error can also indicate that transaction is invalid in the current state, so formally it's gas limit is infinite.
     /// An example of such transaction can be sending an amount of ETH that is larger than the current account balance.
-    public func estimateGas(_ transaction: EthereumTransaction, options: Chain3Options?, onBlock: String = "latest") throws -> BigUInt {
+    public func estimateGas(_ transaction: MOACTransaction, options: Chain3Options?, onBlock: String = "latest") throws -> BigUInt {
         return try estimateGasPromise(transaction, options: options, onBlock: onBlock).wait()
     }
 
-    /// Get a list of Ethereum accounts that a node knows about.
+    /// Get a list of MOAC accounts that a node knows about.
     /// If one has attached a Keystore Manager to the chain3 object it returns accounts known to the keystore.
     ///
     /// This function is synchronous!
@@ -161,9 +161,9 @@ public class Chain3Eth: Chain3OptionsInheritable {
         return try getAccountsPromise().wait()
     }
 
-    /// Get information about the particular block in Ethereum network. If "fullTransactions" parameter is set to "true"
+    /// Get information about the particular block in MOAC network. If "fullTransactions" parameter is set to "true"
     /// this call fill do a virtual join and fetch not just transaction hashes from this block,
-    /// but full decoded EthereumTransaction objects.
+    /// but full decoded MOACTransaction objects.
     ///
     /// This function is synchronous!
     ///
@@ -172,9 +172,9 @@ public class Chain3Eth: Chain3OptionsInheritable {
         return try getBlockByHashPromise(hash, fullTransactions: fullTransactions).wait()
     }
 
-    /// Get information about the particular block in Ethereum network. If "fullTransactions" parameter is set to "true"
+    /// Get information about the particular block in MOAC network. If "fullTransactions" parameter is set to "true"
     /// this call fill do a virtual join and fetch not just transaction hashes from this block,
-    /// but full decoded EthereumTransaction objects.
+    /// but full decoded MOACTransaction objects.
     ///
     /// This function is synchronous!
     ///
@@ -183,9 +183,9 @@ public class Chain3Eth: Chain3OptionsInheritable {
         return try getBlockByHashPromise(hash, fullTransactions: fullTransactions).wait()
     }
 
-    /// Get information about the particular block in Ethereum network. If "fullTransactions" parameter is set to "true"
+    /// Get information about the particular block in MOAC network. If "fullTransactions" parameter is set to "true"
     /// this call fill do a virtual join and fetch not just transaction hashes from this block,
-    /// but full decoded EthereumTransaction objects.
+    /// but full decoded MOACTransaction objects.
     ///
     /// This function is synchronous!
     ///
@@ -194,9 +194,9 @@ public class Chain3Eth: Chain3OptionsInheritable {
         return try getBlockByNumberPromise(number, fullTransactions: fullTransactions).wait()
     }
 
-    /// Get information about the particular block in Ethereum network. If "fullTransactions" parameter is set to "true"
+    /// Get information about the particular block in MOAC network. If "fullTransactions" parameter is set to "true"
     /// this call fill do a virtual join and fetch not just transaction hashes from this block,
-    /// but full decoded EthereumTransaction objects.
+    /// but full decoded MOACTransaction objects.
     ///
     /// This function is synchronous!
     ///
@@ -205,9 +205,9 @@ public class Chain3Eth: Chain3OptionsInheritable {
         return try getBlockByNumberPromise(number, fullTransactions: fullTransactions).wait()
     }
 
-    /// Get information about the particular block in Ethereum network. If "fullTransactions" parameter is set to "true"
+    /// Get information about the particular block in MOAC network. If "fullTransactions" parameter is set to "true"
     /// this call fill do a virtual join and fetch not just transaction hashes from this block,
-    /// but full decoded EthereumTransaction objects.
+    /// but full decoded MOACTransaction objects.
     ///
     /// This function is synchronous!
     ///
@@ -217,7 +217,7 @@ public class Chain3Eth: Chain3OptionsInheritable {
     }
 
     /**
-     Convenience wrapper to send Ethereum to another address. Internally it creates a virtual contract and encodes all the options and data.
+     Convenience wrapper to send MOAC to another address. Internally it creates a virtual contract and encodes all the options and data.
      - Parameters:
      - to: Address to send funds to
      - amount: BigUInt indicating the amount in wei
@@ -244,7 +244,7 @@ public class Chain3Eth: Chain3OptionsInheritable {
                 if response.error != nil {
                     throw Chain3Error.nodeError(response.error!.message)
                 }
-                throw Chain3Error.nodeError("Invalid value from Ethereum node")
+                throw Chain3Error.nodeError("Invalid value from MOAC node")
             }
             return value
         }
@@ -259,7 +259,7 @@ public class Chain3Eth: Chain3OptionsInheritable {
                 if response.error != nil {
                     throw Chain3Error.nodeError(response.error!.message)
                 }
-                throw Chain3Error.nodeError("Invalid value from Ethereum node")
+                throw Chain3Error.nodeError("Invalid value from MOAC node")
             }
             return value
         }
@@ -280,7 +280,7 @@ public class Chain3Eth: Chain3OptionsInheritable {
                 if response.error != nil {
                     throw Chain3Error.nodeError(response.error!.message)
                 }
-                throw Chain3Error.nodeError("Invalid value from Ethereum node")
+                throw Chain3Error.nodeError("Invalid value from MOAC node")
             }
             return value
         }
@@ -301,20 +301,20 @@ public class Chain3Eth: Chain3OptionsInheritable {
                 if response.error != nil {
                     throw Chain3Error.nodeError(response.error!.message)
                 }
-                throw Chain3Error.nodeError("Invalid value from Ethereum node")
+                throw Chain3Error.nodeError("Invalid value from MOAC node")
             }
             return value
         }
     }
     
     
-    func sendTransactionPromise(_ transaction: EthereumTransaction, options: Chain3Options, password: String = "BANKEXFOUNDATION") -> Promise<TransactionSendingResult> {
+    func sendTransactionPromise(_ transaction: MOACTransaction, options: Chain3Options, password: String = "BANKEXFOUNDATION") -> Promise<TransactionSendingResult> {
         //        print(transaction)
-        var assembledTransaction: EthereumTransaction = transaction.mergedWithOptions(options)
+        var assembledTransaction: MOACTransaction = transaction.mergedWithOptions(options)
         let queue = chain3.requestDispatcher.queue
         do {
             if chain3.provider.attachedKeystoreManager == nil {
-                guard let request = EthereumTransaction.createRequest(method: .sendTransaction, transaction: assembledTransaction, onBlock: nil, options: options) else {
+                guard let request = MOACTransaction.createRequest(method: .sendTransaction, transaction: assembledTransaction, onBlock: nil, options: options) else {
                     throw Chain3Error.processingError("Failed to create a request to send transaction")
                 }
                 return chain3.dispatch(request).map(on: queue) { response in
@@ -322,7 +322,7 @@ public class Chain3Eth: Chain3OptionsInheritable {
                         if response.error != nil {
                             throw Chain3Error.nodeError(response.error!.message)
                         }
-                        throw Chain3Error.nodeError("Invalid value from Ethereum node")
+                        throw Chain3Error.nodeError("Invalid value from MOAC node")
                     }
                     let result = TransactionSendingResult(transaction: assembledTransaction, hash: value)
                     return result
@@ -361,7 +361,7 @@ public class Chain3Eth: Chain3OptionsInheritable {
                 if response.error != nil {
                     throw Chain3Error.nodeError(response.error!.message)
                 }
-                throw Chain3Error.nodeError("Invalid value from Ethereum node")
+                throw Chain3Error.nodeError("Invalid value from MOAC node")
             }
             return value
         }
@@ -382,16 +382,16 @@ public class Chain3Eth: Chain3OptionsInheritable {
                 if response.error != nil {
                     throw Chain3Error.nodeError(response.error!.message)
                 }
-                throw Chain3Error.nodeError("Invalid value from Ethereum node")
+                throw Chain3Error.nodeError("Invalid value from MOAC node")
             }
             return value
         }
     }
     
-    func estimateGasPromise(_ transaction: EthereumTransaction, options: Chain3Options? = nil, onBlock: String = "latest") -> Promise<BigUInt> {
+    func estimateGasPromise(_ transaction: MOACTransaction, options: Chain3Options? = nil, onBlock: String = "latest") -> Promise<BigUInt> {
         let queue = chain3.requestDispatcher.queue
         do {
-            guard let request = EthereumTransaction.createRequest(method: .estimateGas, transaction: transaction, onBlock: onBlock, options: options) else {
+            guard let request = MOACTransaction.createRequest(method: .estimateGas, transaction: transaction, onBlock: onBlock, options: options) else {
                 throw Chain3Error.processingError("Transaction is invalid")
             }
             let rp = chain3.dispatch(request)
@@ -400,7 +400,7 @@ public class Chain3Eth: Chain3OptionsInheritable {
                     if response.error != nil {
                         throw Chain3Error.nodeError(response.error!.message)
                     }
-                    throw Chain3Error.nodeError("Invalid value from Ethereum node")
+                    throw Chain3Error.nodeError("Invalid value from MOAC node")
                 }
                 return value
             }
@@ -433,14 +433,14 @@ public class Chain3Eth: Chain3OptionsInheritable {
                 if response.error != nil {
                     throw Chain3Error.nodeError(response.error!.message)
                 }
-                throw Chain3Error.nodeError("Invalid value from Ethereum node")
+                throw Chain3Error.nodeError("Invalid value from MOAC node")
             }
             return value
         }
     }
     
     func sendRawTransactionPromise(_ transaction: Data) -> Promise<TransactionSendingResult> {
-        guard let deserializedTX = EthereumTransaction.fromRaw(transaction) else {
+        guard let deserializedTX =  MOACTransaction.fromRaw(transaction) else {
             let promise = Promise<TransactionSendingResult>.pending()
             promise.resolver.reject(Chain3Error.processingError("Serialized TX is invalid"))
             return promise.promise
@@ -448,11 +448,11 @@ public class Chain3Eth: Chain3OptionsInheritable {
         return sendRawTransactionPromise(deserializedTX)
     }
     
-    func sendRawTransactionPromise(_ transaction: EthereumTransaction) -> Promise<TransactionSendingResult> {
+    func sendRawTransactionPromise(_ transaction: MOACTransaction) -> Promise<TransactionSendingResult> {
         //        print(transaction)
         let queue = chain3.requestDispatcher.queue
         do {
-            guard let request = EthereumTransaction.createRawTransaction(transaction: transaction) else {
+            guard let request = MOACTransaction.createRawTransaction(transaction: transaction) else {
                 throw Chain3Error.processingError("Transaction is invalid")
             }
             let rp = chain3.dispatch(request)
@@ -461,7 +461,7 @@ public class Chain3Eth: Chain3OptionsInheritable {
                     if response.error != nil {
                         throw Chain3Error.nodeError(response.error!.message)
                     }
-                    throw Chain3Error.nodeError("Invalid value from Ethereum node")
+                    throw Chain3Error.nodeError("Invalid value from MOAC node")
                 }
                 let result = TransactionSendingResult(transaction: transaction, hash: value)
                 return result
@@ -490,7 +490,7 @@ public class Chain3Eth: Chain3OptionsInheritable {
                 if response.error != nil {
                     throw Chain3Error.nodeError(response.error!.message)
                 }
-                throw Chain3Error.nodeError("Invalid value from Ethereum node")
+                throw Chain3Error.nodeError("Invalid value from MOAC node")
             }
             return value
         }
@@ -518,17 +518,17 @@ public class Chain3Eth: Chain3OptionsInheritable {
                 if response.error != nil {
                     throw Chain3Error.nodeError(response.error!.message)
                 }
-                throw Chain3Error.nodeError("Invalid value from Ethereum node")
+                throw Chain3Error.nodeError("Invalid value from MOAC node")
             }
             return value
         }
     }
     
     
-    func callPromise(_ transaction: EthereumTransaction, options: Chain3Options, onBlock: String = "latest") -> Promise<Data> {
+    func callPromise(_ transaction: MOACTransaction, options: Chain3Options, onBlock: String = "latest") -> Promise<Data> {
         let queue = chain3.requestDispatcher.queue
         do {
-            guard let request = EthereumTransaction.createRequest(method: .call, transaction: transaction, onBlock: onBlock, options: options) else {
+            guard let request = MOACTransaction.createRequest(method: .call, transaction: transaction, onBlock: onBlock, options: options) else {
                 throw Chain3Error.processingError("Transaction is invalid")
             }
             let rp = chain3.dispatch(request)
@@ -537,7 +537,7 @@ public class Chain3Eth: Chain3OptionsInheritable {
                     if response.error != nil {
                         throw Chain3Error.nodeError(response.error!.message)
                     }
-                    throw Chain3Error.nodeError("Invalid value from Ethereum node")
+                    throw Chain3Error.nodeError("Invalid value from MOAC node")
                 }
                 return value
             }

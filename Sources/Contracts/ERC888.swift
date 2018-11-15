@@ -1,6 +1,6 @@
 //
 //  ERC888.swift
-//  web3swift
+//  chain3swift
 //
 //  Created by Dmitry on 12/11/2018.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
@@ -55,7 +55,7 @@ public class ERC888 {
     /// Token address
     public let address: Address
     /// Transaction Options
-    public var options: Web3Options = .default
+    public var options: Chain3Options = .default
     /// Password to unlock private key for sender address
     public var password: String = "BANKEXFOUNDATION"
     
@@ -83,7 +83,7 @@ public class ERC888 {
         public let id: BigUInt
         public let parent: ERC888
         fileprivate var address: Address { return parent.address }
-        fileprivate var options: Web3Options { return parent.options }
+        fileprivate var options: Chain3Options { return parent.options }
         fileprivate var password: String { return parent.password }
         /**
          * Gas price functions if you want to see that
@@ -148,7 +148,7 @@ public class ERC888 {
     public struct GasPrice {
         let parent: Token
         var address: Address { return parent.address }
-        var options: Web3Options { return parent.options }
+        var options: Chain3Options { return parent.options }
         init(_ parent: Token) {
             self.parent = parent
         }

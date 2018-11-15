@@ -1,6 +1,6 @@
 //
 //  W3Transaction.swift
-//  web3swift
+//  chain3swift
 //
 //  Created by Dmitry on 11/9/18.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
@@ -9,14 +9,14 @@
 import Foundation
 import BigInt
 
-extension EthereumTransaction {
-    public var objc: W3EthereumTransaction {
-		return W3EthereumTransaction(self)
+extension MOACTransaction {
+    public var objc: W3MOACTransaction {
+		return W3MOACTransaction(self)
 	}
 }
-@objc public class W3EthereumTransaction: NSObject, SwiftContainer {
-	public var swift: EthereumTransaction
-	public required init(_ swift: EthereumTransaction) {
+@objc public class W3MOACTransaction: NSObject, SwiftContainer {
+	public var swift: MOACTransaction
+	public required init(_ swift: MOACTransaction) {
 		self.swift = swift
 	}
 	@objc public var nonce: W3UInt {
@@ -72,18 +72,18 @@ extension EthereumTransaction {
 	}
 	
 	@objc public init(gasPrice: W3UInt, gasLimit: W3UInt, to: W3Address, value: W3UInt, data: Data) {
-		swift = EthereumTransaction(gasPrice: gasPrice.swift, gasLimit: gasLimit.swift, to: to.swift, value: value.swift, data: data)
+		swift = MOACTransaction(gasPrice: gasPrice.swift, gasLimit: gasLimit.swift, to: to.swift, value: value.swift, data: data)
 	}
 	
 	@objc public init(to: W3Address, data: Data, options: W3Options) {
-		swift = EthereumTransaction(to: to.swift, data: data, options: options.swift)
+		swift = MOACTransaction(to: to.swift, data: data, options: options.swift)
 	}
 	
 	@objc public init(nonce: W3UInt, gasPrice: W3UInt, gasLimit: W3UInt, to: W3Address, value: W3UInt, data: Data, v: W3UInt, r: W3UInt, s: W3UInt) {
-		swift = EthereumTransaction(nonce: nonce.swift, gasPrice: gasPrice.swift, gasLimit: gasLimit.swift, to: to.swift, value: value.swift, data: data, v: v.swift, r: r.swift, s: s.swift)
+		swift = MOACTransaction(nonce: nonce.swift, gasPrice: gasPrice.swift, gasLimit: gasLimit.swift, to: to.swift, value: value.swift, data: data, v: v.swift, r: r.swift, s: s.swift)
 	}
 	
-	@objc public func mergedWithOptions(_ options: W3Options) -> W3EthereumTransaction {
+	@objc public func mergedWithOptions(_ options: W3Options) -> W3MOACTransaction {
 		return swift.mergedWithOptions(options.swift).objc
 	}
 	
@@ -118,7 +118,7 @@ extension EthereumTransaction {
 	@objc public func hashForSignature(chainID: W3NetworkId? = nil) -> Data? {
 		return swift.hashForSignature(chainID: chainID?.swift)
 	}
-	@objc public static func fromRaw(_ raw: Data) -> W3EthereumTransaction? {
-		return EthereumTransaction.fromRaw(raw)?.objc
+	@objc public static func fromRaw(_ raw: Data) -> W3MOACTransaction? {
+		return MOACTransaction.fromRaw(raw)?.objc
 	}
 }

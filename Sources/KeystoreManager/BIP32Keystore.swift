@@ -1,6 +1,6 @@
 //
 //  BIP32Keystore.swift
-//  web3swift
+//  chain3swift
 //
 //  Created by Alexander Vlasov on 11.01.2018.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
@@ -91,7 +91,7 @@ public class BIP32Keystore: AbstractKeystore {
             }
         }
         let newNode = try parentNode.derive(index: newIndex, derivePrivateKey: true, hardened: false)
-        let newAddress = try Web3Utils.publicToAddress(newNode.publicKey)
+        let newAddress = try Chain3Utils.publicToAddress(newNode.publicKey)
         let prefixPath = rootPrefix
         var newPath: String
         if newNode.isHardened {
@@ -127,7 +127,7 @@ public class BIP32Keystore: AbstractKeystore {
         }
         guard rootNode.depth == prefixPath.components(separatedBy: "/").count - 1 else { throw AbstractKeystoreError.encryptionError("Derivation depth mismatch") }
         let newNode = try rootNode.derive(path: pathAppendix!, derivePrivateKey: true)
-        let newAddress = try Web3Utils.publicToAddress(newNode.publicKey)
+        let newAddress = try Chain3Utils.publicToAddress(newNode.publicKey)
         var newPath: String
         if newNode.isHardened {
             newPath = prefixPath + "/" + pathAppendix!.trimmingCharacters(in: CharacterSet(charactersIn: "'")) + "'"

@@ -1,6 +1,6 @@
 //
 //  LibSecp256k1Extension.swift
-//  web3swift-iOS
+//  chain3swift-iOS
 //
 //  Created by Alexander Vlasov.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.

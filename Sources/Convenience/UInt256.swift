@@ -1,6 +1,6 @@
 //
 //  UInt256.swift
-//  web3swift-iOS
+//  chain3swift-iOS
 //
 //  Created by Dmitry on 11/10/2018.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
@@ -13,7 +13,7 @@ import Foundation
 extension BigUInt {
     
     
-    public init?(_ string: String, units: Web3Units) {
+    public init?(_ string: String, units: Chain3Units) {
         self.init(string, decimals: units.decimals)
     }
 
@@ -47,7 +47,7 @@ extension BigUInt {
     /// Formats a BigUInt object to String. The supplied number is first divided into integer and decimal part based on "toUnits",
     /// then limit the decimal part to "decimals" symbols and uses a "decimalSeparator" as a separator.
     /// default: decimals: 18, decimalSeparator: ".", options: .stripZeroes
-    public func string(units: Web3Units, decimals: Int = 18, decimalSeparator: String = ".", options: StringOptions = .default) -> String {
+    public func string(units: Chain3Units, decimals: Int = 18, decimalSeparator: String = ".", options: StringOptions = .default) -> String {
         return string(unitDecimals: units.decimals, decimals: decimals, decimalSeparator: decimalSeparator, options: options)
     }
     
@@ -131,7 +131,7 @@ extension BigInt {
     /// Formats a BigInt object to String. The supplied number is first divided into integer and decimal part based on "units",
     /// then limit the decimal part to "decimals" symbols and uses a "decimalSeparator" as a separator.
     /// default: decimals: 18, decimalSeparator: ".", options: .stripZeroes
-    public func string(units: Web3Units, decimals: Int = 18, decimalSeparator: String = ".", options: StringOptions = .default) -> String {
+    public func string(units: Chain3Units, decimals: Int = 18, decimalSeparator: String = ".", options: StringOptions = .default) -> String {
         return string(unitDecimals: units.decimals, decimals: decimals, decimalSeparator: decimalSeparator, options: options)
     }
 }

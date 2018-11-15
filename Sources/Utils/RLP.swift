@@ -1,9 +1,11 @@
 //
 //  RLP.swift
-//  web3swift
+//  chain3swift
 //
 //  Created by Alexander Vlasov on 09.12.2017.
 //  Copyright © 2017 Bankex Foundation. All rights reserved.
+//
+//  Modifications copyright © 2018 Liwei Zhang. All rights reserved.
 //
 
 import BigInt
@@ -304,20 +306,20 @@ struct RLP {
     }
 
     internal static func slice(data: Data, offset: BigUInt, length: BigUInt) throws -> Data {
-        if BigUInt(data.count) < offset + length { throw Web3Error.dataError }
+        if BigUInt(data.count) < offset + length { throw Chain3Error.dataError }
         let slice = data[UInt64(offset) ..< UInt64(offset + length)]
         return Data(slice)
     }
 
     internal static func slice(data: Data, start: BigUInt) throws -> Data {
-        if BigUInt(data.count) < start { throw Web3Error.dataError }
+        if BigUInt(data.count) < start { throw Chain3Error.dataError }
         let slice = data[UInt64(start) ..< UInt64(data.count)]
         return Data(slice)
     }
 
     internal static func toBigUInt(_ raw: Data) throws -> BigUInt {
         if raw.count == 0 {
-            throw Web3Error.dataError
+            throw Chain3Error.dataError
         } else if raw.count == 1 {
             return BigUInt(raw)
         } else {

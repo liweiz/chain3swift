@@ -87,7 +87,7 @@ extension Chain3Options: Decodable {
     }
 }
 
-extension EthereumTransaction: Decodable {
+extension MOACTransaction: Decodable {
     enum CodingKeys: String, CodingKey {
         case to
         case data
@@ -152,7 +152,7 @@ public struct TransactionDetails: Decodable {
     public var blockHash: Data?
     public var blockNumber: BigUInt?
     public var transactionIndex: BigUInt?
-    public var transaction: EthereumTransaction
+    public var transaction: MOACTransaction
 
     enum CodingKeys: String, CodingKey {
         case blockHash
@@ -177,7 +177,7 @@ public struct TransactionDetails: Decodable {
         let transactionIndex = try decodeHexToBigUInt(container, key: .blockNumber, allowOptional: true)
         self.transactionIndex = transactionIndex
 
-        let transaction = try EthereumTransaction(from: decoder)
+        let transaction = try MOACTransaction(from: decoder)
         self.transaction = transaction
     }
 
@@ -185,7 +185,7 @@ public struct TransactionDetails: Decodable {
         if let value = try? json.at("blockHash") {
             blockHash = try value.data()
         }
-        transaction = try EthereumTransaction(json)
+        transaction = try MOACTransaction(json)
         if let value = try? json.at("blockNumber") {
             blockNumber = try value.uint256()
         }
@@ -205,7 +205,7 @@ public struct TransactionReceipt: Decodable {
     public var gasUsed: BigUInt
     public var logs: [EventLog]
     public var status: TXStatus
-    public var logsBloom: EthereumBloomFilter?
+    public var logsBloom: MOACBloomFilter?
 
     public enum TXStatus {
         case ok
@@ -268,14 +268,14 @@ public struct TransactionReceipt: Decodable {
 
         let logsData = try decodeHexToData(container, key: .logsBloom, allowOptional: true)
         if logsData != nil && logsData!.count > 0 {
-            logsBloom = EthereumBloomFilter(logsData!)
+            logsBloom = MOACBloomFilter(logsData!)
         }
 
         let logs = try container.decode([EventLog].self, forKey: .logs)
         self.logs = logs
     }
 
-    public init(transactionHash: Data, blockHash: Data, blockNumber: BigUInt, transactionIndex: BigUInt, contractAddress: Address?, cumulativeGasUsed: BigUInt, gasUsed: BigUInt, logs: [EventLog], status: TXStatus, logsBloom: EthereumBloomFilter?) {
+    public init(transactionHash: Data, blockHash: Data, blockNumber: BigUInt, transactionIndex: BigUInt, contractAddress: Address?, cumulativeGasUsed: BigUInt, gasUsed: BigUInt, logs: [EventLog], status: TXStatus, logsBloom: MOACBloomFilter?) {
         self.transactionHash = transactionHash
         self.blockHash = blockHash
         self.blockNumber = blockNumber
@@ -413,7 +413,7 @@ public enum TransactionInBlockError: Error {
 
 public enum TransactionInBlock: Decodable {
     case hash(Data)
-    case transaction(EthereumTransaction)
+    case transaction(MOACTransaction)
     case null
 
     /// Creates a new instance by decoding from the given decoder.
@@ -428,8 +428,8 @@ public enum TransactionInBlock: Decodable {
             guard let d = Data.fromHex(string) else { throw Chain3Error.dataError }
             self = .hash(d)
         } else if let dict = try? value.decode([String: String].self) {
-//            guard let t = try? EthereumTransaction(from: decoder) else { throw Chain3Error.dataError }
-            let t = try EthereumTransaction(dict)
+//            guard let t = try? MOACTransaction(from: decoder) else { throw Chain3Error.dataError }
+            let t = try MOACTransaction(dict)
             self = .transaction(t)
         } else {
             self = .null
@@ -441,7 +441,7 @@ public enum TransactionInBlock: Decodable {
             guard let d = Data.fromHex(string) else { throw TransactionInBlockError.corrupted }
             self = .hash(d)
         } else if let dict = data as? [String: Any] {
-            let t = try EthereumTransaction(dict)
+            let t = try MOACTransaction(dict)
             self = .transaction(t)
         } else {
             throw TransactionInBlockError.corrupted
@@ -455,7 +455,7 @@ public struct Block: Decodable {
     public var parentHash: Data
     public var nonce: Data?
     public var sha3Uncles: Data
-    public var logsBloom: EthereumBloomFilter?
+    public var logsBloom: MOACBloomFilter?
     public var transactionsRoot: Data
     public var stateRoot: Data
     public var receiptsRoot: Data
@@ -516,9 +516,9 @@ public struct Block: Decodable {
         self.sha3Uncles = sha3Uncles
 
         let logsBloomData = try decodeHexToData(container, key: .logsBloom, allowOptional: true)
-        var bloom: EthereumBloomFilter?
+        var bloom: MOACBloomFilter?
         if logsBloomData != nil {
-            bloom = EthereumBloomFilter(logsBloomData!)
+            bloom = MOACBloomFilter(logsBloomData!)
         }
         logsBloom = bloom
 
@@ -589,6 +589,6 @@ public struct EventParserResult: EventParserResultProtocol {
 }
 
 public struct TransactionSendingResult {
-    public var transaction: EthereumTransaction
+    public var transaction: MOACTransaction
     public var hash: String
 }

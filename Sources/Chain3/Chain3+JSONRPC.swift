@@ -256,7 +256,7 @@ public struct JsonRpcResponseBatch: Decodable {
     }
 }
 
-/// Transaction parameters JSON structure for interaction with Ethereum node.
+/// Transaction parameters JSON structure for interaction with MOAC node.
 public struct TransactionParameters: Codable {
     /// transaction parameters
     public var data: String?
@@ -278,7 +278,7 @@ public struct TransactionParameters: Codable {
     }
 }
 
-/// Event filter parameters JSON structure for interaction with Ethereum node.
+/// Event filter parameters JSON structure for interaction with MOAC node.
 public struct EventFilterParameters: Codable {
     public var fromBlock: String?
     public var toBlock: String?

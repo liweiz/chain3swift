@@ -1,6 +1,6 @@
 //
 //  KeystoreManager.swift
-//  web3swift
+//  chain3swift
 //
 //  Created by Alexander Vlasov on 04.12.2017.
 //  Copyright © 2017 Alexander Vlasov. All rights reserved.
@@ -80,11 +80,11 @@ public class KeystoreManager: AbstractKeystore {
         return nil
     }
 
-    var _keystores: [EthereumKeystoreV3] = [EthereumKeystoreV3]()
+    var _keystores: [MOACKeystoreV3] = [MOACKeystoreV3]()
     var _bip32keystores: [BIP32Keystore] = [BIP32Keystore]()
     var _plainKeystores: [PlainKeystore] = [PlainKeystore]()
 
-    public var keystores: [EthereumKeystoreV3] {
+    public var keystores: [MOACKeystoreV3] {
         return _keystores
     }
 
@@ -96,7 +96,7 @@ public class KeystoreManager: AbstractKeystore {
         return _plainKeystores
     }
 
-    public init(_ keystores: [EthereumKeystoreV3]) {
+    public init(_ keystores: [MOACKeystoreV3]) {
         isHDKeystore = false
         _keystores = keystores
         path = ""
@@ -139,7 +139,7 @@ public class KeystoreManager: AbstractKeystore {
                 filePath = filePath + file
                 guard let content = fileManager.contents(atPath: filePath) else { continue }
                 if !scanForHDwallets {
-                    guard let keystore = EthereumKeystoreV3(content) else { continue }
+                    guard let keystore = MOACKeystoreV3(content) else { continue }
                     _keystores.append(keystore)
                 } else {
                     guard let bipkeystore = BIP32Keystore(content) else { continue }
@@ -155,7 +155,7 @@ public class KeystoreManager: AbstractKeystore {
                 filePath = filePath + file
                 guard let content = fileManager.contents(atPath: filePath) else { continue }
                 if !scanForHDwallets {
-                    guard let keystore = EthereumKeystoreV3(content) else { continue }
+                    guard let keystore = MOACKeystoreV3(content) else { continue }
                     _keystores.append(keystore)
                 } else {
                     guard let bipkeystore = BIP32Keystore(content) else { continue }

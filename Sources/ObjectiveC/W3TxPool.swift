@@ -1,6 +1,6 @@
 //
 //  W3TxPool.swift
-//  web3swift
+//  chain3swift
 //
 //  Created by Dmitry on 11/9/18.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
@@ -9,26 +9,26 @@
 import Foundation
 
 @objc public class W3TxPool: NSObject {
-	@objc public unowned var web3: W3Web3
-	@objc public init(web3: W3Web3) {
-		self.web3 = web3
+	@objc public unowned var chain3: W3Chain3
+	@objc public init(chain3: W3Chain3) {
+		self.chain3 = chain3
 	}
 	@objc public func status(completion: @escaping (W3TxPoolStatus?,Error?)->()) {
-		web3.swift.txpool.status().done {
+		chain3.swift.txpool.status().done {
 			completion($0.objc, nil)
 		}.catch {
 			completion(nil, $0)
 		}
 	}
 	@objc public func inspect(completion: @escaping (W3TxPoolInspect?,Error?)->()) {
-		web3.swift.txpool.inspect().done {
+		chain3.swift.txpool.inspect().done {
 			completion($0.objc, nil)
 		}.catch {
 			completion(nil, $0)
 		}
 	}
 	@objc public func content(completion: @escaping (W3TxPoolContent?,Error?)->()) {
-		web3.swift.txpool.content().done {
+		chain3.swift.txpool.content().done {
 			completion($0.objc, nil)
 		}.catch {
 			completion(nil, $0)

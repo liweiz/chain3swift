@@ -1,6 +1,6 @@
 //
 //  BlockExporter.swift
-//  web3swift-iOS
+//  chain3swift-iOS
 //
 //  Created by Георгий Фесенко on 19/06/2018.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
@@ -89,7 +89,7 @@ public class BlockExplorer {
             let stringAddress = try container.decode(String.self, forKey: CodingKeys.address)
             if !stringAddress.isEmpty {
                 let nativeAddress = Address(stringAddress)
-                guard nativeAddress.isValid else { throw Web3Error.transactionSerializationError }
+                guard nativeAddress.isValid else { throw Chain3Error.transactionSerializationError }
                 address = nativeAddress
             } else {
                 address = nil
@@ -167,17 +167,17 @@ public class BlockExplorer {
             id = try container.decode(String.self, forKey: CodingKeys.id)
             let hashString = try container.decode(String.self, forKey: CodingKeys.hash)
             guard let hashData = Data.fromHex(hashString) else {
-                throw Web3Error.transactionSerializationError
+                throw Chain3Error.transactionSerializationError
             }
             hash = hashData
             let intBlock = try container.decode(UInt64.self, forKey: CodingKeys.block)
             block = BigUInt(integerLiteral: intBlock)
             let stringAddressFrom = try container.decode(String.self, forKey: CodingKeys.addressFrom).withHex
             addressFrom = Address(stringAddressFrom)
-            guard addressFrom.isValid else { throw Web3Error.transactionSerializationError }
+            guard addressFrom.isValid else { throw Chain3Error.transactionSerializationError }
             let stringAddressTo = try container.decode(String.self, forKey: CodingKeys.addressTo).withHex
             addressTo = Address(stringAddressTo)
-            guard addressTo.isValid else { throw Web3Error.transactionSerializationError }
+            guard addressTo.isValid else { throw Chain3Error.transactionSerializationError }
             isoTime = try container.decode(String.self, forKey: CodingKeys.isoTime)
             let stringType = try container.decode(String.self, forKey: CodingKeys.type)
             var nativeType: TransactionType
@@ -206,13 +206,13 @@ public class BlockExplorer {
             isInner = intIsInner == 0 ? false : true
             let stringValue = try container.decode(String.self, forKey: CodingKeys.value)
             guard let uintValue = UInt64(stringValue, radix: 16) else {
-                throw Web3Error.transactionSerializationError
+                throw Chain3Error.transactionSerializationError
             }
             value = BigUInt(integerLiteral: uintValue)
             token = try container.decode(Token.self, forKey: CodingKeys.token)
             let stringTxFee = try container.decode(String.self, forKey: CodingKeys.txFee)
             guard let uintTxFee = UInt64(stringTxFee, radix: 16) else {
-                throw Web3Error.transactionSerializationError
+                throw Chain3Error.transactionSerializationError
             }
             
             txFee = BigUInt(integerLiteral: uintTxFee)

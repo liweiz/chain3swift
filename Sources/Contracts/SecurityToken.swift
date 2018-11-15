@@ -1,6 +1,6 @@
 //
 //  SecurityToken.swift
-//  web3swift
+//  chain3swift
 //
 //  Created by Dmitry on 12/11/2018.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
@@ -27,7 +27,7 @@ public class SecurityToken {
     /// Token address
     public let address: Address
     /// Transaction Options
-    public var options: Web3Options = .default
+    public var options: Chain3Options = .default
     /// Password to unlock private key for sender address
     public var password: String = "BANKEXFOUNDATION"
     
@@ -185,7 +185,7 @@ public class SecurityToken {
         public var index: BigUInt
         /// Name index
         public var nameIndex: BigUInt
-        public init(_ response: Web3DataResponse) throws {
+        public init(_ response: Chain3DataResponse) throws {
             name = try response.string()
             address = try response.address()
             factoryAddress = try response.address()

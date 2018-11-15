@@ -1,6 +1,6 @@
 //
 //  W3Keystore.swift
-//  web3swift
+//  chain3swift
 //
 //  Created by Dmitry on 11/8/18.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
@@ -12,7 +12,7 @@ func objc(_ value: AbstractKeystore) -> W3AbstractKeystore {
 	switch value {
 	case let keystore as KeystoreManager: return keystore.objc
 	case let keystore as PlainKeystore: return keystore.objc
-	case let keystore as EthereumKeystoreV3: return keystore.objc
+	case let keystore as MOACKeystoreV3: return keystore.objc
 	case let keystore as BIP32Keystore: return keystore.objc
 	default: fatalError("\(value) is not convertable to objective-c W3AbstractKeystore")
 	}
@@ -337,14 +337,14 @@ extension PlainKeystore {
 	}
 }
 
-extension EthereumKeystoreV3 {
-    public var objc: W3EthereumKeystoreV3 {
-		return W3EthereumKeystoreV3(self)
+extension MOACKeystoreV3 {
+    public var objc: W3MOACKeystoreV3 {
+		return W3MOACKeystoreV3(self)
 	}
 }
-@objc public class W3EthereumKeystoreV3: NSObject, W3AbstractKeystore, SwiftContainer {
-	public let swift: EthereumKeystoreV3
-	public required init(_ swift: EthereumKeystoreV3) {
+@objc public class W3MOACKeystoreV3: NSObject, W3AbstractKeystore, SwiftContainer {
+	public let swift: MOACKeystoreV3
+	public required init(_ swift: MOACKeystoreV3) {
 		self.swift = swift
 	}
 	
@@ -365,22 +365,22 @@ extension EthereumKeystoreV3 {
 	}
 	
 	@objc public init?(jsonString: String) {
-		guard let swift = EthereumKeystoreV3(jsonString) else { return nil }
+		guard let swift = MOACKeystoreV3(jsonString) else { return nil }
 		self.swift = swift
 	}
 	
 	@objc public init?(jsonData: Data) {
-		guard let swift = EthereumKeystoreV3(jsonData) else { return nil }
+		guard let swift = MOACKeystoreV3(jsonData) else { return nil }
 		self.swift = swift
 	}
 	
 	@objc public init(password: String = "BANKEXFOUNDATION", aesMode: String = "aes-128-cbc") throws {
-		guard let swift = try EthereumKeystoreV3(password: password, aesMode: aesMode) else { throw opt }
+		guard let swift = try MOACKeystoreV3(password: password, aesMode: aesMode) else { throw opt }
 		self.swift = swift
 	}
 	
 	@objc public init(privateKey: Data, password: String = "BANKEXFOUNDATION", aesMode: String = "aes-128-cbc") throws {
-		guard let swift = try EthereumKeystoreV3(privateKey: privateKey, password: password, aesMode: aesMode) else { throw opt }
+		guard let swift = try MOACKeystoreV3(privateKey: privateKey, password: password, aesMode: aesMode) else { throw opt }
 		self.swift = swift
 	}
 	
@@ -435,13 +435,13 @@ extension KeystoreManager {
 		switch keystore {
 		case let keystore as KeystoreManager: return keystore.objc
 		case let keystore as PlainKeystore: return keystore.objc
-		case let keystore as EthereumKeystoreV3: return keystore.objc
+		case let keystore as MOACKeystoreV3: return keystore.objc
 		case let keystore as BIP32Keystore: return keystore.objc
 		default: return nil
 		}
 	}
 	
-	@objc public var keystores: [W3EthereumKeystoreV3] {
+	@objc public var keystores: [W3MOACKeystoreV3] {
 		return swift.keystores.map { $0.objc }
 	}
 	
@@ -453,8 +453,8 @@ extension KeystoreManager {
 		return swift.plainKeystores.map { $0.objc }
 	}
 	
-	@objc public init(ethereumKeystores: [W3EthereumKeystoreV3]) {
-		swift = KeystoreManager(ethereumKeystores.map { $0.swift })
+	@objc public init(MOACKeystores: [W3MOACKeystoreV3]) {
+		swift = KeystoreManager(MOACKeystores.map { $0.swift })
 	}
 	
 	@objc public init(bip32Keystores: [W3BIP32Keystore]) {

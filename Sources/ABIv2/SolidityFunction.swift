@@ -1,6 +1,6 @@
 //
 //  SolidityFunction.swift
-//  web3swift
+//  chain3swift
 //
 //  Created by Dmitry on 12/10/2018.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
@@ -84,42 +84,42 @@ extension Array: SolidityDataRepresentable where Element == SolidityDataRepresen
 }
 
 extension Address {
-    public func assemble(_ function: String, _ arguments: [Any], web3: Web3 = .default, options: Web3Options? = nil, onBlock: String = "pending") -> Promise<EthereumTransaction> {
-        let options = web3.options.merge(with: options)
+    public func assemble(_ function: String, _ arguments: [Any], chain3: Chain3 = .default, options: Chain3Options? = nil, onBlock: String = "pending") -> Promise<MOACTransaction> {
+        let options = chain3.options.merge(with: options)
         
         let function = try! SolidityFunction(function: function)
         let data = function.encode(arguments as! [SolidityDataRepresentable])
-        var assembledTransaction = EthereumTransaction(to: self, data: data, options: options)
-        let queue = web3.requestDispatcher.queue
-        let returnPromise = Promise<EthereumTransaction> { seal in
+        var assembledTransaction = MOACTransaction(to: self, data: data, options: options)
+        let queue = chain3.requestDispatcher.queue
+        let returnPromise = Promise<MOACTransaction> { seal in
             guard let from = options.from else {
-                seal.reject(Web3Error.inputError("No 'from' field provided"))
+                seal.reject(Chain3Error.inputError("No 'from' field provided"))
                 return
             }
-            var optionsForGasEstimation = Web3Options()
+            var optionsForGasEstimation = Chain3Options()
             optionsForGasEstimation.from = options.from
             optionsForGasEstimation.to = options.to
             optionsForGasEstimation.value = options.value
-            let getNoncePromise = web3.eth.getTransactionCountPromise(address: from, onBlock: onBlock)
-            let gasEstimatePromise = web3.eth.estimateGasPromise(assembledTransaction, options: optionsForGasEstimation, onBlock: onBlock)
-            let gasPricePromise = web3.eth.getGasPricePromise()
+            let getNoncePromise = chain3.eth.getTransactionCountPromise(address: from, onBlock: onBlock)
+            let gasEstimatePromise = chain3.eth.estimateGasPromise(assembledTransaction, options: optionsForGasEstimation, onBlock: onBlock)
+            let gasPricePromise = chain3.eth.getGasPricePromise()
             var promisesToFulfill: [Promise<BigUInt>] = [getNoncePromise, gasPricePromise, gasPricePromise]
-            when(resolved: getNoncePromise, gasEstimatePromise, gasPricePromise).map(on: queue, { (results: [Result<BigUInt>]) throws -> EthereumTransaction in
+            when(resolved: getNoncePromise, gasEstimatePromise, gasPricePromise).map(on: queue, { (results: [Result<BigUInt>]) throws -> MOACTransaction in
                 
                 promisesToFulfill.removeAll()
                 guard case let .fulfilled(nonce) = results[0] else {
-                    throw Web3Error.processingError("Failed to fetch nonce")
+                    throw Chain3Error.processingError("Failed to fetch nonce")
                 }
                 guard case let .fulfilled(gasEstimate) = results[1] else {
-                    throw Web3Error.processingError("Failed to fetch gas estimate")
+                    throw Chain3Error.processingError("Failed to fetch gas estimate")
                 }
                 guard case let .fulfilled(gasPrice) = results[2] else {
-                    throw Web3Error.processingError("Failed to fetch gas price")
+                    throw Chain3Error.processingError("Failed to fetch gas price")
                 }
-                let estimate = Web3Options.smartMergeGasLimit(originalOptions: options, extraOptions: options, gasEstimate: gasEstimate)
+                let estimate = Chain3Options.smartMergeGasLimit(originalOptions: options, extraOptions: options, gasEstimate: gasEstimate)
                 assembledTransaction.nonce = nonce
                 assembledTransaction.gasLimit = estimate
-                let finalGasPrice = Web3Options.smartMergeGasPrice(originalOptions: options, extraOptions: options, priceEstimate: gasPrice)
+                let finalGasPrice = Chain3Options.smartMergeGasPrice(originalOptions: options, extraOptions: options, priceEstimate: gasPrice)
                 assembledTransaction.gasPrice = finalGasPrice
                 return assembledTransaction
             }).done(on: queue, seal.fulfill).catch(on: queue, seal.reject)
@@ -127,54 +127,54 @@ extension Address {
         return returnPromise
     }
     
-    public func send(_ function: String, _ arguments: Any..., password: String = "BANKEXFOUNDATION", web3: Web3 = .default, options: Web3Options? = nil, onBlock: String = "pending") -> Promise<TransactionSendingResult> {
-        return send(function, arguments, password: password, web3: web3, options: options, onBlock: onBlock)
+    public func send(_ function: String, _ arguments: Any..., password: String = "BANKEXFOUNDATION", chain3: Chain3 = .default, options: Chain3Options? = nil, onBlock: String = "pending") -> Promise<TransactionSendingResult> {
+        return send(function, arguments, password: password, chain3: chain3, options: options, onBlock: onBlock)
     }
-    public func send(_ function: String, _ arguments: [Any], password: String = "BANKEXFOUNDATION", web3: Web3 = .default, options: Web3Options? = nil, onBlock: String = "pending") -> Promise<TransactionSendingResult> {
-        let options = web3.options.merge(with: options)
-        let queue = web3.requestDispatcher.queue
-        return assemble(function, arguments, web3: web3, options: options, onBlock: onBlock).then(on: queue) { transaction throws -> Promise<TransactionSendingResult> in
-            var cleanedOptions = Web3Options()
+    public func send(_ function: String, _ arguments: [Any], password: String = "BANKEXFOUNDATION", chain3: Chain3 = .default, options: Chain3Options? = nil, onBlock: String = "pending") -> Promise<TransactionSendingResult> {
+        let options = chain3.options.merge(with: options)
+        let queue = chain3.requestDispatcher.queue
+        return assemble(function, arguments, chain3: chain3, options: options, onBlock: onBlock).then(on: queue) { transaction throws -> Promise<TransactionSendingResult> in
+            var cleanedOptions = Chain3Options()
             cleanedOptions.from = options.from
             cleanedOptions.to = options.to
-            return web3.eth.sendTransactionPromise(transaction, options: cleanedOptions, password: password)
+            return chain3.eth.sendTransactionPromise(transaction, options: cleanedOptions, password: password)
         }
     }
-    public func call(_ function: String, _ arguments: Any..., web3: Web3 = .default, options: Web3Options? = nil, onBlock: String = "latest") -> Promise<Web3DataResponse> {
-        return call(function, arguments, web3: web3, options: options, onBlock: onBlock)
+    public func call(_ function: String, _ arguments: Any..., chain3: Chain3 = .default, options: Chain3Options? = nil, onBlock: String = "latest") -> Promise<Chain3DataResponse> {
+        return call(function, arguments, chain3: chain3, options: options, onBlock: onBlock)
     }
-    public func call(_ function: String, _ arguments: [Any], web3: Web3 = .default, options: Web3Options? = nil, onBlock: String = "latest") -> Promise<Web3DataResponse> {
-        let options = web3.options.merge(with: options)
+    public func call(_ function: String, _ arguments: [Any], chain3: Chain3 = .default, options: Chain3Options? = nil, onBlock: String = "latest") -> Promise<Chain3DataResponse> {
+        let options = chain3.options.merge(with: options)
         let function = try! SolidityFunction(function: function)
         let data = function.encode(arguments as! [SolidityDataRepresentable])
-        let assembledTransaction = EthereumTransaction(to: self, data: data, options: options)
-        let queue = web3.requestDispatcher.queue
-        return Promise<Web3DataResponse> { seal in
-            var optionsForCall = Web3Options()
+        let assembledTransaction = MOACTransaction(to: self, data: data, options: options)
+        let queue = chain3.requestDispatcher.queue
+        return Promise<Chain3DataResponse> { seal in
+            var optionsForCall = Chain3Options()
             optionsForCall.from = options.from
             optionsForCall.to = options.to
             optionsForCall.value = options.value
-            web3.eth.callPromise(assembledTransaction, options: optionsForCall, onBlock: onBlock)
-                .done(on: queue) { seal.fulfill(Web3DataResponse($0)) }
+            chain3.eth.callPromise(assembledTransaction, options: optionsForCall, onBlock: onBlock)
+                .done(on: queue) { seal.fulfill(Chain3DataResponse($0)) }
                 .catch(on: queue, seal.reject)
         }
     }
     
-    public func estimateGas(_ function: String, _ arguments: Any..., web3: Web3 = .default, options: Web3Options? = nil, onBlock: String = "latest") -> Promise<BigUInt> {
-        return estimateGas(function, arguments, web3: web3, options: options, onBlock: onBlock)
+    public func estimateGas(_ function: String, _ arguments: Any..., chain3: Chain3 = .default, options: Chain3Options? = nil, onBlock: String = "latest") -> Promise<BigUInt> {
+        return estimateGas(function, arguments, chain3: chain3, options: options, onBlock: onBlock)
     }
-    public func estimateGas(_ function: String, _ arguments: [Any], web3: Web3 = .default, options: Web3Options? = nil, onBlock: String = "latest") -> Promise<BigUInt> {
-        let options = web3.options.merge(with: options)
+    public func estimateGas(_ function: String, _ arguments: [Any], chain3: Chain3 = .default, options: Chain3Options? = nil, onBlock: String = "latest") -> Promise<BigUInt> {
+        let options = chain3.options.merge(with: options)
         let function = try! SolidityFunction(function: function)
         let data = function.encode(arguments as! [SolidityDataRepresentable])
-        let assembledTransaction = EthereumTransaction(to: self, data: data, options: options)
-        let queue = web3.requestDispatcher.queue
+        let assembledTransaction = MOACTransaction(to: self, data: data, options: options)
+        let queue = chain3.requestDispatcher.queue
         return Promise<BigUInt> { seal in
-            var optionsForGasEstimation = Web3Options()
+            var optionsForGasEstimation = Chain3Options()
             optionsForGasEstimation.from = options.from
             optionsForGasEstimation.to = options.to
             optionsForGasEstimation.value = options.value
-            web3.eth.estimateGasPromise(assembledTransaction, options: optionsForGasEstimation, onBlock: onBlock)
+            chain3.eth.estimateGasPromise(assembledTransaction, options: optionsForGasEstimation, onBlock: onBlock)
                 .done(on: queue, seal.fulfill)
                 .catch(on: queue, seal.reject)
         }

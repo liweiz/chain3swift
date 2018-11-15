@@ -44,7 +44,7 @@ public class Chain3Personal: Chain3OptionsInheritable {
 
      - parameter account: Address of the account to unlock
      - parameter password: Password to use for the account
-     - parameter seconds: Time inteval before automatic account lock by Ethereum node
+     - parameter seconds: Time inteval before automatic account lock by MOAC node
      - returns: isUnlocked
      - important: This call is synchronous. Does nothing if private keys are stored locally.
 
@@ -88,7 +88,7 @@ public class Chain3Personal: Chain3OptionsInheritable {
                         if response.error != nil {
                             throw Chain3Error.nodeError(response.error!.message)
                         }
-                        throw Chain3Error.nodeError("Invalid value from Ethereum node")
+                        throw Chain3Error.nodeError("Invalid value from MOAC node")
                     }
                     return value
                 }
@@ -124,7 +124,7 @@ public class Chain3Personal: Chain3OptionsInheritable {
                         if response.error != nil {
                             throw Chain3Error.nodeError(response.error!.message)
                         }
-                        throw Chain3Error.nodeError("Invalid value from Ethereum node")
+                        throw Chain3Error.nodeError("Invalid value from MOAC node")
                     }
                     return value
                 }

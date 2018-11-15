@@ -1,6 +1,6 @@
 //
 //  HDPath.swift
-//  web3swift
+//  chain3swift
 //
 //  Created by Dmitry on 29/10/2018.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.

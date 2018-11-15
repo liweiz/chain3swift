@@ -241,12 +241,12 @@ extension Chain3Contract {
 }
 
 public class TransactionIntermediate {
-    public var transaction: EthereumTransaction
+    public var transaction: MOACTransaction
     public var contract: ContractProtocol
     public var method: String
     public var options: Chain3Options = .default
     var chain3: Chain3
-    public init(transaction: EthereumTransaction, chain3 chain3Instance: Chain3, contract: ContractProtocol, method: String, options: Chain3Options) {
+    public init(transaction: MOACTransaction, chain3 chain3Instance: Chain3, contract: ContractProtocol, method: String, options: Chain3Options) {
         self.transaction = transaction
         chain3 = chain3Instance
         self.contract = contract
@@ -313,7 +313,7 @@ public class TransactionIntermediate {
      - important: This call is synchronous
      
      */
-    public func assemble(options: Chain3Options? = nil, onBlock: String = "pending") throws -> EthereumTransaction {
+    public func assemble(options: Chain3Options? = nil, onBlock: String = "pending") throws -> MOACTransaction {
         return try assemblePromise(options: options, onBlock: onBlock).wait()
     }
     
@@ -323,12 +323,12 @@ public class TransactionIntermediate {
      - parameter options: Chain3Options to override the previously assigned gas price, gas limit and value.
      - parameter onBlock: String field determines if nonce value and the gas estimate are based on the state of a blockchain on the latest mined block ("latest") or the expected state after all the transactions in memory pool are applied ("pending"). Using "pending" allows to send transactions one after another without waiting for inclusion of the previous one in some block.
      
-     - returns: Promise for ethereum transaction
+     - returns: Promise for MOAC transaction
      */
-    public func assemblePromise(options: Chain3Options? = nil, onBlock: String = "pending") -> Promise<EthereumTransaction> {
-        var assembledTransaction: EthereumTransaction = transaction
+    public func assemblePromise(options: Chain3Options? = nil, onBlock: String = "pending") -> Promise<MOACTransaction> {
+        var assembledTransaction: MOACTransaction = transaction
         let queue = chain3.requestDispatcher.queue
-        let returnPromise = Promise<EthereumTransaction> { seal in
+        let returnPromise = Promise<MOACTransaction> { seal in
             let mergedOptions = self.options.merge(with: options)
             guard let from = mergedOptions.from else {
                 seal.reject(Chain3Error.inputError("No 'from' field provided"))
@@ -342,7 +342,7 @@ public class TransactionIntermediate {
             let gasEstimatePromise: Promise<BigUInt> = self.chain3.eth.estimateGasPromise(assembledTransaction, options: optionsForGasEstimation, onBlock: onBlock)
             let gasPricePromise: Promise<BigUInt> = self.chain3.eth.getGasPricePromise()
             var promisesToFulfill: [Promise<BigUInt>] = [getNoncePromise, gasPricePromise, gasPricePromise]
-            when(resolved: getNoncePromise, gasEstimatePromise, gasPricePromise).map(on: queue, { (results: [Result<BigUInt>]) throws -> EthereumTransaction in
+            when(resolved: getNoncePromise, gasEstimatePromise, gasPricePromise).map(on: queue, { (results: [Result<BigUInt>]) throws -> MOACTransaction in
                 
                 promisesToFulfill.removeAll()
                 guard case let .fulfilled(nonce) = results[0] else {
@@ -406,7 +406,7 @@ public class TransactionIntermediate {
      */
     
     public func callPromise(options: Chain3Options? = nil, onBlock: String = "latest") -> Promise<Chain3Response> {
-        let assembledTransaction: EthereumTransaction = transaction
+        let assembledTransaction: MOACTransaction = transaction
         let queue = chain3.requestDispatcher.queue
         let returnPromise = Promise<Chain3Response> { seal in
             let mergedOptions = self.options.merge(with: options)
@@ -447,7 +447,7 @@ public class TransactionIntermediate {
      - returns: Promise for gas price
      */
     public func estimateGasPromise(options: Chain3Options? = nil, onBlock: String = "latest") -> Promise<BigUInt> {
-        let assembledTransaction: EthereumTransaction = self.transaction
+        let assembledTransaction: MOACTransaction = self.transaction
         let queue = self.chain3.requestDispatcher.queue
         let returnPromise = Promise<BigUInt> { seal in
             let mergedOptions = self.options.merge(with: options)

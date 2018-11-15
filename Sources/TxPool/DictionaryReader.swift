@@ -1,6 +1,6 @@
 //
 //  DictionaryReader.swift
-//  web3swift-iOS
+//  chain3swift-iOS
 //
 //  Created by Dmitry on 28/10/2018.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.

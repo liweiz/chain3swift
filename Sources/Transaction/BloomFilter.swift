@@ -1,6 +1,6 @@
 //
 //  BloomFilter.swift
-//  web3swift
+//  chain3swift
 //
 //  Created by Alexander Vlasov on 02.03.2018.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
@@ -10,7 +10,7 @@ import BigInt
 import CryptoSwift
 import Foundation
 
-public struct EthereumBloomFilter {
+public struct MOACBloomFilter {
     public var bytes = Data(repeatElement(UInt8(0), count: 256))
     public init?(_ biguint: BigUInt) {
         guard let data = biguint.serialize().setLengthLeft(256) else { return nil }
@@ -47,9 +47,9 @@ public struct EthereumBloomFilter {
 //    return hexutil.UnmarshalFixedText("Bloom", input, b[:])
 // }
 
-extension EthereumBloomFilter {
+extension MOACBloomFilter {
     static func bloom9(_ biguint: BigUInt) -> BigUInt {
-        return EthereumBloomFilter.bloom9(biguint.serialize())
+        return MOACBloomFilter.bloom9(biguint.serialize())
     }
 
     static func bloom9(_ data: Data) -> BigUInt {
@@ -77,17 +77,17 @@ extension EthereumBloomFilter {
         return bin
     }
 
-    public static func createBloom(_ receipts: [TransactionReceipt]) -> EthereumBloomFilter? {
+    public static func createBloom(_ receipts: [TransactionReceipt]) -> MOACBloomFilter? {
         var bin = BigUInt(0)
         for receipt in receipts {
-            bin = bin | EthereumBloomFilter.logsToBloom(receipt.logs)
+            bin = bin | MOACBloomFilter.logsToBloom(receipt.logs)
         }
-        return EthereumBloomFilter(bin)
+        return MOACBloomFilter(bin)
     }
 
     public func test(topic: Data) -> Bool {
         let bin = asBigUInt()
-        let comparison = EthereumBloomFilter.bloom9(topic)
+        let comparison = MOACBloomFilter.bloom9(topic)
         return bin & comparison == comparison
     }
 
@@ -95,30 +95,30 @@ extension EthereumBloomFilter {
         return test(topic: topic.serialize())
     }
 
-    public static func bloomLookup(_ bloom: EthereumBloomFilter, topic: Data) -> Bool {
+    public static func bloomLookup(_ bloom: MOACBloomFilter, topic: Data) -> Bool {
         let bin = bloom.asBigUInt()
         let comparison = bloom9(topic)
         return bin & comparison == comparison
     }
 
-    public static func bloomLookup(_ bloom: EthereumBloomFilter, topic: BigUInt) -> Bool {
-        return EthereumBloomFilter.bloomLookup(bloom, topic: topic.serialize())
+    public static func bloomLookup(_ bloom: MOACBloomFilter, topic: BigUInt) -> Bool {
+        return MOACBloomFilter.bloomLookup(bloom, topic: topic.serialize())
     }
 
     public mutating func add(_ biguint: BigUInt) {
         var bin = BigUInt(bytes)
-        bin = bin | EthereumBloomFilter.bloom9(biguint)
+        bin = bin | MOACBloomFilter.bloom9(biguint)
         setBytes(bin.serialize())
     }
 
     public mutating func add(_ data: Data) {
         var bin = BigUInt(bytes)
-        bin = bin | EthereumBloomFilter.bloom9(data)
+        bin = bin | MOACBloomFilter.bloom9(data)
         setBytes(bin.serialize())
     }
 
     public func lookup(_ topic: Data) -> Bool {
-        return EthereumBloomFilter.bloomLookup(self, topic: topic)
+        return MOACBloomFilter.bloomLookup(self, topic: topic)
     }
 
     mutating func setBytes(_ data: Data) {

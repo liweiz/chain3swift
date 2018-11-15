@@ -1,6 +1,6 @@
 //
 //  RIPEMD160_SO.swift
-//  web3swift
+//  chain3swift
 //
 //  Created by Alexander Vlasov on 10.01.2018.
 //

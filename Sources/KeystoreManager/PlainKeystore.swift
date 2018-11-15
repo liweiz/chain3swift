@@ -1,6 +1,6 @@
 //
 //  PlainKeystore.swift
-//  web3swift
+//  chain3swift
 //
 //  Created by Alexander Vlasov on 06.04.2018.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
@@ -26,8 +26,8 @@ public class PlainKeystore: AbstractKeystore {
     public init(privateKey: Data) throws {
         try SECP256K1.verifyPrivateKey(privateKey: privateKey)
 
-        let publicKey = try Web3Utils.privateToPublic(privateKey, compressed: false)
-        let address = try Web3Utils.publicToAddress(publicKey)
+        let publicKey = try Chain3Utils.privateToPublic(privateKey, compressed: false)
+        let address = try Chain3Utils.publicToAddress(publicKey)
         addresses = [address]
         self.privateKey = privateKey
     }

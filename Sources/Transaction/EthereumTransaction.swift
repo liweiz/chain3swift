@@ -1,6 +1,6 @@
 //
-//  EthereumTransaction.swift
-//  web3swift
+//  MOACTransaction.swift
+//  chain3swift
 //
 //  Created by Alexander Vlasov on 05.12.2017.
 //  Copyright © 2017 Alexander Vlasov. All rights reserved.
@@ -9,7 +9,7 @@
 import BigInt
 import Foundation
 
-public struct EthereumTransaction: CustomStringConvertible {
+public struct MOACTransaction: CustomStringConvertible {
     public var nonce: BigUInt
     public var gasPrice: BigUInt = 0
     public var gasLimit: BigUInt = 0
@@ -62,8 +62,8 @@ public struct EthereumTransaction: CustomStringConvertible {
         self.to = to
     }
 
-    public init(to: Address, data: Data, options: Web3Options) {
-        let merged = Web3Options.default.merge(with: options)
+    public init(to: Address, data: Data, options: Chain3Options) {
+        let merged = Chain3Options.default.merge(with: options)
         nonce = BigUInt(0)
         gasLimit = merged.gasLimit!
         gasPrice = merged.gasPrice!
@@ -84,7 +84,7 @@ public struct EthereumTransaction: CustomStringConvertible {
         self.s = s
     }
 
-    public func mergedWithOptions(_ options: Web3Options) -> EthereumTransaction {
+    public func mergedWithOptions(_ options: Chain3Options) -> MOACTransaction {
         var tx = self
         if options.gasPrice != nil {
             tx.gasPrice = options.gasPrice!
@@ -122,7 +122,7 @@ hash: \(String(describing: hash))
 
     public var sender: Address? {
         guard let publicKey = self.recoverPublicKey() else { return nil }
-        return try? Web3Utils.publicToAddress(publicKey)
+        return try? Chain3Utils.publicToAddress(publicKey)
     }
 
     public func recoverPublicKey() -> Data? {
@@ -213,7 +213,7 @@ hash: \(String(describing: hash))
     }
 
     init(_ json: [String: Any]) throws {
-        let options = try Web3Options(json)
+        let options = try Chain3Options(json)
         let to = try json.at("to").address()
         let data: Data
         if let value = try? json.at("data") {
@@ -235,11 +235,11 @@ hash: \(String(describing: hash))
     }
     
     /**
-     Initializes EthereumTransaction from RLP encoded data
+     Initializes MOACTransaction from RLP encoded data
      - parameter raw: RLP encoded data
-     - returns: EthereumTransaction if data wasn't not corrupted
+     - returns: MOACTransaction if data wasn't not corrupted
      */
-    public static func fromRaw(_ raw: Data) -> EthereumTransaction? {
+    public static func fromRaw(_ raw: Data) -> MOACTransaction? {
         guard let totalItem = RLP.decode(raw) else { return nil }
         guard let rlpItem = totalItem[0] else { return nil }
         switch rlpItem.count {
@@ -274,7 +274,7 @@ hash: \(String(describing: hash))
             let r = BigUInt(rData)
             guard let sData = rlpItem[8]!.data else { return nil }
             let s = BigUInt(sData)
-            return EthereumTransaction(nonce: nonce, gasPrice: gasPrice, gasLimit: gasLimit, to: to, value: value, data: transactionData, v: v, r: r, s: s)
+            return MOACTransaction(nonce: nonce, gasPrice: gasPrice, gasLimit: gasLimit, to: to, value: value, data: transactionData, v: v, r: r, s: s)
         case 6?:
             return nil
         default:
@@ -282,7 +282,7 @@ hash: \(String(describing: hash))
         }
     }
 
-    static func createRequest(method: JsonRpcMethod, transaction: EthereumTransaction, onBlock: String? = nil, options: Web3Options?) -> JsonRpcRequest? {
+    static func createRequest(method: JsonRpcMethod, transaction: MOACTransaction, onBlock: String? = nil, options: Chain3Options?) -> JsonRpcRequest? {
         var request = JsonRpcRequest(method: method)
 //        guard let from = options?.from else { return nil }
         guard var txParams = transaction.encodeAsDictionary(from: options?.from) else { return nil }
@@ -299,7 +299,7 @@ hash: \(String(describing: hash))
         return request
     }
 
-    static func createRawTransaction(transaction: EthereumTransaction) -> JsonRpcRequest? {
+    static func createRawTransaction(transaction: MOACTransaction) -> JsonRpcRequest? {
         guard transaction.sender != nil else { return nil }
         guard let encodedData = transaction.encode() else { return nil }
         let hex = encodedData.toHexString().withHex.lowercased()

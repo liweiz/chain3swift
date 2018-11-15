@@ -1,6 +1,6 @@
 //
 //  TxPool.swift
-//  web3swift-iOS
+//  chain3swift-iOS
 //
 //  Created by Dmitry on 28/10/2018.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
@@ -19,14 +19,14 @@ public class TxPool {
      - important: Doesn't works with Infura provider
      */
     public static var `default`: TxPool {
-        return TxPool(web3: .default)
+        return TxPool(chain3: .default)
     }
-    var web3: Web3
+    var chain3: Chain3
     /**
      - important: Doesn't works with Infura provider
      */
-    public init(web3: Web3) {
-        self.web3 = web3
+    public init(chain3: Chain3) {
+        self.chain3 = chain3
     }
     
     /**
@@ -34,13 +34,13 @@ public class TxPool {
      - returns: number of pending and queued transactions
      - throws:
      DictionaryReader.Error if server has different response than expected |
-     Web3Error.nodeError for node error |
+     Chain3Error.nodeError for node error |
      Any URLSession.dataTask Error
      */
     public func status() -> Promise<TxPoolStatus> {
         let request = JsonRpcRequestFabric.prepareRequest(.txPoolStatus, parameters: [])
-        let rp = web3.dispatch(request)
-        let queue = web3.requestDispatcher.queue
+        let rp = chain3.dispatch(request)
+        let queue = chain3.requestDispatcher.queue
         return rp.map(on: queue ) { try TxPoolStatus($0.response()) }
     }
     
@@ -49,13 +49,13 @@ public class TxPool {
      - returns: main information about pending and queued transactions
      - throws:
      DictionaryReader.Error if server has different response than expected |
-     Web3Error.nodeError for node error |
+     Chain3Error.nodeError for node error |
      Any URLSession.dataTask Error
      */
     public func inspect() -> Promise<TxPoolInspect> {
         let request = JsonRpcRequestFabric.prepareRequest(.txPoolInspect, parameters: [])
-        let rp = web3.dispatch(request)
-        let queue = web3.requestDispatcher.queue
+        let rp = chain3.dispatch(request)
+        let queue = chain3.requestDispatcher.queue
         return rp.map(on: queue ) { try TxPoolInspect($0.response()) }
     }
     
@@ -64,13 +64,13 @@ public class TxPool {
      - returns: full information for all pending and queued transactions
      - throws:
      DictionaryReader.Error if server has different response than expected |
-     Web3Error.nodeError for node error |
+     Chain3Error.nodeError for node error |
      Any URLSession.dataTask Error
      */
     public func content() -> Promise<TxPoolContent> {
         let request = JsonRpcRequestFabric.prepareRequest(.txPoolContent, parameters: [])
-        let rp = web3.dispatch(request)
-        let queue = web3.requestDispatcher.queue
+        let rp = chain3.dispatch(request)
+        let queue = chain3.requestDispatcher.queue
         return rp.map(on: queue ) { try TxPoolContent($0.response()) }
     }
 }

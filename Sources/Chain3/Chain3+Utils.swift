@@ -19,7 +19,7 @@ public class Chain3Utils {
 
 }
 
-/// Various units used in Ethereum ecosystem
+/// Various units used in MOAC ecosystem
 //typealias Chain3Units.kWei = Chain3Units.Kwei
 public enum Chain3Units: Int {
 	case eth = 18
@@ -35,7 +35,7 @@ public enum Chain3Units: Int {
 }
 
 extension Chain3Utils {
-    /// Calculate address of deployed contract deterministically based on the address of the deploying Ethereum address
+    /// Calculate address of deployed contract deterministically based on the address of the deploying MOAC address
     /// and the nonce of this address
     public static func calcualteContractAddress(from: Address, nonce: BigUInt) -> Address? {
         guard let normalizedAddress = from.addressData.setLengthLeft(32) else { return nil }
@@ -128,12 +128,12 @@ extension Chain3Utils {
         return Address(addressData)._address
     }
 
-    /// Hashes a personal message by first padding it with the "\u{19}Ethereum Signed Message:\n" string and message length string.
-    /// Should be used if some arbitrary information should be hashed and signed to prevent signing an Ethereum transaction
+    /// Hashes a personal message by first padding it with the "\u{19}MOAC Signed Message:\n" string and message length string.
+    /// Should be used if some arbitrary information should be hashed and signed to prevent signing a MOAC transaction
     /// by accident.
     /// throws Chain3UtilsError.cannotConvertDataToAscii
     public static func hashPersonalMessage(_ personalMessage: Data) throws -> Data {
-        var prefix = "\u{19}Ethereum Signed Message:\n"
+        var prefix = "\u{19}MOAC Signed Message:\n"
         prefix += String(personalMessage.count)
         guard let prefixData = prefix.data(using: .ascii) else { throw Chain3UtilsError.cannotConvertDataToAscii }
         var data = Data()
@@ -146,7 +146,7 @@ extension Chain3Utils {
         return data.sha3(.keccak256)
     }
 
-    /// Parse a user-supplied string using the number of decimals for particular Ethereum unit.
+    /// Parse a user-supplied string using the number of decimals for particular MOAC unit.
     /// If input is non-numeric or precision is not sufficient - returns nil.
     /// Allowed decimal separators are ".", ",".
     public static func parseToBigUInt(_ amount: String, units: Chain3Units = .eth) -> BigUInt? {
@@ -174,16 +174,16 @@ extension Chain3Utils {
         return mainPart
     }
 
-    /// Recover the Ethereum address from recoverable secp256k1 signature. Message is first hashed using the "personal hash" protocol.
-    /// BE WARNED - changing a message will result in different Ethereum address, but not in error.
+    /// Recover the MOAC address from recoverable secp256k1 signature. Message is first hashed using the "personal hash" protocol.
+    /// BE WARNED - changing a message will result in different MOAC address, but not in error.
     ///
     /// Input parameters should be hex Strings.
     public static func personalECRecover(_ personalMessage: String, signature: String) throws -> Address {
         return try Chain3Utils.personalECRecover(personalMessage.dataFromHex(), signature: signature.dataFromHex())
     }
 
-    /// Recover the Ethereum address from recoverable secp256k1 signature. Message is first hashed using the "personal hash" protocol.
-    /// BE WARNED - changing a message will result in different Ethereum address, but not in error.
+    /// Recover the MOAC address from recoverable secp256k1 signature. Message is first hashed using the "personal hash" protocol.
+    /// BE WARNED - changing a message will result in different MOAC address, but not in error.
     ///
     /// Input parameters should be Data objects.
     public static func personalECRecover(_ personalMessage: Data, signature: Data) throws -> Address {
@@ -193,7 +193,7 @@ extension Chain3Utils {
         return try Chain3Utils.publicToAddress(publicKey)
     }
 
-    /// Recover the Ethereum address from recoverable secp256k1 signature.
+    /// Recover the MOAC address from recoverable secp256k1 signature.
     /// Takes a hash of some message. What message is hashed should be checked by user separately.
     ///
     /// Input parameters should be Data objects.
@@ -207,13 +207,13 @@ extension Chain3Utils {
         return try Chain3Utils.publicToAddress(publicKey)
     }
 
-    /// returns Ethereum variant of sha3 (keccak256) of data. Returns nil is data is empty
+    /// returns MOAC variant of sha3 (keccak256) of data. Returns nil is data is empty
     public static func keccak256(_ data: Data) -> Data? {
         if data.count == 0 { return nil }
         return data.sha3(.keccak256)
     }
 
-    /// returns Ethereum variant of sha3 (keccak256) of data. Returns nil is data is empty
+    /// returns MOAC variant of sha3 (keccak256) of data. Returns nil is data is empty
     public static func sha3(_ data: Data) -> Data? {
         if data.count == 0 { return nil }
         return data.sha3(.keccak256)
