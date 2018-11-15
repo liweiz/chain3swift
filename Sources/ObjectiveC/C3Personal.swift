@@ -1,5 +1,5 @@
 //
-//  W3Personal.swift
+//  C3Personal.swift
 //  chain3swift
 //
 //  Created by Dmitry on 10/11/2018.
@@ -10,12 +10,12 @@
 
 import Foundation
 
-@objc public class W3Personal: NSObject {
+@objc public class C3Personal: NSObject {
     public var swift: Chain3Personal {
         return chain3.swift.personal
     }
-    unowned var chain3: W3Chain3
-    @objc public init(chain3: W3Chain3) {
+    unowned var chain3: C3Chain3
+    @objc public init(chain3: C3Chain3) {
         self.chain3 = chain3
     }
     /**
@@ -28,21 +28,21 @@ import Foundation
      - important: This call is synchronous
      
      */
-    @objc public func signPersonalMessage(message: Data, from: W3Address, password: String = "BANKEXFOUNDATION") throws -> Data {
+    @objc public func signPersonalMessage(message: Data, from: C3Address, password: String = "BANKEXFOUNDATION") throws -> Data {
         return try swift.signPersonalMessage(message: message, from: from.swift, password: password)
     }
     
     /**
      *Unlock an account on the remote node to be able to send transactions and sign messages.*
      
-     - parameter account: W3Address of the account to unlock
+     - parameter account: C3Address of the account to unlock
      - parameter password: Password to use for the account
      - parameter seconds: Time inteval before automatic account lock by MOAC node
      - returns: isUnlocked
      - important: This call is synchronous. Does nothing if private keys are stored locally.
      
      */
-    @objc public func unlockAccount(account: W3Address, password: String = "BANKEXFOUNDATION", seconds: UInt64 = 300, error pointer: ErrorPointer) -> Bool {
+    @objc public func unlockAccount(account: C3Address, password: String = "BANKEXFOUNDATION", seconds: UInt64 = 300, error pointer: ErrorPointer) -> Bool {
         do {
             return try swift.unlockAccount(account: account.swift, password: password, seconds: seconds)
         } catch {
@@ -59,7 +59,7 @@ import Foundation
      - returns: signer address
      
      */
-    @objc public func ecrecover(personalMessage: Data, signature: Data) throws -> W3Address {
+    @objc public func ecrecover(personalMessage: Data, signature: Data) throws -> C3Address {
         return try swift.ecrecover(personalMessage: personalMessage, signature: signature).objc
     }
     
@@ -71,7 +71,7 @@ import Foundation
      - returns: signer address
      
      */
-    @objc public func ecrecover(hash: Data, signature: Data) throws -> W3Address {
+    @objc public func ecrecover(hash: Data, signature: Data) throws -> C3Address {
         return try swift.ecrecover(hash: hash, signature: signature).objc
     }
 }

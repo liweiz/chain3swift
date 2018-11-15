@@ -1,5 +1,5 @@
 //
-//  W3JsonRpc.swift
+//  C3JsonRpc.swift
 //  chain3swift
 //
 //  Created by Dmitry on 09/11/2018.
@@ -11,12 +11,12 @@
 import Foundation
 
 extension JsonRpcMethod {
-    public var objc: W3JsonRpcMethod {
-        return W3JsonRpcMethod(api: api, parameters: parameters)
+    public var objc: C3JsonRpcMethod {
+        return C3JsonRpcMethod(api: api, parameters: parameters)
     }
 }
 
-@objc public class W3JsonRpcMethod: NSObject, Encodable, SwiftBridgeable {
+@objc public class C3JsonRpcMethod: NSObject, Encodable, SwiftBridgeable {
     public var swift: JsonRpcMethod {
         return JsonRpcMethod(api: api, parameters: parameters)
     }
@@ -51,26 +51,26 @@ extension JsonRpcMethod {
     @objc public static let txPoolContent = JsonRpcMethod.txPoolContent.objc
 }
 
-@objc public class W3JsonRpcRequestFabric: NSObject {
-    @objc public static func prepareRequest(_ method: W3JsonRpcMethod, parameters: NSArray) -> W3JsonRpcRequest {
+@objc public class C3JsonRpcRequestFabric: NSObject {
+    @objc public static func prepareRequest(_ method: C3JsonRpcMethod, parameters: NSArray) -> C3JsonRpcRequest {
 		return JsonRpcRequestFabric.prepareRequest(method.swift, parameters: parameters.compactMap { $0 as? Encodable }).objc
     }
 }
 
 
 extension JsonRpcRequest {
-    public var objc: W3JsonRpcRequest {
-        return W3JsonRpcRequest(self)
+    public var objc: C3JsonRpcRequest {
+        return C3JsonRpcRequest(self)
     }
 }
 
-@objc public class W3JsonRpcRequest: NSObject, SwiftContainer {
+@objc public class C3JsonRpcRequest: NSObject, SwiftContainer {
     public let swift: JsonRpcRequest
     public required init(_ swift: JsonRpcRequest) {
         self.swift = swift
     }
     /// init with api method
-    @objc public required init(method: W3JsonRpcMethod) {
+    @objc public required init(method: C3JsonRpcMethod) {
         self.swift = JsonRpcRequest(method: method.swift)
     }
     @objc public var isValid: Bool {
@@ -85,11 +85,11 @@ extension JsonRpcRequest {
 /// JSON RPC response structure for serialization and deserialization purposes.
 
 extension JsonRpcResponse.ErrorMessage {
-    public var objc: W3ErrorMessage {
-		return W3ErrorMessage(self)
+    public var objc: C3ErrorMessage {
+		return C3ErrorMessage(self)
 	}
 }
-@objc public class W3ErrorMessage: NSObject, SwiftContainer {
+@objc public class C3ErrorMessage: NSObject, SwiftContainer {
 	@objc public var code: Int
 	@objc public var message: String
     public var swift: JsonRpcResponse.ErrorMessage {
@@ -101,11 +101,11 @@ extension JsonRpcResponse.ErrorMessage {
 	}
 }
 extension JsonRpcResponse {
-    public var objc: W3JsonRpcResponse {
-		return W3JsonRpcResponse(self)
+    public var objc: C3JsonRpcResponse {
+		return C3JsonRpcResponse(self)
 	}
 }
-@objc public class W3JsonRpcResponse: NSObject, SwiftContainer {
+@objc public class C3JsonRpcResponse: NSObject, SwiftContainer {
 	public let swift: JsonRpcResponse
 	public required init(_ swift: JsonRpcResponse) {
 		self.swift = swift
@@ -119,7 +119,7 @@ extension JsonRpcResponse {
 	@objc public var result: Any? {
 		return swift.result
 	}
-	@objc public var error: W3ErrorMessage? {
+	@objc public var error: C3ErrorMessage? {
 		return swift.error?.objc
 	}
 	@objc public var message: String? {
@@ -129,12 +129,12 @@ extension JsonRpcResponse {
 }
 
 extension JsonRpcResponseBatch {
-    public var objc: W3JsonRpcResponseBatch {
-		return W3JsonRpcResponseBatch(self)
+    public var objc: C3JsonRpcResponseBatch {
+		return C3JsonRpcResponseBatch(self)
 	}
 }
 
-@objc public class W3JsonRpcResponseBatch: NSObject, SwiftContainer {
+@objc public class C3JsonRpcResponseBatch: NSObject, SwiftContainer {
 	public let swift: JsonRpcResponseBatch
 	public required init(_ swift: JsonRpcResponseBatch) {
 		self.swift = swift
@@ -142,11 +142,11 @@ extension JsonRpcResponseBatch {
 }
 
 //extension EventFilterParameters {
-//	public func _bridgeToObjectiveC() -> W3EventFilterParameters {
-//		return W3EventFilterParameters(self)
+//	public func _bridgeToObjectiveC() -> C3EventFilterParameters {
+//		return C3EventFilterParameters(self)
 //	}
 //}
-//@objc public class W3EventFilterParameters: NSObject, Codable, SwiftContainer {
+//@objc public class C3EventFilterParameters: NSObject, Codable, SwiftContainer {
 //	public var swift: EventFilterParameters
 //	public required init(_ swift: EventFilterParameters) {
 //		self.swift = swift
@@ -159,11 +159,11 @@ extension JsonRpcResponseBatch {
 //}
 
 extension JsonRpcParams {
-    public var objc: W3JsonRpcParams {
-		return W3JsonRpcParams(self)
+    public var objc: C3JsonRpcParams {
+		return C3JsonRpcParams(self)
 	}
 }
-@objc public class W3JsonRpcParams: NSObject, SwiftContainer {
+@objc public class C3JsonRpcParams: NSObject, SwiftContainer {
 	public var swift: JsonRpcParams
 	public required init(_ swift: JsonRpcParams) {
 		self.swift = swift
@@ -176,12 +176,12 @@ extension JsonRpcParams {
 }
 
 extension JsonRpcRequestDispatcher {
-    public var objc: W3JsonRpcRequestDispatcher {
-		return W3JsonRpcRequestDispatcher(self)
+    public var objc: C3JsonRpcRequestDispatcher {
+		return C3JsonRpcRequestDispatcher(self)
 	}
 }
 
-@objc public class W3JsonRpcRequestDispatcher: NSObject, SwiftContainer {
+@objc public class C3JsonRpcRequestDispatcher: NSObject, SwiftContainer {
 	public let swift: JsonRpcRequestDispatcher
 	public required init(_ swift: JsonRpcRequestDispatcher) {
 		self.swift = swift

@@ -1,5 +1,5 @@
 //
-//  W3TransactionIntermediate.swift
+//  C3TransactionIntermediate.swift
 //  chain3swift
 //
 //  Created by Dmitry on 09/11/2018.
@@ -11,12 +11,12 @@
 import Foundation
 
 extension Chain3DataResponse {
-    public var objc: W3DataResponse {
-        return W3DataResponse(self)
+    public var objc: C3DataResponse {
+        return C3DataResponse(self)
     }
 }
 
-@objc public class W3DataResponse: NSObject, SwiftContainer {
+@objc public class C3DataResponse: NSObject, SwiftContainer {
     public let swift: Chain3DataResponse
     public required init(_ swift: Chain3DataResponse) {
         self.swift = swift
@@ -31,10 +31,10 @@ extension Chain3DataResponse {
     @objc public var headerSize: Int {
         return swift.headerSize
     }
-    @objc public func uint256() throws -> W3UInt {
+    @objc public func uint256() throws -> C3UInt {
         return try swift.uint256().objc
     }
-    @objc public func address() throws -> W3Address {
+    @objc public func address() throws -> C3Address {
         return try swift.address().objc
     }
     @objc public func string() throws -> String {
@@ -121,11 +121,11 @@ extension Chain3DataResponse {
 }
 
 extension Chain3Response {
-    public var objc: W3Response {
-        return W3Response(self)
+    public var objc: C3Response {
+        return C3Response(self)
     }
 }
-@objc public class W3Response: NSObject, SwiftContainer {
+@objc public class C3Response: NSObject, SwiftContainer {
     public let swift: Chain3Response
     public required init(_ swift: Chain3Response) {
         self.swift = swift
@@ -144,17 +144,17 @@ extension Chain3Response {
         return swift[index]
     }
     
-    /// Returns next response argument as W3UInt (like self[n] as? W3UInt; n += 1)
+    /// Returns next response argument as C3UInt (like self[n] as? C3UInt; n += 1)
     /// throws Chain3ResponseError.notFound if there is no value at self[n]
-    /// throws Chain3ResponseError.wrongType if it cannot cast self[n] to W3UInt
-    @objc public func uint256() throws -> W3UInt {
+    /// throws Chain3ResponseError.wrongType if it cannot cast self[n] to C3UInt
+    @objc public func uint256() throws -> C3UInt {
         return try swift.uint256().objc
     }
     
-    /// Returns next response argument as W3Address (like self[n] as? W3Address; n += 1)
+    /// Returns next response argument as C3Address (like self[n] as? C3Address; n += 1)
     /// throws Chain3ResponseError.notFound if there is no value at self[n]
-    /// throws Chain3ResponseError.wrongType if it cannot cast self[n] to W3Address
-    @objc public func address() throws -> W3Address {
+    /// throws Chain3ResponseError.wrongType if it cannot cast self[n] to C3Address
+    @objc public func address() throws -> C3Address {
         return try swift.address().objc
     }
     
@@ -171,15 +171,15 @@ extension Chain3Response {
 }
 
 extension TransactionIntermediate {
-    public var objc: W3TransactionIntermediate {
-        return W3TransactionIntermediate(self)
+    public var objc: C3TransactionIntermediate {
+        return C3TransactionIntermediate(self)
     }
 }
 
 /// TransactionIntermediate is an almost-ready transaction or a smart-contract function call. It bears all the required information
 /// to call the smart-contract and decode the returned information, or estimate gas required for transaction, or send a transaciton
 /// to the blockchain.
-@objc public class W3TransactionIntermediate: NSObject, W3OptionsInheritable, SwiftContainer {
+@objc public class C3TransactionIntermediate: NSObject, C3OptionsInheritable, SwiftContainer {
     public var swift: TransactionIntermediate
     var _swiftOptions: Chain3Options {
         get { return swift.options }
@@ -188,21 +188,21 @@ extension TransactionIntermediate {
     public required init(_ swift: TransactionIntermediate) {
         self.swift = swift
         super.init()
-        options = W3Options(object: self)
+        options = C3Options(object: self)
     }
     
-    @objc public var transaction: W3MOACTransaction {
+    @objc public var transaction: C3MOACTransaction {
         return swift.transaction.objc
     }
-    @objc public var contract: W3Contract {
+    @objc public var contract: C3Contract {
         return swift.contract.objc
     }
     @objc public var method: String {
         get { return swift.method }
         set { swift.method = newValue }
     }
-    @objc public var options: W3Options!
-    @objc public init(transaction: W3MOACTransaction, chain3: W3Chain3, contract: W3Contract, method: String, options: W3Options) {
+    @objc public var options: C3Options!
+    @objc public init(transaction: C3MOACTransaction, chain3: C3Chain3, contract: C3Contract, method: String, options: C3Options) {
         swift = TransactionIntermediate(transaction: transaction.swift, chain3: chain3.swift, contract: contract.swift, method: method, options: options.swift)
     }
     
@@ -213,11 +213,11 @@ extension TransactionIntermediate {
      - parameter options: Chain3Options to override the previously assigned gas price, gas limit and value.
      - parameter onBlock: String field determines if nonce value and the gas estimate are based on the state of a blockchain on the latest mined block ("latest") or the expected state after all the transactions in memory pool are applied ("pending"). Using "pending" allows to send transactions one after another without waiting for inclusion of the previous one in some block.
      
-     - returns: W3TransactionSendingResult
+     - returns: C3TransactionSendingResult
      - important: This call is synchronous
      */
     @discardableResult
-    @objc public func send(password: String = "BANKEXFOUNDATION", options: W3Options?, onBlock: String = "pending") throws -> W3TransactionSendingResult {
+    @objc public func send(password: String = "BANKEXFOUNDATION", options: C3Options?, onBlock: String = "pending") throws -> C3TransactionSendingResult {
         return try swift.send(password: password, options: options?.swift, onBlock: onBlock).objc
     }
     
@@ -227,13 +227,13 @@ extension TransactionIntermediate {
      - parameter options: Chain3Options to override the previously assigned gas price, gas limit and value.
      - parameter onBlock: String field determines if nonce value and the gas estimate are based on the state of a blockchain on the latest mined block ("latest") or the expected state after all the transactions in memory pool are applied ("pending"). Using "pending" allows to send transactions one after another without waiting for inclusion of the previous one in some block.
      
-     - returns: W3Response from node
+     - returns: C3Response from node
      - important: This call is synchronous
      
      */
     
     @discardableResult
-    @objc public func call(options: W3Options?, onBlock: String = "latest") throws -> W3Response {
+    @objc public func call(options: C3Options?, onBlock: String = "latest") throws -> C3Response {
         return try swift.call(options: options?.swift, onBlock: onBlock).objc
     }
     
@@ -247,7 +247,7 @@ extension TransactionIntermediate {
      - important: This call is synchronous
      
      */
-    @objc public func estimateGas(options: W3Options?, onBlock: String = "latest") throws -> W3UInt {
+    @objc public func estimateGas(options: C3Options?, onBlock: String = "latest") throws -> C3UInt {
         return try swift.estimateGas(options: options?.swift, onBlock: onBlock).objc
     }
     
@@ -261,7 +261,7 @@ extension TransactionIntermediate {
      - important: This call is synchronous
      
      */
-    @objc public func assemble(options: W3Options?, onBlock: String = "pending") throws -> W3MOACTransaction {
+    @objc public func assemble(options: C3Options?, onBlock: String = "pending") throws -> C3MOACTransaction {
         return try swift.assemble(options: options?.swift, onBlock: onBlock).objc
     }
     /**
@@ -272,7 +272,7 @@ extension TransactionIntermediate {
      
      - returns: Promise for MOAC transaction
      */
-    @objc public func assembleAsync(options: W3Options?, onBlock: String = "pending", completion: @escaping  (W3MOACTransaction?,Error?)->()) {
+    @objc public func assembleAsync(options: C3Options?, onBlock: String = "pending", completion: @escaping  (C3MOACTransaction?,Error?)->()) {
         swift.assemblePromise(options: options?.swift, onBlock: onBlock)
             .done { completion($0.objc,nil) }
             .catch { completion(nil, $0) }
@@ -287,7 +287,7 @@ extension TransactionIntermediate {
      
      - returns: Promise for TransactionResult which contains transaction hash and other info
      */
-    @objc public func sendAsync(password: String = "BANKEXFOUNDATION", options: W3Options?, onBlock: String = "pending", completion: @escaping  (W3TransactionSendingResult?,Error?)->()) {
+    @objc public func sendAsync(password: String = "BANKEXFOUNDATION", options: C3Options?, onBlock: String = "pending", completion: @escaping  (C3TransactionSendingResult?,Error?)->()) {
         
         swift.sendPromise(password: password, options: options?.swift, onBlock: onBlock)
             .done { completion($0.objc,nil) }
@@ -300,10 +300,10 @@ extension TransactionIntermediate {
      - parameter options: Chain3Options to override the previously assigned gas price, gas limit and value.
      - parameter onBlock: String field determines if nonce value and the gas estimate are based on the state of a blockchain on the latest mined block ("latest") or the expected state after all the transactions in memory pool are applied ("pending"). Using "pending" allows to send transactions one after another without waiting for inclusion of the previous one in some block.
      
-     - returns: Promise for W3Response from node
+     - returns: Promise for C3Response from node
      */
     
-    @objc public func callAsync(options: W3Options?, onBlock: String = "latest", completion: @escaping  (W3Response?,Error?)->()) {
+    @objc public func callAsync(options: C3Options?, onBlock: String = "latest", completion: @escaping  (C3Response?,Error?)->()) {
         
         swift.callPromise(options: options?.swift, onBlock: onBlock)
             .done { completion($0.objc,nil) }
@@ -318,7 +318,7 @@ extension TransactionIntermediate {
      
      - returns: Promise for gas price
      */
-    @objc public func estimateGasAsync(options: W3Options?, onBlock: String = "latest", completion: @escaping  (W3UInt?,Error?)->()) {
+    @objc public func estimateGasAsync(options: C3Options?, onBlock: String = "latest", completion: @escaping  (C3UInt?,Error?)->()) {
         
         swift.estimateGasPromise(options: options?.swift, onBlock: onBlock)
             .done { completion($0.objc,nil) }

@@ -1,5 +1,5 @@
 //
-//  W3Contract.swift
+//  C3Contract.swift
 //  chain3swift
 //
 //  Created by Dmitry on 10/11/2018.
@@ -11,11 +11,11 @@
 import Foundation
 
 extension ContractV2.EventFilter {
-    public var objc: W3ContractEventFilter {
-        return W3ContractEventFilter(self)
+    public var objc: C3ContractEventFilter {
+        return C3ContractEventFilter(self)
     }
 }
-@objc public class W3ContractEventFilter: NSObject, SwiftContainer {
+@objc public class C3ContractEventFilter: NSObject, SwiftContainer {
     public var swift: ContractV2.EventFilter
     public required init(_ swift: ContractV2.EventFilter) {
         self.swift = swift
@@ -30,7 +30,7 @@ extension ContractV2.EventFilter {
         set { swift.parameterValues = newValue }
     }
 }
-@objc public class W3ContractParsedEvent: NSObject {
+@objc public class C3ContractParsedEvent: NSObject {
     @objc public let eventName: String?
     @objc public let eventData: [String: Any]?
     init(eventName: String?, eventData: [String: Any]?) {
@@ -40,12 +40,12 @@ extension ContractV2.EventFilter {
 }
 
 extension ContractProtocol {
-    public var objc: W3Contract {
-        return W3Contract(self as! ContractV2)
+    public var objc: C3Contract {
+        return C3Contract(self as! ContractV2)
     }
 }
 
-@objc public class W3Contract: NSObject, W3OptionsInheritable, SwiftContainer {
+@objc public class C3Contract: NSObject, C3OptionsInheritable, SwiftContainer {
     public var swift: ContractV2
     var _swiftOptions: Chain3Options {
         get { return swift.options }
@@ -54,7 +54,7 @@ extension ContractProtocol {
     public required init(_ swift: ContractV2) {
         self.swift = swift
         super.init()
-        options = W3Options(object: self)
+        options = C3Options(object: self)
     }
     
     @objc public var allEvents: [String] {
@@ -65,33 +65,33 @@ extension ContractProtocol {
         return swift.allMethods
     }
     
-    @objc public var address: W3Address? {
+    @objc public var address: C3Address? {
         get { return swift.address?.objc }
         set { swift.address = newValue?.swift }
     }
     
-    @objc public var options: W3Options!
+    @objc public var options: C3Options!
     
-    @objc public init(_ abiString: String, at address: W3Address? = nil) throws {
+    @objc public init(_ abiString: String, at address: C3Address? = nil) throws {
         swift = try ContractV2(abiString, at: address?.swift)
     }
     
-    @objc public func deploy(bytecode: Data, parameters: [Any], extraData: Data?, options: W3Options?) throws -> W3MOACTransaction {
+    @objc public func deploy(bytecode: Data, parameters: [Any], extraData: Data?, options: C3Options?) throws -> C3MOACTransaction {
         let extraData = extraData ?? Data()
         return try swift.deploy(bytecode: bytecode, parameters: parameters, extraData: extraData, options: options?.swift).objc
     }
     
-    @objc public func method(_ method: String, parameters: [Any], extraData: Data?, options: W3Options?) throws -> W3MOACTransaction {
+    @objc public func method(_ method: String, parameters: [Any], extraData: Data?, options: C3Options?) throws -> C3MOACTransaction {
         let extraData = extraData ?? Data()
         return try swift.method(method, parameters: parameters, extraData: extraData, options: options?.swift).objc
     }
     
-    @objc public func parseEvent(_ eventLog: W3EventLog) -> W3ContractParsedEvent {
+    @objc public func parseEvent(_ eventLog: C3EventLog) -> C3ContractParsedEvent {
         let (name,data) = swift.parseEvent(eventLog.swift)
-        return W3ContractParsedEvent(eventName: name, eventData: data)
+        return C3ContractParsedEvent(eventName: name, eventData: data)
     }
     
-    @objc public func testBloomForEventPrecence(eventName: String, bloom: W3MOACBloomFilter) -> Bool {
+    @objc public func testBloomForEventPrecence(eventName: String, bloom: C3MOACBloomFilter) -> Bool {
         return swift.testBloomForEventPrecence(eventName: eventName, bloom: bloom.swift) ?? false
     }
     

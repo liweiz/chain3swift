@@ -1,5 +1,5 @@
 //
-//  W3Chain3.swift
+//  C3Chain3.swift
 //  chain3swift
 //
 //  Created by Dmitry on 11/9/18.
@@ -11,19 +11,19 @@
 import Foundation
 
 extension Chain3Provider {
-    public var objc: W3Chain3HttpProvider {
-		guard let provider = self as? Chain3HttpProvider else { fatalError("\(self) is not convertable to objective-c W3Chain3HttpProvider") }
+    public var objc: C3Chain3HttpProvider {
+		guard let provider = self as? Chain3HttpProvider else { fatalError("\(self) is not convertable to objective-c C3Chain3HttpProvider") }
 		return provider.objc
 	}
 }
 
 extension Chain3 {
-    public var objc: W3Chain3 {
-		return W3Chain3(self)
+    public var objc: C3Chain3 {
+		return C3Chain3(self)
 	}
 }
 
-@objc public class W3Chain3: NSObject, W3OptionsInheritable, SwiftContainer {
+@objc public class C3Chain3: NSObject, C3OptionsInheritable, SwiftContainer {
 	public var swift: Chain3
     var _swiftOptions: Chain3Options {
         get { return swift.options }
@@ -32,35 +32,35 @@ extension Chain3 {
 	public required init(_ swift: Chain3) {
 		self.swift = swift
 		super.init()
-		options = W3Options(object: self)
+		options = C3Options(object: self)
 	}
 	
-	@objc public static var `default`: W3Chain3 {
+	@objc public static var `default`: C3Chain3 {
 		get { return Chain3.default.objc }
 		set { Chain3.default = newValue.swift }
 	}
-	@objc public var provider: W3Chain3HttpProvider {
+	@objc public var provider: C3Chain3HttpProvider {
 		get { return swift.provider.objc }
 		set { swift.provider = newValue.swift }
 	}
-	@objc public var options: W3Options!
+	@objc public var options: C3Options!
 	@objc public var defaultBlock: String {
 		get { return swift.defaultBlock }
 		set { swift.defaultBlock = newValue }
 	}
-	@objc public var requestDispatcher: W3JsonRpcRequestDispatcher {
+	@objc public var requestDispatcher: C3JsonRpcRequestDispatcher {
 		get { return swift.requestDispatcher.objc }
 		set { swift.requestDispatcher = newValue.swift }
 	}
-	@objc public var keystoreManager: W3KeystoreManager? {
+	@objc public var keystoreManager: C3KeystoreManager? {
 		get { return swift.provider.attachedKeystoreManager?.objc }
 		set { swift.provider.attachedKeystoreManager = newValue?.swift }
 	}
-	@objc public var txpool: W3TxPool {
-		return W3TxPool(chain3: self)
+	@objc public var txpool: C3TxPool {
+		return C3TxPool(chain3: self)
 	}
 	
-	@objc public func dispatch(_ request: W3JsonRpcRequest, completion: @escaping (W3JsonRpcResponse?,Error?)->()) {
+	@objc public func dispatch(_ request: C3JsonRpcRequest, completion: @escaping (C3JsonRpcResponse?,Error?)->()) {
 		swift.dispatch(request.swift).done {
 			completion($0.objc,nil)
 		}.catch {
@@ -68,32 +68,32 @@ extension Chain3 {
 		}
 	}
 	
-	@objc public init(provider prov: W3Chain3HttpProvider, queue: OperationQueue? = nil) {
+	@objc public init(provider prov: C3Chain3HttpProvider, queue: OperationQueue? = nil) {
 		swift = Chain3(provider: prov.swift, queue: queue)
 		super.init()
-		options = W3Options(object: self)
+		options = C3Options(object: self)
 	}
 	
-    @objc public lazy var eth = W3Eth(chain3: self)
-    @objc public lazy var personal = W3Personal(chain3: self)
-    @objc public lazy var wallet = W3Wallet(chain3: self)
+    @objc public lazy var eth = C3Eth(chain3: self)
+    @objc public lazy var personal = C3Personal(chain3: self)
+    @objc public lazy var wallet = C3Wallet(chain3: self)
 	
-	@objc public init(infura networkId: W3NetworkId) {
+	@objc public init(infura networkId: C3NetworkId) {
 		swift = Chain3(infura: networkId.swift)
 		super.init()
-		options = W3Options(object: self)
+		options = C3Options(object: self)
 	}
 	
-	@objc public init(infura networkId: W3NetworkId, accessToken: String) {
+	@objc public init(infura networkId: C3NetworkId, accessToken: String) {
 		swift = Chain3(infura: networkId.swift, accessToken: accessToken)
 		super.init()
-		options = W3Options(object: self)
+		options = C3Options(object: self)
 	}
 	
 	@objc public init?(url: URL) {
 		guard let swift = Chain3(url: url) else { return nil }
 		self.swift = swift
 		super.init()
-		options = W3Options(object: self)
+		options = C3Options(object: self)
 	}
 }

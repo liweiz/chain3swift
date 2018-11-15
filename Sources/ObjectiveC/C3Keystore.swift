@@ -1,5 +1,5 @@
 //
-//  W3Keystore.swift
+//  C3Keystore.swift
 //  chain3swift
 //
 //  Created by Dmitry on 11/8/18.
@@ -10,18 +10,18 @@
 
 import Foundation
 
-func objc(_ value: AbstractKeystore) -> W3AbstractKeystore {
+func objc(_ value: AbstractKeystore) -> C3AbstractKeystore {
 	switch value {
 	case let keystore as KeystoreManager: return keystore.objc
 	case let keystore as PlainKeystore: return keystore.objc
 	case let keystore as MOACKeystoreV3: return keystore.objc
 	case let keystore as BIP32Keystore: return keystore.objc
-	default: fatalError("\(value) is not convertable to objective-c W3AbstractKeystore")
+	default: fatalError("\(value) is not convertable to objective-c C3AbstractKeystore")
 	}
 }
 
 extension BIP39Language {
-    public var objc: W3BIP39Language {
+    public var objc: C3BIP39Language {
 		switch self {
 		case .english: return .english
 		case .chinese_simplified: return .chinese_simplified
@@ -34,7 +34,7 @@ extension BIP39Language {
 		}
 	}
 }
-@objc public enum W3BIP39Language: Int, SwiftBridgeable {
+@objc public enum C3BIP39Language: Int, SwiftBridgeable {
 	case english
 	case chinese_simplified
 	case chinese_traditional
@@ -57,7 +57,7 @@ extension BIP39Language {
 	}
 }
 
-@objc public enum W3EntropySize: Int, SwiftBridgeable {
+@objc public enum C3EntropySize: Int, SwiftBridgeable {
 	case b128 = 128
 	case b160 = 160
 	case b192 = 192
@@ -68,7 +68,7 @@ extension BIP39Language {
 	}
 }
 
-@objc public class W3Mnemonics: NSObject, SwiftContainer {
+@objc public class C3Mnemonics: NSObject, SwiftContainer {
 	public let swift: Mnemonics
 	public required init(_ swift: Mnemonics) {
 		self.swift = swift
@@ -77,7 +77,7 @@ extension BIP39Language {
 	@objc public var string: String {
 		return swift.string
 	}
-	@objc public var language: W3BIP39Language {
+	@objc public var language: C3BIP39Language {
 		return swift.language.objc
 	}
 	@objc public var entropy: Data {
@@ -93,13 +93,13 @@ extension BIP39Language {
 		return Mnemonics.seed(from: mnemonics, password: password)
 	}
 	
-	@objc public init(_ string: String, language: W3BIP39Language = .english) throws {
+	@objc public init(_ string: String, language: C3BIP39Language = .english) throws {
 		swift = try Mnemonics(string, language: language.swift)
 	}
-	@objc public init(entropySize: W3EntropySize = .b256, language: W3BIP39Language = .english) {
+	@objc public init(entropySize: C3EntropySize = .b256, language: C3BIP39Language = .english) {
 		swift = Mnemonics(entropySize: entropySize.swift, language: language.swift)
 	}
-	@objc public init(entropy: Data, language: W3BIP39Language = .english) throws {
+	@objc public init(entropy: Data, language: C3BIP39Language = .english) throws {
 		swift = try Mnemonics(entropy: entropy, language: language.swift)
 	}
 	@objc public func seed() -> Data {
@@ -110,13 +110,13 @@ extension BIP39Language {
 	}
 }
 
-@objc public protocol W3AbstractKeystore {
-	var addresses: [W3Address] { get }
+@objc public protocol C3AbstractKeystore {
+	var addresses: [C3Address] { get }
 	var isHDKeystore: Bool { get }
-	func UNSAFE_getPrivateKeyData(password: String, account: W3Address) throws -> Data
+	func UNSAFE_getPrivateKeyData(password: String, account: C3Address) throws -> Data
 }
 
-@objc public class W3HDVersion: NSObject, SwiftContainer {
+@objc public class C3HDVersion: NSObject, SwiftContainer {
 	public var swift: HDNode.HDversion
 	public required init(_ swift: HDNode.HDversion) {
 		self.swift = swift
@@ -135,11 +135,11 @@ extension BIP39Language {
 	}
 }
 extension HDNode {
-    public var objc: W3HDNode {
-		return W3HDNode(self)
+    public var objc: C3HDNode {
+		return C3HDNode(self)
 	}
 }
-@objc public class W3HDNode: NSObject, SwiftContainer {
+@objc public class C3HDNode: NSObject, SwiftContainer {
 	public let swift: HDNode
 	public required init(_ swift: HDNode) {
 		self.swift = swift
@@ -221,34 +221,34 @@ extension HDNode {
 	}
 	
 	
-	@objc public func derive(index: UInt32, derivePrivateKey: Bool, hardened: Bool = false) throws -> W3HDNode {
+	@objc public func derive(index: UInt32, derivePrivateKey: Bool, hardened: Bool = false) throws -> C3HDNode {
 		return try swift.derive(index: index, derivePrivateKey: derivePrivateKey, hardened: hardened).objc
 	}
 	
-	@objc public func derive(path: String, derivePrivateKey: Bool = true) throws -> W3HDNode {
+	@objc public func derive(path: String, derivePrivateKey: Bool = true) throws -> C3HDNode {
 		return try swift.derive(path: path, derivePrivateKey: derivePrivateKey).objc
 	}
 	
-	@objc public func serializeToString(serializePublic: Bool = true, version: W3HDVersion = W3HDVersion()) -> String? {
+	@objc public func serializeToString(serializePublic: Bool = true, version: C3HDVersion = C3HDVersion()) -> String? {
 		return swift.serializeToString(serializePublic: serializePublic, version: version.swift)
 	}
 	
-	@objc public func serialize(serializePublic: Bool = true, version: W3HDVersion = W3HDVersion()) -> Data? {
+	@objc public func serialize(serializePublic: Bool = true, version: C3HDVersion = C3HDVersion()) -> Data? {
 		return swift.serialize(serializePublic: serializePublic, version: version.swift)
 	}
 }
 
 extension BIP32Keystore {
-    public var objc: W3BIP32Keystore {
-		return W3BIP32Keystore(self)
+    public var objc: C3BIP32Keystore {
+		return C3BIP32Keystore(self)
 	}
 }
-@objc public class W3BIP32Keystore: NSObject, W3AbstractKeystore, SwiftContainer {
+@objc public class C3BIP32Keystore: NSObject, C3AbstractKeystore, SwiftContainer {
 	public let swift: BIP32Keystore
 	public required init(_ swift: BIP32Keystore) {
 		self.swift = swift
 	}
-	@objc public var addresses: [W3Address] {
+	@objc public var addresses: [C3Address] {
 		return swift.addresses.map { $0.objc }
 	}
 	@objc public var isHDKeystore: Bool {
@@ -256,12 +256,12 @@ extension BIP32Keystore {
 		set { swift.isHDKeystore = newValue }
 	}
 	
-	@objc public func UNSAFE_getPrivateKeyData(password: String, account: W3Address) throws -> Data {
+	@objc public func UNSAFE_getPrivateKeyData(password: String, account: C3Address) throws -> Data {
 		return try swift.UNSAFE_getPrivateKeyData(password: password, account: account.swift)
 	}
 	
 	//    @objc public var mnemonics: String?
-	@objc public var paths: [String: W3Address] {
+	@objc public var paths: [String: C3Address] {
 		get { return swift.paths.mapValues { $0.objc } }
 		set { swift.paths = newValue.mapValues { $0.swift } }
 	}
@@ -279,7 +279,7 @@ extension BIP32Keystore {
 		self.swift = swift
 	}
 	
-	@objc public init(mnemonics: W3Mnemonics, password: String = "BANKEXFOUNDATION", prefixPath: String = HDNode.defaultPathMetamaskPrefix) throws {
+	@objc public init(mnemonics: C3Mnemonics, password: String = "BANKEXFOUNDATION", prefixPath: String = HDNode.defaultPathMetamaskPrefix) throws {
 		swift = try BIP32Keystore(mnemonics: mnemonics.swift, password: password, prefixPath: prefixPath)
 	}
 	
@@ -291,7 +291,7 @@ extension BIP32Keystore {
 		try swift.createNewChildAccount()
 	}
 	
-	@objc public func createNewAccount(parentNode: W3HDNode, password: String = "BANKEXFOUNDATION", aesMode: String = "aes-128-cbc") throws {
+	@objc public func createNewAccount(parentNode: C3HDNode, password: String = "BANKEXFOUNDATION", aesMode: String = "aes-128-cbc") throws {
 		try swift.createNewAccount(parentNode: parentNode.swift, password: password, aesMode: aesMode)
 	}
 	
@@ -314,23 +314,23 @@ extension BIP32Keystore {
 }
 
 extension PlainKeystore {
-    public var objc: W3PlainKeystore {
-		return W3PlainKeystore(self)
+    public var objc: C3PlainKeystore {
+		return C3PlainKeystore(self)
 	}
 }
-@objc public class W3PlainKeystore: NSObject, W3AbstractKeystore, SwiftContainer {
+@objc public class C3PlainKeystore: NSObject, C3AbstractKeystore, SwiftContainer {
 	public let swift: PlainKeystore
 	public required init(_ swift: PlainKeystore) {
 		self.swift = swift
 	}
 	
-	@objc public var addresses: [W3Address] {
+	@objc public var addresses: [C3Address] {
 		return swift.addresses.map { $0.objc }
 	}
 	@objc public var isHDKeystore: Bool {
 		return swift.isHDKeystore
 	}
-	@objc public func UNSAFE_getPrivateKeyData(password: String = "", account: W3Address) throws -> Data {
+	@objc public func UNSAFE_getPrivateKeyData(password: String = "", account: C3Address) throws -> Data {
 		return try swift.UNSAFE_getPrivateKeyData(password: password, account: account.swift)
 	}
 	
@@ -340,21 +340,21 @@ extension PlainKeystore {
 }
 
 extension MOACKeystoreV3 {
-    public var objc: W3MOACKeystoreV3 {
-		return W3MOACKeystoreV3(self)
+    public var objc: C3MOACKeystoreV3 {
+		return C3MOACKeystoreV3(self)
 	}
 }
-@objc public class W3MOACKeystoreV3: NSObject, W3AbstractKeystore, SwiftContainer {
+@objc public class C3MOACKeystoreV3: NSObject, C3AbstractKeystore, SwiftContainer {
 	public let swift: MOACKeystoreV3
 	public required init(_ swift: MOACKeystoreV3) {
 		self.swift = swift
 	}
 	
-	@objc public func getAddress() -> W3Address? {
+	@objc public func getAddress() -> C3Address? {
 		return swift.getAddress()?.objc
 	}
 	
-	@objc public var addresses: [W3Address] {
+	@objc public var addresses: [C3Address] {
 		return swift.addresses.map { $0.objc }
 	}
 	@objc public var isHDKeystore: Bool {
@@ -362,7 +362,7 @@ extension MOACKeystoreV3 {
 		set { swift.isHDKeystore = newValue }
 	}
 	
-	@objc public func UNSAFE_getPrivateKeyData(password: String, account: W3Address) throws -> Data {
+	@objc public func UNSAFE_getPrivateKeyData(password: String, account: C3Address) throws -> Data {
 		return try swift.UNSAFE_getPrivateKeyData(password: password, account: account.swift)
 	}
 	
@@ -397,33 +397,33 @@ extension MOACKeystoreV3 {
 }
 
 extension KeystoreManager {
-    public var objc: W3KeystoreManager {
-		return W3KeystoreManager(self)
+    public var objc: C3KeystoreManager {
+		return C3KeystoreManager(self)
 	}
 }
-@objc public class W3KeystoreManager: NSObject, W3AbstractKeystore, SwiftContainer {
+@objc public class C3KeystoreManager: NSObject, C3AbstractKeystore, SwiftContainer {
 	public let swift: KeystoreManager
 	public required init(_ swift: KeystoreManager) {
 		self.swift = swift
 	}
-	@objc public var addresses: [W3Address] {
+	@objc public var addresses: [C3Address] {
 		return swift.addresses.map { $0.objc }
 	}
 	@objc public var isHDKeystore: Bool {
 		return swift.isHDKeystore
 	}
-	@objc public func UNSAFE_getPrivateKeyData(password: String = "", account: W3Address) throws -> Data {
+	@objc public func UNSAFE_getPrivateKeyData(password: String = "", account: C3Address) throws -> Data {
 		return try swift.UNSAFE_getPrivateKeyData(password: password, account: account.swift)
 	}
 	
-	@objc public static var all: [W3KeystoreManager] {
+	@objc public static var all: [C3KeystoreManager] {
 		get { return KeystoreManager.all.map { $0.objc } }
 		set { KeystoreManager.all = newValue.map { $0.swift } }
 	}
-	@objc public static var `default`: W3KeystoreManager? {
+	@objc public static var `default`: C3KeystoreManager? {
 		return KeystoreManager.default?.objc
 	}
-	@objc public static func managerForPath(_ path: String, scanForHDWallets: Bool = false, suffix: String? = nil) -> W3KeystoreManager? {
+	@objc public static func managerForPath(_ path: String, scanForHDWallets: Bool = false, suffix: String? = nil) -> C3KeystoreManager? {
 		return KeystoreManager.managerForPath(path, scanForHDwallets: scanForHDWallets, suffix: suffix)?.objc
 	}
 	
@@ -432,7 +432,7 @@ extension KeystoreManager {
 		set { swift.path = newValue }
 	}
 	
-	@objc public func walletForAddress(_ address: W3Address) -> W3AbstractKeystore? {
+	@objc public func walletForAddress(_ address: C3Address) -> C3AbstractKeystore? {
 		guard let keystore = swift.walletForAddress(address.swift) else { return nil }
 		switch keystore {
 		case let keystore as KeystoreManager: return keystore.objc
@@ -443,27 +443,27 @@ extension KeystoreManager {
 		}
 	}
 	
-	@objc public var keystores: [W3MOACKeystoreV3] {
+	@objc public var keystores: [C3MOACKeystoreV3] {
 		return swift.keystores.map { $0.objc }
 	}
 	
-	@objc public var bip32keystores: [W3BIP32Keystore] {
+	@objc public var bip32keystores: [C3BIP32Keystore] {
 		return swift.bip32keystores.map { $0.objc }
 	}
 	
-	@objc public var plainKeystores: [W3PlainKeystore] {
+	@objc public var plainKeystores: [C3PlainKeystore] {
 		return swift.plainKeystores.map { $0.objc }
 	}
 	
-	@objc public init(MOACKeystores: [W3MOACKeystoreV3]) {
+	@objc public init(MOACKeystores: [C3MOACKeystoreV3]) {
 		swift = KeystoreManager(MOACKeystores.map { $0.swift })
 	}
 	
-	@objc public init(bip32Keystores: [W3BIP32Keystore]) {
+	@objc public init(bip32Keystores: [C3BIP32Keystore]) {
 		swift = KeystoreManager(bip32Keystores.map { $0.swift })
 	}
 	
-	@objc public init(plainKeystores: [W3PlainKeystore]) {
+	@objc public init(plainKeystores: [C3PlainKeystore]) {
 		swift = KeystoreManager(plainKeystores.map { $0.swift })
 	}
 }
