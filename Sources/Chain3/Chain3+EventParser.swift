@@ -99,7 +99,7 @@ extension Chain3Contract.EventParser {
      */
     public func parseTransactionByHashPromise(_ hash: Data) -> Promise<[EventParserResultProtocol]> {
         let queue = chain3.requestDispatcher.queue
-        return chain3.eth.getTransactionReceiptPromise(hash).map(on: queue) { receipt throws -> [EventParserResultProtocol] in
+        return chain3.mc.getTransactionReceiptPromise(hash).map(on: queue) { receipt throws -> [EventParserResultProtocol] in
             guard let results = parseReceiptForLogs(receipt: receipt, contract: self.contract, eventName: self.eventName, filter: self.filter) else {
                 throw Chain3Error.processingError("Failed to parse receipt for events")
             }
@@ -119,7 +119,7 @@ extension Chain3Contract.EventParser {
             if filter != nil && (filter?.fromBlock != nil || filter?.toBlock != nil) {
                 throw Chain3Error.inputError("Can not mix parsing specific block and using block range filter")
             }
-            return chain3.eth.getBlockByNumberPromise(blockNumber).then(on: queue) { res in
+            return chain3.mc.getBlockByNumberPromise(blockNumber).then(on: queue) { res in
                 self.parseBlockPromise(res)
             }
         } catch {
@@ -278,7 +278,7 @@ extension Chain3Contract {
                 }
             }
             return fetchLogsPromise.thenMap(on: queue) { singleEvent in
-                self.chain3.eth.getTransactionReceiptPromise(singleEvent.eventLog!.transactionHash).map(on: queue) { receipt in
+                self.chain3.mc.getTransactionReceiptPromise(singleEvent.eventLog!.transactionHash).map(on: queue) { receipt in
                     var joinedEvent = singleEvent
                     joinedEvent.transactionReceipt = receipt
                     return joinedEvent as EventParserResultProtocol

@@ -5,6 +5,8 @@
 //  Created by Alexander Vlasov on 26.02.2018.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
 //
+//  Modifications copyright © 2018 Liwei Zhang. All rights reserved.
+//
 
 import BigInt
 import Foundation
@@ -65,7 +67,7 @@ public struct Chain3Signer {
     }
 
     public struct EIP155Signer {
-        public static func sign(transaction: inoutMOACTransaction, privateKey: Data, useExtraEntropy: Bool = false) throws {
+        public static func sign(transaction: inout MOACTransaction, privateKey: Data, useExtraEntropy: Bool = false) throws {
             for _ in 0 ..< 1024 {
                 do {
                     try attemptSignature(transaction: &transaction, privateKey: privateKey, useExtraEntropy: useExtraEntropy)
@@ -81,7 +83,7 @@ public struct Chain3Signer {
             case recoveredPublicKeyCorrupted
         }
 
-        private static func attemptSignature(transaction: inout  MOACTransaction, privateKey: Data, useExtraEntropy: Bool = false) throws {
+        private static func attemptSignature(transaction: inout MOACTransaction, privateKey: Data, useExtraEntropy: Bool = false) throws {
             guard let chainID = transaction.chainID else { throw Error.chainIdNotFound }
             guard let hash = transaction.hashForSignature(chainID: chainID) else { throw Error.hashNotFound }
             let signature = try SECP256K1.signForRecovery(hash: hash, privateKey: privateKey, useExtraEntropy: useExtraEntropy)

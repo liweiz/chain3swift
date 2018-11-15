@@ -1,6 +1,6 @@
 //
 //  SolidityFunctionTests.swift
-//  web3swift-iOS_Tests
+//  chain3swift-iOS_Tests
 //
 //  Created by Dmitry on 25/10/2018.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
@@ -8,7 +8,7 @@
 
 import XCTest
 import BigInt
-@testable import web3swift
+@testable import chain3swift
 
 private func scan(type: String) throws -> SolidityType {
     return try SolidityType.scan(type: type)
@@ -90,7 +90,7 @@ class SolidityFunctionTests: XCTestCase {
         let function = try SolidityFunction(function: "transfer(address,uint256)")
         let data = function.encode(user, 800)
         
-        let reader = Web3DataResponse(data)
+        let reader = Chain3DataResponse(data)
         let hash = try reader.header(4)
         let a = try reader.address()
         let b = try reader.uint256()
@@ -109,7 +109,7 @@ class SolidityFunctionTests: XCTestCase {
         let function = try SolidityFunction(function: "send(address,string,uint256)")
         let data = function.encode(user, "hello world", 800)
         
-        let reader = Web3DataResponse(data)
+        let reader = Chain3DataResponse(data)
         let hash = try reader.header(4)
         let a = try reader.address()
         let message = try reader.string()
@@ -128,7 +128,7 @@ class SolidityFunctionTests: XCTestCase {
         let function = try SolidityFunction(function: "  send  (  address, string ,uint256 ) ")
         let data = function.encode(user, bigString, 800)
         
-        let reader = Web3DataResponse(data)
+        let reader = Chain3DataResponse(data)
         let hash = try reader.header(4)
         let a = try reader.address()
         let message = try reader.string()

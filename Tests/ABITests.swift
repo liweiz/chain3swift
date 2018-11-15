@@ -1,6 +1,6 @@
 //
-//  web3swiftABITests.swift
-//  web3swift-iOS_Tests
+//  chain3swiftABITests.swift
+//  chain3swift-iOS_Tests
 //
 //  Created by Георгий Фесенко on 02/07/2018.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
@@ -9,7 +9,7 @@
 import BigInt
 import XCTest
 
-@testable import web3swift
+@testable import chain3swift
 
 class ABITests: XCTestCase {
     func testRealABIv2() throws {

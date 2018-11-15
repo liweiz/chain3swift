@@ -5,6 +5,8 @@
 //  Created by Dmitry on 02/10/2018.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
 //
+//  Modifications copyright © 2018 Liwei Zhang. All rights reserved.
+//
 
 import BigInt
 import Foundation

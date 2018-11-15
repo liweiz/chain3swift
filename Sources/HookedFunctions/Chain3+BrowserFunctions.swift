@@ -5,6 +5,8 @@
 //  Created by Alexander Vlasov on 26.02.2018.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
 //
+//  Modifications copyright © 2018 Liwei Zhang. All rights reserved.
+//
 
 import BigInt
 import Foundation
@@ -25,7 +27,7 @@ public class Chain3BrowserFunctions: Chain3OptionsInheritable {
     
     public func getAccounts() -> [String]? {
         do {
-            return try chain3.eth.getAccounts().compactMap { $0.address }
+            return try chain3.mc.getAccounts().compactMap { $0.address }
         } catch {
             return nil
         }
@@ -80,7 +82,7 @@ public class Chain3BrowserFunctions: Chain3OptionsInheritable {
     }
 
     public func sendTransaction(_ transaction: MOACTransaction, options: Chain3Options, password: String = "BANKEXFOUNDATION") throws -> String {
-        return try chain3.eth.sendTransaction(transaction, options: options, password: password).hash
+        return try chain3.mc.sendTransaction(transaction, options: options, password: password).hash
     }
 
     public func estimateGas(_ json: [String: Any]) throws -> BigUInt {
@@ -90,7 +92,7 @@ public class Chain3BrowserFunctions: Chain3OptionsInheritable {
     }
 
     public func estimateGas(_ transaction: MOACTransaction, options: Chain3Options) throws -> BigUInt {
-        return try chain3.eth.estimateGas(transaction, options: options)
+        return try chain3.mc.estimateGas(transaction, options: options)
     }
 
     public func prepareTxForApproval(_ json: [String: Any]) throws -> (transaction: MOACTransaction, options: Chain3Options) {
@@ -110,7 +112,7 @@ public class Chain3BrowserFunctions: Chain3OptionsInheritable {
         var transaction = trans
         var options = opts
         guard options.from != nil else { throw TransactionError.optionsFromNotFound }
-        let gasPrice = try chain3.eth.getGasPrice()
+        let gasPrice = try chain3.mc.getGasPrice()
         transaction.gasPrice = gasPrice
         options.gasPrice = gasPrice
         let gasLimit = try estimateGas(transaction, options: options)
@@ -130,12 +132,12 @@ public class Chain3BrowserFunctions: Chain3OptionsInheritable {
         var transaction = trans
         guard let from = options.from else { throw TransactionError.optionsFromNotFound }
         guard let keystoreManager = self.chain3.provider.attachedKeystoreManager else { throw TransactionError.keystoreManagerNotFound }
-        let gasPrice = try chain3.eth.getGasPrice()
+        let gasPrice = try chain3.mc.getGasPrice()
         transaction.gasPrice = gasPrice
         let gasLimit = try estimateGas(transaction, options: options)
         transaction.gasLimit = gasLimit
 
-        transaction.nonce = try chain3.eth.getTransactionCount(address: from, onBlock: "pending")
+        transaction.nonce = try chain3.mc.getTransactionCount(address: from, onBlock: "pending")
 
         if chain3.provider.network != nil {
             transaction.chainID = chain3.provider.network

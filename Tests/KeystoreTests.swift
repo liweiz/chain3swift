@@ -1,6 +1,6 @@
 //
-//  web3swiftKyestoresTests.swift
-//  web3swift-iOS_Tests
+//  chain3swiftKyestoresTests.swift
+//  chain3swift-iOS_Tests
 //
 //  Created by Георгий Фесенко on 02/07/2018.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
@@ -9,7 +9,7 @@
 import CryptoSwift
 import XCTest
 
-@testable import web3swift
+@testable import chain3swift
 
 class KeystoresTests: XCTestCase {
 
@@ -33,11 +33,11 @@ class KeystoresTests: XCTestCase {
         let json = """
 {"version":3,"id":"8b60fda9-5f27-4478-9cc9-72059571aa6e","crypto":{"ciphertext":"d34e78640359a599970a58b3b4b7c987945e56c69411028ea62394e8d1ea7e4b","cipherparams":{"iv":"6e4a429a30807ab9202a9aefad152398"},"kdf":"scrypt","kdfparams":{"r":6,"p":1,"n":4096,"dklen":32,"salt":"0000000000000000000000000000000000000000000000000000000000000000"},"mac":"79888d6ce3a2a24d6b70d07ca9067b57e4a57bd9416a3abb336900cacf82e29a","cipher":"aes-128-cbc"},"address":"0x0b0f7a95485060973726d03e7c326a6542bcb55b"}
 """
-        let keystore = EthereumKeystoreV3(json)!
+        let keystore = MOACKeystoreV3(json)!
         let data = try keystore.serialize()!
         let key = try keystore.UNSAFE_getPrivateKeyData(password: "hello world", account: keystore.addresses[0]).toHexString()
         
-        let keystore2 = EthereumKeystoreV3(data)!
+        let keystore2 = MOACKeystoreV3(data)!
         let data2 = try keystore2.serialize()!
         let key2 = try keystore2.UNSAFE_getPrivateKeyData(password: "hello world", account: keystore.addresses[0]).toHexString()
         
@@ -67,7 +67,7 @@ class KeystoresTests: XCTestCase {
 
     func testV3keystoreExportPrivateKey() {
         // 5.033522009849548 sec to complete
-        let keystore = try! EthereumKeystoreV3(password: "")
+        let keystore = try! MOACKeystoreV3(password: "")
         XCTAssertNotNil(keystore)
         let account = keystore!.addresses[0]
         let data = try! keystore!.serialize()
@@ -98,7 +98,7 @@ class KeystoresTests: XCTestCase {
         let keystore = try BIP32Keystore(mnemonics: mnemonics, password: "")
         let account = keystore.addresses[0]
         let privateKey = try keystore.UNSAFE_getPrivateKeyData(password: "", account: account)
-        let publicKey = try Web3Utils.privateToPublic(privateKey, compressed: true)
+        let publicKey = try Chain3Utils.privateToPublic(privateKey, compressed: true)
         XCTAssertEqual(publicKey.toHexString(), "027160bd3a4d938cac609ff3a11fe9233de7b76c22a80d2b575e202cbf26631659")
     }
 
@@ -119,7 +119,7 @@ class KeystoresTests: XCTestCase {
         XCTAssertNotNil(keystore)
         let account = keystore.addresses[0]
         let key = try keystore.UNSAFE_getPrivateKeyData(password: "", account: account)
-        let pubKey = try Web3Utils.privateToPublic(key, compressed: true)
+        let pubKey = try Chain3Utils.privateToPublic(key, compressed: true)
         XCTAssertEqual(pubKey.toHexString(), "027160bd3a4d938cac609ff3a11fe9233de7b76c22a80d2b575e202cbf26631659")
     }
 
@@ -250,17 +250,17 @@ class KeystoresTests: XCTestCase {
         let account = keystore.addresses[0]
         XCTAssertThrowsError(try keystore.UNSAFE_getPrivateKeyData(password: "some password", account: account))
         let key = try keystore.UNSAFE_getPrivateKeyData(password: "", account: account)
-        XCTAssertNoThrow(try Web3Utils.privateToPublic(key, compressed: true))
+        XCTAssertNoThrow(try Chain3Utils.privateToPublic(key, compressed: true))
         
         let address = keystore.addresses[0]
         
-        let options = Web3Options.default
+        let options = Chain3Options.default
         
         let function = try! SolidityFunction(function: "some(address)")
         let data = function.encode([address])
-        var transaction = EthereumTransaction(to: address, data: data, options: options)
+        var transaction = MOACTransaction(to: address, data: data, options: options)
         
-        XCTAssertNoThrow(try Web3Signer.signTX(transaction: &transaction, keystore: keystore, account: address, password: ""))
-        XCTAssertThrowsError(try Web3Signer.signTX(transaction: &transaction, keystore: keystore, account: address, password: "some password"))
+        XCTAssertNoThrow(try Chain3Signer.signTX(transaction: &transaction, keystore: keystore, account: address, password: ""))
+        XCTAssertThrowsError(try Chain3Signer.signTX(transaction: &transaction, keystore: keystore, account: address, password: "some password"))
     }
 }

@@ -60,7 +60,7 @@ public struct Chain3Options {
         from = try json.at("from").address()
     }
 
-    /// Merges two sets of topions by overriding the parameters from the first set by parameters from the second
+    /// Merges two sets of opions by overriding the parameters from the first set by parameters from the second
     /// set if those are not nil.
     ///
     /// Returns default options if both parameters are nil.

@@ -1,6 +1,6 @@
 //
-//  web3swiftTests.swift
-//  web3swiftTests
+//  chain3swiftTests.swift
+//  chain3swiftTests
 //
 //  Created by Alexander Vlasov on 04.12.2017.
 //  Copyright © 2017 Alexander Vlasov. All rights reserved.
@@ -10,7 +10,7 @@ import BigInt
 import CryptoSwift
 import XCTest
 
-@testable import web3swift
+@testable import chain3swift
 
 class Tests: XCTestCase {
     func testBitFunctions() {
@@ -23,12 +23,12 @@ class Tests: XCTestCase {
 
     func testCombiningPublicKeys() {
         let priv1 = Data(repeating: 0x01, count: 32)
-        let pub1 = try! Web3Utils.privateToPublic(priv1, compressed: true)
+        let pub1 = try! Chain3Utils.privateToPublic(priv1, compressed: true)
         let priv2 = Data(repeating: 0x02, count: 32)
-        let pub2 = try! Web3Utils.privateToPublic(priv2, compressed: true)
+        let pub2 = try! Chain3Utils.privateToPublic(priv2, compressed: true)
         let combined = try! SECP256K1.combineSerializedPublicKeys(keys: [pub1, pub2], outputCompressed: true)
         let compinedPriv = Data(repeating: 0x03, count: 32)
-        let compinedPub = try! Web3Utils.privateToPublic(compinedPriv, compressed: true)
+        let compinedPub = try! Chain3Utils.privateToPublic(compinedPriv, compressed: true)
         XCTAssert(compinedPub == combined)
     }
 
@@ -64,7 +64,7 @@ class Tests: XCTestCase {
             "tes",
             "lo",
         ]
-        var bloom = EthereumBloomFilter()
+        var bloom = MOACBloomFilter()
         for str in positive {
             let oldBytes = bloom.bytes
             bloom.add(BigUInt(str.data))
@@ -90,8 +90,8 @@ class Tests: XCTestCase {
     func testUserCaseEventParsing() throws {
         let contractAddress = Address("0x7ff546aaccd379d2d1f241e1d29cdd61d4d50778")
         let jsonString = "[{\"constant\":false,\"inputs\":[{\"name\":\"_id\",\"type\":\"string\"}],\"name\":\"deposit\",\"outputs\":[],\"payable\":true,\"stateMutability\":\"payable\",\"type\":\"function\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"name\":\"_from\",\"type\":\"address\"},{\"indexed\":false,\"name\":\"_id\",\"type\":\"string\"},{\"indexed\":true,\"name\":\"_value\",\"type\":\"uint256\"}],\"name\":\"Deposit\",\"type\":\"event\"}]"
-        let web3 = Web3(infura: .rinkeby)
-        let contract = try web3.contract(jsonString, at: contractAddress)
+        let chain3 = Chain3(infura: .rinkeby)
+        let contract = try chain3.contract(jsonString, at: contractAddress)
         guard let eventParser = contract.createEventParser("Deposit", filter: nil) else { return XCTFail() }
         let pres = try eventParser.parseBlockByNumber(UInt64(2_138_657))
         print(pres)
@@ -126,9 +126,9 @@ class Tests: XCTestCase {
 
     func testPublicMappingsAccess() throws {
         let jsonString = "[{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"users\",\"outputs\":[{\"name\":\"name\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"name\":\"\",\"type\":\"address\"}],\"name\":\"userDeviceCount\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"totalUsers\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}]"
-        let web3 = Web3(infura: .rinkeby)
+        let chain3 = Chain3(infura: .rinkeby)
         let addr = Address("0xdef61132a0c1259464b19e4590e33666aae38574")
-        let contract = try web3.contract(jsonString, at: addr)
+        let contract = try chain3.contract(jsonString, at: addr)
         let allMethods = contract.contract.allMethods
         let userDeviceCount = try contract.method("userDeviceCount", args: addr, options: nil).callPromise().wait()
         print(userDeviceCount)

@@ -5,6 +5,8 @@
 //  Created by Dmitry on 11/9/18.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
 //
+//  Modifications copyright © 2018 Liwei Zhang. All rights reserved.
+//
 
 import Foundation
 
@@ -51,7 +53,7 @@ extension Chain3HttpProvider {
 //        guard let swift = InfuraProvider(net.swift, accessToken: token, keystoreManager: manager?.swift) else { return nil }
 //        super.init(swift)
 //    }
-//    
+//
 //    public required init(_ swift: Chain3HttpProvider) {
 //        super.init(swift)
 //    }

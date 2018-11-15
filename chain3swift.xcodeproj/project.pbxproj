@@ -114,7 +114,7 @@
 		EE2C23E6219C7D5400E5F348 /* Chain3+Methods.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2C23D6219C7D5400E5F348 /* Chain3+Methods.swift */; };
 		EE2C23E7219C7D5400E5F348 /* Chain3+Personal.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2C23D7219C7D5400E5F348 /* Chain3+Personal.swift */; };
 		EE2C23E8219C7D5400E5F348 /* Chain3+JSONRPC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2C23D8219C7D5400E5F348 /* Chain3+JSONRPC.swift */; };
-		EE2C23E9219C7D5400E5F348 /* Chain3+Eth.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2C23D9219C7D5400E5F348 /* Chain3+Eth.swift */; };
+		EE2C23E9219C7D5400E5F348 /* Chain3+MC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2C23D9219C7D5400E5F348 /* Chain3+MC.swift */; };
 		EE2C23EA219C7D5400E5F348 /* Chain3+Contract.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2C23DA219C7D5400E5F348 /* Chain3+Contract.swift */; };
 		EE2C23EB219C7D5400E5F348 /* Chain3+Instance.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2C23DB219C7D5400E5F348 /* Chain3+Instance.swift */; };
 		EE2C23EC219C7D5400E5F348 /* Batching.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2C23DC219C7D5400E5F348 /* Batching.swift */; };
@@ -124,6 +124,7 @@
 		EE2C23F6219C997800E5F348 /* secp256k1.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE2C23F1219C997800E5F348 /* secp256k1.framework */; };
 		EE2C23F7219C997800E5F348 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE2C23F2219C997800E5F348 /* CryptoSwift.framework */; };
 		EE2C23F8219C997800E5F348 /* SipHash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE2C23F3219C997800E5F348 /* SipHash.framework */; };
+		EE2C23FB219D3C9D00E5F348 /* Chain3+Infura.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2C23FA219D3C9D00E5F348 /* Chain3+Infura.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -243,7 +244,7 @@
 		EE2C23D6219C7D5400E5F348 /* Chain3+Methods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Chain3+Methods.swift"; sourceTree = "<group>"; };
 		EE2C23D7219C7D5400E5F348 /* Chain3+Personal.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Chain3+Personal.swift"; sourceTree = "<group>"; };
 		EE2C23D8219C7D5400E5F348 /* Chain3+JSONRPC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Chain3+JSONRPC.swift"; sourceTree = "<group>"; };
-		EE2C23D9219C7D5400E5F348 /* Chain3+Eth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Chain3+Eth.swift"; sourceTree = "<group>"; };
+		EE2C23D9219C7D5400E5F348 /* Chain3+MC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Chain3+MC.swift"; sourceTree = "<group>"; };
 		EE2C23DA219C7D5400E5F348 /* Chain3+Contract.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Chain3+Contract.swift"; sourceTree = "<group>"; };
 		EE2C23DB219C7D5400E5F348 /* Chain3+Instance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Chain3+Instance.swift"; sourceTree = "<group>"; };
 		EE2C23DC219C7D5400E5F348 /* Batching.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Batching.swift; sourceTree = "<group>"; };
@@ -253,6 +254,7 @@
 		EE2C23F1219C997800E5F348 /* secp256k1.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = secp256k1.framework; path = Carthage/Build/iOS/secp256k1.framework; sourceTree = "<group>"; };
 		EE2C23F2219C997800E5F348 /* CryptoSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CryptoSwift.framework; path = Carthage/Build/iOS/CryptoSwift.framework; sourceTree = "<group>"; };
 		EE2C23F3219C997800E5F348 /* SipHash.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SipHash.framework; path = Carthage/Build/iOS/SipHash.framework; sourceTree = "<group>"; };
+		EE2C23FA219D3C9D00E5F348 /* Chain3+Infura.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Chain3+Infura.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -533,7 +535,8 @@
 				EE2C23D6219C7D5400E5F348 /* Chain3+Methods.swift */,
 				EE2C23D7219C7D5400E5F348 /* Chain3+Personal.swift */,
 				EE2C23D8219C7D5400E5F348 /* Chain3+JSONRPC.swift */,
-				EE2C23D9219C7D5400E5F348 /* Chain3+Eth.swift */,
+				EE2C23FA219D3C9D00E5F348 /* Chain3+Infura.swift */,
+				EE2C23D9219C7D5400E5F348 /* Chain3+MC.swift */,
 				EE2C23DA219C7D5400E5F348 /* Chain3+Contract.swift */,
 				EE2C23DB219C7D5400E5F348 /* Chain3+Instance.swift */,
 				EE2C23DC219C7D5400E5F348 /* Batching.swift */,
@@ -762,6 +765,7 @@
 				1317BDB6218C526300D6D095 /* EthereumKeystoreV3.swift in Sources */,
 				13765D7821964A9B005C483C /* W3Transaction.swift in Sources */,
 				1317BDC6218C526300D6D095 /* NativeTypesEncoding+Extensions.swift in Sources */,
+				EE2C23FB219D3C9D00E5F348 /* Chain3+Infura.swift in Sources */,
 				1317BD76218C526300D6D095 /* ContractProtocol.swift in Sources */,
 				EE2C23E6219C7D5400E5F348 /* Chain3+Methods.swift in Sources */,
 				1317BDBC218C526300D6D095 /* KeystoreV3JSONStructure.swift in Sources */,
@@ -801,7 +805,7 @@
 				1317BD79218C526300D6D095 /* ERC721.swift in Sources */,
 				EE2C23ED219C7D5400E5F348 /* Chain3+Structures.swift in Sources */,
 				1317BDC5218C526300D6D095 /* Data+Extension.swift in Sources */,
-				EE2C23E9219C7D5400E5F348 /* Chain3+Eth.swift in Sources */,
+				EE2C23E9219C7D5400E5F348 /* Chain3+MC.swift in Sources */,
 				13765D6D21964A9B005C483C /* W3Wallet.swift in Sources */,
 				1317BD8E218C526300D6D095 /* DecoderExtensions.swift in Sources */,
 				135945AB2195952600975EE3 /* Bridging.swift in Sources */,
@@ -1086,6 +1090,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.bankexfoundation.Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos appletvsimulator appletvos watchos watchsimulator";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1121,6 +1126,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.bankexfoundation.Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "macosx iphonesimulator iphoneos appletvsimulator appletvos watchos watchsimulator";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";

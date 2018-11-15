@@ -22,7 +22,7 @@ public class Chain3Utils {
 /// Various units used in MOAC ecosystem
 //typealias Chain3Units.kWei = Chain3Units.Kwei
 public enum Chain3Units: Int {
-	case eth = 18
+	case mc = 18
 	case wei = 0
 	case kWei = 3
 	case mWei = 6
@@ -149,7 +149,7 @@ extension Chain3Utils {
     /// Parse a user-supplied string using the number of decimals for particular MOAC unit.
     /// If input is non-numeric or precision is not sufficient - returns nil.
     /// Allowed decimal separators are ".", ",".
-    public static func parseToBigUInt(_ amount: String, units: Chain3Units = .eth) -> BigUInt? {
+    public static func parseToBigUInt(_ amount: String, units: Chain3Units = .mc) -> BigUInt? {
         let unitDecimals = units.decimals
         return parseToBigUInt(amount, decimals: unitDecimals)
     }

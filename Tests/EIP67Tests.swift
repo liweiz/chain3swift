@@ -1,6 +1,6 @@
 //
-//  web3swift_EIP67_Tests.swift
-//  web3swift-iOS_Tests
+//  chain3swift_EIP67_Tests.swift
+//  chain3swift-iOS_Tests
 //
 //  Created by Anton Grigoriev on 02.07.2018.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
@@ -10,7 +10,7 @@ import BigInt
 import CryptoSwift
 import XCTest
 
-@testable import web3swift
+@testable import chain3swift
 
 class EIP67Tests: XCTestCase {
     let address: Address = "0x6394b37Cf80A7358b38068f0CA4760ad49983a1B"

@@ -5,6 +5,8 @@
 //  Created by Alexander Vlasov on 05.12.2017.
 //  Copyright © 2017 Alexander Vlasov. All rights reserved.
 //
+//  Modifications copyright © 2018 Liwei Zhang. All rights reserved.
+//
 
 import BigInt
 import Foundation

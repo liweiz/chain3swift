@@ -338,9 +338,9 @@ public class TransactionIntermediate {
             optionsForGasEstimation.from = mergedOptions.from
             optionsForGasEstimation.to = mergedOptions.to
             optionsForGasEstimation.value = mergedOptions.value
-            let getNoncePromise: Promise<BigUInt> = self.chain3.eth.getTransactionCountPromise(address: from, onBlock: onBlock)
-            let gasEstimatePromise: Promise<BigUInt> = self.chain3.eth.estimateGasPromise(assembledTransaction, options: optionsForGasEstimation, onBlock: onBlock)
-            let gasPricePromise: Promise<BigUInt> = self.chain3.eth.getGasPricePromise()
+            let getNoncePromise: Promise<BigUInt> = self.chain3.mc.getTransactionCountPromise(address: from, onBlock: onBlock)
+            let gasEstimatePromise: Promise<BigUInt> = self.chain3.mc.estimateGasPromise(assembledTransaction, options: optionsForGasEstimation, onBlock: onBlock)
+            let gasPricePromise: Promise<BigUInt> = self.chain3.mc.getGasPricePromise()
             var promisesToFulfill: [Promise<BigUInt>] = [getNoncePromise, gasPricePromise, gasPricePromise]
             when(resolved: getNoncePromise, gasEstimatePromise, gasPricePromise).map(on: queue, { (results: [Result<BigUInt>]) throws -> MOACTransaction in
                 
@@ -392,7 +392,7 @@ public class TransactionIntermediate {
             var cleanedOptions = Chain3Options()
             cleanedOptions.from = mergedOptions.from
             cleanedOptions.to = mergedOptions.to
-            return self.chain3.eth.sendTransactionPromise(transaction, options: cleanedOptions, password: password)
+            return self.chain3.mc.sendTransactionPromise(transaction, options: cleanedOptions, password: password)
         }
     }
     
@@ -414,7 +414,7 @@ public class TransactionIntermediate {
             optionsForCall.from = mergedOptions.from
             optionsForCall.to = mergedOptions.to
             optionsForCall.value = mergedOptions.value
-            let callPromise: Promise<Data> = self.chain3.eth.callPromise(assembledTransaction, options: optionsForCall, onBlock: onBlock)
+            let callPromise: Promise<Data> = self.chain3.mc.callPromise(assembledTransaction, options: optionsForCall, onBlock: onBlock)
             callPromise.done(on: queue) { data in
                 do {
                     if self.method == "fallback" {
@@ -455,7 +455,7 @@ public class TransactionIntermediate {
             optionsForGasEstimation.from = mergedOptions.from
             optionsForGasEstimation.to = mergedOptions.to
             optionsForGasEstimation.value = mergedOptions.value
-            let promise = self.chain3.eth.estimateGasPromise(assembledTransaction, options: optionsForGasEstimation, onBlock: onBlock)
+            let promise = self.chain3.mc.estimateGasPromise(assembledTransaction, options: optionsForGasEstimation, onBlock: onBlock)
             promise.done(on: queue) { (estimate: BigUInt) in
                 seal.fulfill(estimate)
                 }.catch(on: queue) { err in

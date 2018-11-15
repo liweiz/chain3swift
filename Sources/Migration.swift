@@ -5,6 +5,8 @@
 //  Created by Dmitry on 29/10/2018.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
 //
+//  Modifications copyright © 2018 Liwei Zhang. All rights reserved.
+//
 
 import Foundation
 import BigInt
@@ -77,11 +79,11 @@ public extension Chain3 {
 }
 
 public extension Chain3Eth {
-    @available(*, unavailable, message: "Use sendETH with BigUInt(\"1.01\",units: .eth)")
-    public func sendETH(to _: Address, amount _: String, units _: Chain3Units = .eth, extraData _: Data = Data(), options _: Chain3Options? = nil) throws -> TransactionIntermediate { fatalError() }
+    @available(*, unavailable, message: "Use sendETH with BigUInt(\"1.01\",units: .mc)")
+    public func sendETH(to _: Address, amount _: String, units _: Chain3Units = .mc, extraData _: Data = Data(), options _: Chain3Options? = nil) throws -> TransactionIntermediate { fatalError() }
 
-    @available(*, unavailable, message: "Use sendETH BigUInt(\"some\",units: .eth)")
-    public func sendETH(from _: Address, to _: Address, amount _: String, units _: Chain3Units = .eth, extraData _: Data = Data(), options _: Chain3Options? = nil) -> TransactionIntermediate? { fatalError() }
+    @available(*, unavailable, message: "Use sendETH BigUInt(\"some\",units: .mc)")
+    public func sendETH(from _: Address, to _: Address, amount _: String, units _: Chain3Units = .mc, extraData _: Data = Data(), options _: Chain3Options? = nil) -> TransactionIntermediate? { fatalError() }
 
     @available(*, unavailable, message: "Use ERC20 class instead")
     public func sendERC20tokensWithKnownDecimals(tokenAddress _: Address, from _: Address, to _: Address, amount _: BigUInt, options _: Chain3Options? = nil) throws -> TransactionIntermediate {
@@ -96,7 +98,7 @@ public extension Chain3Eth {
 
 extension Chain3Utils {
     @available(*,deprecated: 2.0,message: "Use number.string(units:decimals:decimalSeparator:options:)")
-    public static func formatToMOACUnits(_ bigNumber: BigInt, toUnits: Chain3Units = .eth, decimals: Int = 4, decimalSeparator: String = ".") -> String {
+    public static func formatToMOACUnits(_ bigNumber: BigInt, toUnits: Chain3Units = .mc, decimals: Int = 4, decimalSeparator: String = ".") -> String {
         return bigNumber.string(units: toUnits, decimals: decimals, decimalSeparator: decimalSeparator)
     }
     @available(*,deprecated: 2.0,message: "Use number.string(unitDecimals:formattingDecimals:decimalSeparator:options:)")
@@ -108,7 +110,7 @@ extension Chain3Utils {
         return bigNumber.string(unitDecimals: numberDecimals, decimals: formattingDecimals, decimalSeparator: decimalSeparator, options: options)
     }
     @available(*,deprecated: 2.0,message: "Use number.string(units:formattingDecimals:decimalSeparator:options:)")
-    public static func formatToMOACUnits(_ bigNumber: BigUInt, toUnits: Chain3Units = .eth, decimals: Int = 4, decimalSeparator: String = ".", fallbackToScientific: Bool = false) -> String {
+    public static func formatToMOACUnits(_ bigNumber: BigUInt, toUnits: Chain3Units = .mc, decimals: Int = 4, decimalSeparator: String = ".", fallbackToScientific: Bool = false) -> String {
         var options = BigUInt.StringOptions.default
         if fallbackToScientific {
             options.insert(.fallbackToScientific)

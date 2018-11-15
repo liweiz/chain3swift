@@ -5,6 +5,8 @@
 //  Created by Dmitry on 12/10/2018.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
 //
+//  Modifications copyright © 2018 Liwei Zhang. All rights reserved.
+//
 
 import Foundation
 import BigInt
@@ -100,9 +102,9 @@ extension Address {
             optionsForGasEstimation.from = options.from
             optionsForGasEstimation.to = options.to
             optionsForGasEstimation.value = options.value
-            let getNoncePromise = chain3.eth.getTransactionCountPromise(address: from, onBlock: onBlock)
-            let gasEstimatePromise = chain3.eth.estimateGasPromise(assembledTransaction, options: optionsForGasEstimation, onBlock: onBlock)
-            let gasPricePromise = chain3.eth.getGasPricePromise()
+            let getNoncePromise = chain3.mc.getTransactionCountPromise(address: from, onBlock: onBlock)
+            let gasEstimatePromise = chain3.mc.estimateGasPromise(assembledTransaction, options: optionsForGasEstimation, onBlock: onBlock)
+            let gasPricePromise = chain3.mc.getGasPricePromise()
             var promisesToFulfill: [Promise<BigUInt>] = [getNoncePromise, gasPricePromise, gasPricePromise]
             when(resolved: getNoncePromise, gasEstimatePromise, gasPricePromise).map(on: queue, { (results: [Result<BigUInt>]) throws -> MOACTransaction in
                 
@@ -137,7 +139,7 @@ extension Address {
             var cleanedOptions = Chain3Options()
             cleanedOptions.from = options.from
             cleanedOptions.to = options.to
-            return chain3.eth.sendTransactionPromise(transaction, options: cleanedOptions, password: password)
+            return chain3.mc.sendTransactionPromise(transaction, options: cleanedOptions, password: password)
         }
     }
     public func call(_ function: String, _ arguments: Any..., chain3: Chain3 = .default, options: Chain3Options? = nil, onBlock: String = "latest") -> Promise<Chain3DataResponse> {
@@ -154,7 +156,7 @@ extension Address {
             optionsForCall.from = options.from
             optionsForCall.to = options.to
             optionsForCall.value = options.value
-            chain3.eth.callPromise(assembledTransaction, options: optionsForCall, onBlock: onBlock)
+            chain3.mc.callPromise(assembledTransaction, options: optionsForCall, onBlock: onBlock)
                 .done(on: queue) { seal.fulfill(Chain3DataResponse($0)) }
                 .catch(on: queue, seal.reject)
         }
@@ -174,7 +176,7 @@ extension Address {
             optionsForGasEstimation.from = options.from
             optionsForGasEstimation.to = options.to
             optionsForGasEstimation.value = options.value
-            chain3.eth.estimateGasPromise(assembledTransaction, options: optionsForGasEstimation, onBlock: onBlock)
+            chain3.mc.estimateGasPromise(assembledTransaction, options: optionsForGasEstimation, onBlock: onBlock)
                 .done(on: queue, seal.fulfill)
                 .catch(on: queue, seal.reject)
         }

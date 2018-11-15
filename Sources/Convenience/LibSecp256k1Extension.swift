@@ -5,6 +5,8 @@
 //  Created by Alexander Vlasov.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
 //
+//  Modifications copyright © 2018 Liwei Zhang. All rights reserved.
+//
 
 import BigInt
 import Foundation

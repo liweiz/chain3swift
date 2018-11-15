@@ -28,8 +28,8 @@ public class Chain3: Chain3OptionsInheritable {
     public var txpool: TxPool {
         return TxPool(chain3: self)
     }
-    /// Public chain3.eth.* namespace.
-    public lazy var eth = Chain3Eth(provider: self.provider, chain3: self)
+    /// Public chain3.mc.* namespace.
+    public lazy var mc = Chain3Eth(provider: self.provider, chain3: self)
     
     /// Public chain3.personal.* namespace.
     public lazy var personal = Chain3Personal(provider: self.provider, chain3: self)

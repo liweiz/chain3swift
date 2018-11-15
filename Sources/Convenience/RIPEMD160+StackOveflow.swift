@@ -4,6 +4,8 @@
 //
 //  Created by Alexander Vlasov on 10.01.2018.
 //
+//  Modifications copyright © 2018 Liwei Zhang. All rights reserved.
+//
 
 // From https://stackoverflow.com/questions/43091858/swift-hash-a-string-using-hash-hmac-with-ripemd160/43191938
 

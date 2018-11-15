@@ -1,6 +1,6 @@
 //
 //  scrypt_Tests.swift
-//  web3swift-iOS_Tests
+//  chain3swift-iOS_Tests
 //
 //  Created by Alexander Vlasov on 10.08.2018.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
@@ -10,7 +10,7 @@ import CryptoSwift
 import Foundation
 import XCTest
 
-@testable import web3swift
+@testable import chain3swift
 
 class ScryptTests: XCTestCase {
     func testScrypt() {

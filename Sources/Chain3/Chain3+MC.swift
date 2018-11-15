@@ -1,5 +1,5 @@
 //
-//  Chain3+Eth.swift
+//  Chain3+MC.swift
 //  chain3swift
 //
 //  Created by Alexander Vlasov on 22.12.2017.
@@ -336,7 +336,7 @@ public class Chain3Eth: Chain3OptionsInheritable {
             } catch {
                 throw Chain3Error.inputError("Failed to locally sign a transaction")
             }
-            return chain3.eth.sendRawTransactionPromise(assembledTransaction)
+            return chain3.mc.sendRawTransactionPromise(assembledTransaction)
         } catch {
             let returnPromise = Promise<TransactionSendingResult>.pending()
             queue.async {

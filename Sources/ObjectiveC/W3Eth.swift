@@ -5,12 +5,14 @@
 //  Created by Dmitry on 11/8/18.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
 //
+//  Modifications copyright © 2018 Liwei Zhang. All rights reserved.
+//
 
 import Foundation
 
 @objc public class W3Eth: NSObject {
     public var swift: Chain3Eth {
-        return chain3.swift.eth
+        return chain3.swift.mc
     }
     unowned var chain3: W3Chain3
     @objc public init(chain3: W3Chain3) {

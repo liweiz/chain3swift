@@ -1,6 +1,6 @@
 //
-//  web3swift_numberFormattingUtil_Tests.swift
-//  web3swift-iOS_Tests
+//  chain3swift_numberFormattingUtil_Tests.swift
+//  chain3swift-iOS_Tests
 //
 //  Created by Антон Григорьев on 02.07.2018.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
@@ -10,7 +10,7 @@ import BigInt
 import CryptoSwift
 import XCTest
 
-@testable import web3swift
+@testable import chain3swift
 
 class NumberFormattingUtilTests: XCTestCase {
     func testNumberFormattingUtil() {

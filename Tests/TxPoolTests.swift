@@ -1,22 +1,22 @@
 //
 //  TxPoolTests.swift
-//  web3swift-iOS_Tests
+//  chain3swift-iOS_Tests
 //
 //  Created by Dmitry on 28/10/2018.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
 //
 
 import XCTest
-@testable import web3swift
+@testable import chain3swift
 import BigInt
 
 class TxPoolTests: XCTestCase {
     var localNodeFound = false
     override func setUp() {
         let url = URL(string: "http://127.0.0.1:8545")!
-        if let provider = Web3HttpProvider(url, network: nil, keystoreManager: nil) {
+        if let provider = Chain3HttpProvider(url, network: nil, keystoreManager: nil) {
             localNodeFound = true
-            Web3.default = Web3(provider: provider)
+            Chain3.default = Chain3(provider: provider)
         } else {
             localNodeFound = false
         }
