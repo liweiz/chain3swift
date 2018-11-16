@@ -81,29 +81,6 @@
 		13765D7521964A9B005C483C /* C3JsonRpc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13765D6621964A99005C483C /* C3JsonRpc.swift */; };
 		13765D7621964A9B005C483C /* C3Personal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13765D6721964A9A005C483C /* C3Personal.swift */; };
 		13765D7821964A9B005C483C /* C3Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 13765D6921964A9B005C483C /* C3Transaction.swift */; };
-		139751EA219AF9CE0044D2B0 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 139751B9219AF76D0044D2B0 /* Tests.swift */; };
-		139751F1219AFA6D0044D2B0 /* SolidityFunctionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDDF218C526C00D6D095 /* SolidityFunctionTests.swift */; };
-		139751F2219AFA6D0044D2B0 /* BetterERC20Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDE0218C526C00D6D095 /* BetterERC20Tests.swift */; };
-		139751F3219AFA6D0044D2B0 /* MainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDD3218C526C00D6D095 /* MainTests.swift */; };
-		139751F4219AFA6D0044D2B0 /* EIP67Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDD4218C526C00D6D095 /* EIP67Tests.swift */; };
-		139751F5219AFA6D0044D2B0 /* ABITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDD5218C526C00D6D095 /* ABITests.swift */; };
-		139751F6219AFA6D0044D2B0 /* NumberFormattingUtilTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDD6218C526C00D6D095 /* NumberFormattingUtilTests.swift */; };
-		139751F7219AFA6D0044D2B0 /* InfuraTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDD7218C526C00D6D095 /* InfuraTests.swift */; };
-		139751F8219AFA6D0044D2B0 /* ContractV2Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDD8218C526C00D6D095 /* ContractV2Tests.swift */; };
-		139751F9219AFA6D0044D2B0 /* PromiseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDD9218C526C00D6D095 /* PromiseTests.swift */; };
-		139751FA219AFA6D0044D2B0 /* RLPTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDDA218C526C00D6D095 /* RLPTests.swift */; };
-		139751FB219AFA6D0044D2B0 /* Support.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDDB218C526C00D6D095 /* Support.swift */; };
-		139751FC219AFA6D0044D2B0 /* ScryptTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDDC218C526C00D6D095 /* ScryptTests.swift */; };
-		139751FD219AFA6D0044D2B0 /* UserCasesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDDD218C526C00D6D095 /* UserCasesTests.swift */; };
-		139751FE219AFA6D0044D2B0 /* TxPoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDE1218C526C00D6D095 /* TxPoolTests.swift */; };
-		139751FF219AFA6D0044D2B0 /* AdvancedABITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDE2218C526C00D6D095 /* AdvancedABITests.swift */; };
-		13975200219AFA6D0044D2B0 /* RinkebyPersonalSignatureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDE3218C526C00D6D095 /* RinkebyPersonalSignatureTests.swift */; };
-		13975201219AFA6D0044D2B0 /* LocalNodeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDE4218C526C00D6D095 /* LocalNodeTests.swift */; };
-		13975202219AFA6D0044D2B0 /* RemoteParsingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDE5218C526C00D6D095 /* RemoteParsingTests.swift */; };
-		13975203219AFA6D0044D2B0 /* KeystoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDE6218C526C00D6D095 /* KeystoreTests.swift */; };
-		13975204219AFA6D0044D2B0 /* ERC20Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDE7218C526C00D6D095 /* ERC20Tests.swift */; };
-		13975205219AFA6D0044D2B0 /* TransactionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDE9218C526C00D6D095 /* TransactionTests.swift */; };
-		13975206219AFA6D0044D2B0 /* SECP256K1Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1317BDEA218C526C00D6D095 /* SECP256K1Tests.swift */; };
 		EE2C23DE219C7D5400E5F348 /* Chain3+HttpProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2C23CE219C7D5400E5F348 /* Chain3+HttpProvider.swift */; };
 		EE2C23DF219C7D5400E5F348 /* Chain3+Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2C23CF219C7D5400E5F348 /* Chain3+Options.swift */; };
 		EE2C23E0219C7D5400E5F348 /* Chain3.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2C23D0219C7D5400E5F348 /* Chain3.swift */; };
@@ -125,7 +102,7 @@
 		EE2C23F7219C997800E5F348 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE2C23F2219C997800E5F348 /* CryptoSwift.framework */; };
 		EE2C23F8219C997800E5F348 /* SipHash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE2C23F3219C997800E5F348 /* SipHash.framework */; };
 		EE2C23FB219D3C9D00E5F348 /* Chain3+Infura.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2C23FA219D3C9D00E5F348 /* Chain3+Infura.swift */; };
-		EE3607BA219E504C00DCCED0 /* InquiryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2C23FC219E2A8C00E5F348 /* InquiryTests.swift */; };
+		EE3607BC219EA51A00DCCED0 /* InquiryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2C23FC219E2A8C00E5F348 /* InquiryTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -832,30 +809,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				13975200219AFA6D0044D2B0 /* RinkebyPersonalSignatureTests.swift in Sources */,
-				139751FD219AFA6D0044D2B0 /* UserCasesTests.swift in Sources */,
-				139751F6219AFA6D0044D2B0 /* NumberFormattingUtilTests.swift in Sources */,
-				13975201219AFA6D0044D2B0 /* LocalNodeTests.swift in Sources */,
-				139751F9219AFA6D0044D2B0 /* PromiseTests.swift in Sources */,
-				13975202219AFA6D0044D2B0 /* RemoteParsingTests.swift in Sources */,
-				13975205219AFA6D0044D2B0 /* TransactionTests.swift in Sources */,
-				139751F8219AFA6D0044D2B0 /* ContractV2Tests.swift in Sources */,
-				13975206219AFA6D0044D2B0 /* SECP256K1Tests.swift in Sources */,
-				EE3607BA219E504C00DCCED0 /* InquiryTests.swift in Sources */,
-				139751F5219AFA6D0044D2B0 /* ABITests.swift in Sources */,
-				139751F4219AFA6D0044D2B0 /* EIP67Tests.swift in Sources */,
-				139751FF219AFA6D0044D2B0 /* AdvancedABITests.swift in Sources */,
-				13975204219AFA6D0044D2B0 /* ERC20Tests.swift in Sources */,
-				139751FE219AFA6D0044D2B0 /* TxPoolTests.swift in Sources */,
-				139751FB219AFA6D0044D2B0 /* Support.swift in Sources */,
-				139751F2219AFA6D0044D2B0 /* BetterERC20Tests.swift in Sources */,
-				139751F7219AFA6D0044D2B0 /* InfuraTests.swift in Sources */,
-				139751F1219AFA6D0044D2B0 /* SolidityFunctionTests.swift in Sources */,
-				13975203219AFA6D0044D2B0 /* KeystoreTests.swift in Sources */,
-				139751FA219AFA6D0044D2B0 /* RLPTests.swift in Sources */,
-				139751F3219AFA6D0044D2B0 /* MainTests.swift in Sources */,
-				139751FC219AFA6D0044D2B0 /* ScryptTests.swift in Sources */,
-				139751EA219AF9CE0044D2B0 /* Tests.swift in Sources */,
+				EE3607BC219EA51A00DCCED0 /* InquiryTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

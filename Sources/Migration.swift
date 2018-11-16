@@ -79,11 +79,11 @@ public extension Chain3 {
 }
 
 public extension Chain3MC {
-    @available(*, unavailable, message: "Use sendETH with BigUInt(\"1.01\",units: .mc)")
-    public func sendETH(to _: Address, amount _: String, units _: Chain3Units = .mc, extraData _: Data = Data(), options _: Chain3Options? = nil) throws -> TransactionIntermediate { fatalError() }
+    @available(*, unavailable, message: "Use sendMC with BigUInt(\"1.01\",units: .mc)")
+    public func sendMC(to _: Address, amount _: String, units _: Chain3Units = .mc, extraData _: Data = Data(), options _: Chain3Options? = nil) throws -> TransactionIntermediate { fatalError() }
 
-    @available(*, unavailable, message: "Use sendETH BigUInt(\"some\",units: .mc)")
-    public func sendETH(from _: Address, to _: Address, amount _: String, units _: Chain3Units = .mc, extraData _: Data = Data(), options _: Chain3Options? = nil) -> TransactionIntermediate? { fatalError() }
+    @available(*, unavailable, message: "Use sendMC BigUInt(\"some\",units: .mc)")
+    public func sendMC(from _: Address, to _: Address, amount _: String, units _: Chain3Units = .mc, extraData _: Data = Data(), options _: Chain3Options? = nil) -> TransactionIntermediate? { fatalError() }
 
     @available(*, unavailable, message: "Use ERC20 class instead")
     public func sendERC20tokensWithKnownDecimals(tokenAddress _: Address, from _: Address, to _: Address, amount _: BigUInt, options _: Chain3Options? = nil) throws -> TransactionIntermediate {

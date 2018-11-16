@@ -53,7 +53,7 @@ import Foundation
         return try swift.getTransactionCount(address: address.swift, onBlock: onBlock).objc
     }
 
-    /// Returns a balance of particular MOAC address in Wei units (1 ETH = 10^18 Wei).
+    /// Returns a balance of particular MOAC address in Wei units (1 MC = 10^18 Sha).
     ///
     /// "onString" field determines if value is returned based on the state of a blockchain on the latest mined block ("latest")
     /// or the expected state after all the transactions in memory pool are applied ("pending").
@@ -126,7 +126,7 @@ import Foundation
     ///
     /// Returns the Result object that indicates either success of failure.
     /// Error can also indicate that transaction is invalid in the current state, so formally it's gas limit is infinite.
-    /// An example of such transaction can be sending an amount of ETH that is larger than the current account balance.
+    /// An example of such transaction can be sending an amount of MC that is larger than the current account balance.
     @objc public func estimateGas(_ transaction: C3MOACTransaction, options: C3Options?, onBlock: String = "latest") throws -> C3UInt {
         return try swift.estimateGas(transaction.swift, options: options?.swift, onBlock: onBlock).objc
     }
@@ -197,8 +197,8 @@ import Foundation
     - C3TransactionIntermediate object
 
     */
-    @objc public func sendETH(to: C3Address, amount: C3UInt, extraData: Data = Data(), options: C3Options? = nil) throws -> C3TransactionIntermediate {
-        return try swift.sendETH(to: to.swift, amount: amount.swift, extraData: extraData, options: options?.swift).objc
+    @objc public func sendMC(to: C3Address, amount: C3UInt, extraData: Data = Data(), options: C3Options? = nil) throws -> C3TransactionIntermediate {
+        return try swift.sendMC(to: to.swift, amount: amount.swift, extraData: extraData, options: options?.swift).objc
     }
 
     @objc public func getBlockNumberPromise(completion: @escaping (C3UInt?,Error?)->()) {

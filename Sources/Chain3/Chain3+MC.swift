@@ -73,7 +73,7 @@ public class Chain3MC: Chain3OptionsInheritable {
         return try getTransactionCountPromise(address: address, onBlock: onBlock).wait()
     }
 
-    /// Returns a balance of particular MOAC address in Wei units (1 ETH = 10^18 Wei).
+    /// Returns a balance of particular MOAC address in Wei units (1 MC = 10^18 Sha).
     ///
     /// "onString" field determines if value is returned based on the state of a blockchain on the latest mined block ("latest")
     /// or the expected state after all the transactions in memory pool are applied ("pending").
@@ -146,7 +146,7 @@ public class Chain3MC: Chain3OptionsInheritable {
     ///
     /// Returns the Result object that indicates either success of failure.
     /// Error can also indicate that transaction is invalid in the current state, so formally it's gas limit is infinite.
-    /// An example of such transaction can be sending an amount of ETH that is larger than the current account balance.
+    /// An example of such transaction can be sending an amount of MC that is larger than the current account balance.
     public func estimateGas(_ transaction: MOACTransaction, options: Chain3Options?, onBlock: String = "latest") throws -> BigUInt {
         return try estimateGasPromise(transaction, options: options, onBlock: onBlock).wait()
     }
@@ -228,7 +228,7 @@ public class Chain3MC: Chain3OptionsInheritable {
      - TransactionIntermediate object
 
      */
-    public func sendETH(to: Address, amount: BigUInt, extraData: Data = Data(), options: Chain3Options? = nil) throws -> TransactionIntermediate {
+    public func sendMC(to: Address, amount: BigUInt, extraData: Data = Data(), options: Chain3Options? = nil) throws -> TransactionIntermediate {
         let contract = try chain3.contract(Chain3Utils.coldWalletABI, at: to)
         var mergedOptions = self.options.merge(with: options)
         mergedOptions.value = amount

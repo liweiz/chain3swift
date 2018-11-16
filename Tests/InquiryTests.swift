@@ -15,6 +15,7 @@ class InquiryTests: XCTestCase {
     var localNodeFound = false
     var provider: Chain3HttpProvider? = nil
     let addrOfBalanceCheck = "0xd04967d333fe17fe2707186608e5fc9d1447310c"
+    let receivingTestnetAddr = "0x4c18080dd971ffeb4bc32097353741deae9685f3"
     let hashOfTxToInspect = "0x14138b41d26b2925d3b9b66d916cf41dcd62b37756db98fd1d75b66ef1a122eb"
     override func setUp() {
         let url = URL(string: "http://127.0.0.1:8545")!
@@ -123,17 +124,40 @@ class InquiryTests: XCTestCase {
 //        XCTAssert(esimate == 21000)
 //    }
     
-//    func testSendETHPromise() throws {
-//        guard let keystoreData = getKeystoreData() else { return }
-//        guard let keystoreV3 = MOACKeystoreV3(keystoreData) else { return XCTFail() }
-//        let chain3Rinkeby = Chain3(provider: provider!)
-//        let keystoreManager = KeystoreManager([keystoreV3])
-//        chain3Rinkeby.addKeystoreManager(keystoreManager)
-//        let gasPrice = try chain3Rinkeby.mc.getGasPrice()
-//        let sendToAddress = Address("0x6394b37Cf80A7358b38068f0CA4760ad49983a1B")
-//        let intermediate = try chain3Rinkeby.mc.sendETH(to: sendToAddress, amount: "0.001")
+    func testGetAccounts() throws {
+        let chain3 = Chain3(provider: provider!)
+        let accounts = try chain3.mc.getAccounts()
+        print(accounts)
+        switch accounts.count {
+        case 2:
+            print(2)
+        default:
+            XCTFail()
+            return
+        }
+    }
+    
+    func testUnlockAccountPromise() throws {
+        let chain3 = Chain3(provider: provider!)
+        let response = try chain3.personal.unlockAccountPromise(account: Address(addrOfBalanceCheck), password: "1111").wait()
+        print(response)
+        switch response {
+        case false:
+            XCTFail()
+            return
+        case true:
+            print(response)
+        }
+    }
+    
+//    func testSendMCPromise() throws {
+//        let chain3 = Chain3(provider: provider!)
+//        let gasPrice = try chain3.mc.getGasPrice()
+//        let fromAddr = Address(addrOfBalanceCheck)
+//        let sendToAddress = Address(receivingTestnetAddr)
+//        let intermediate = try chain3.mc.sendMC(to: sendToAddress, amount: "0.001")
 //        var options = Chain3Options.default
-//        options.from = keystoreV3.addresses.first
+//        options.from = fromAddr
 //        options.gasPrice = gasPrice
 //        let result = try intermediate.sendPromise(options: options).wait()
 //        print(result)
