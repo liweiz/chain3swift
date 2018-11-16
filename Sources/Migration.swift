@@ -42,11 +42,11 @@ public extension Chain3 {
     // @available (*, deprecated: 2.0, message: "Use Chain3Utils")
     // i'll leave it here
     typealias Utils = Chain3Utils
-    @available (*, deprecated: 2.0, message: "Use Chain3Eth")
-    typealias Eth = Chain3Eth
-    @available (*, deprecated: 2.0, message: "Use Chain3Eth")
+    @available (*, deprecated: 2.0, message: "Use Chain3MC")
+    typealias MC = Chain3MC
+    @available (*, deprecated: 2.0, message: "Use Chain3MC")
     typealias Personal = Chain3Personal
-    @available (*, deprecated: 2.0, message: "Use Chain3Eth")
+    @available (*, deprecated: 2.0, message: "Use Chain3MC")
     typealias BrowserFunctions = Chain3BrowserFunctions
     typealias Chain3Wallet = chain3swift.Chain3Wallet
 
@@ -78,7 +78,7 @@ public extension Chain3 {
     }
 }
 
-public extension Chain3Eth {
+public extension Chain3MC {
     @available(*, unavailable, message: "Use sendETH with BigUInt(\"1.01\",units: .mc)")
     public func sendETH(to _: Address, amount _: String, units _: Chain3Units = .mc, extraData _: Data = Data(), options _: Chain3Options? = nil) throws -> TransactionIntermediate { fatalError() }
 

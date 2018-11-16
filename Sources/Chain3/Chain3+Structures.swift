@@ -69,16 +69,16 @@ extension Chain3Options: Decodable {
             to = Address.contractDeployment
         } else {
             guard let addressString = toString else { throw Chain3Error.dataError }
-            let ethAddr = Address(addressString)
-            guard ethAddr.isValid else { throw Chain3Error.dataError }
-            to = ethAddr
+            let moacAddr = Address(addressString)
+            guard moacAddr.isValid else { throw Chain3Error.dataError }
+            to = moacAddr
         }
         self.to = to
         let from = try container.decodeIfPresent(Address.self, forKey: .to)
 //        var from: Address?
 //        if fromString != nil {
-//            guard let ethAddr = Address(toString) else { throw Chain3Error.dataError }
-//            from = ethAddr
+//            guard let moacAddr = Address(toString) else { throw Chain3Error.dataError }
+//            from = moacAddr
 //        }
         self.from = from
 

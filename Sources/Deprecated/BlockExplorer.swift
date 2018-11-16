@@ -24,14 +24,14 @@ public class BlockExplorer {
         let rows: [TransactionHistoryRecord]
         let head: Head
     }
-    public func getTransactionHistory(address: Address, tokenName name: String = "Ether", page: Int = 1, size: Int = 50) -> Promise<[TransactionHistoryRecord]> {
+    public func getTransactionHistory(address: Address, tokenName name: String = "MOAC", page: Int = 1, size: Int = 50) -> Promise<[TransactionHistoryRecord]> {
         let address = address.address
         return getTransactionsHistory(address: address, tokenName: name, page: page, size: size)
     }
     
-    public func getTransactionsHistory(address publicAddress: String, tokenName name: String = "Ether", page: Int = 1, size: Int = 50) -> Promise<[TransactionHistoryRecord]> {
+    public func getTransactionsHistory(address publicAddress: String, tokenName name: String = "MOAC", page: Int = 1, size: Int = 50) -> Promise<[TransactionHistoryRecord]> {
         // Configuring http request
-        let listId: ListId = (name == "Ether") ? .listOfETH : .listOfTokens
+        let listId: ListId = (name == "MOAC") ? .listOfETH : .listOfTokens
         let url = URL(string: urlStringList)!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -150,11 +150,11 @@ public class BlockExplorer {
         public let error: String
         public let isContract: Bool
         public let isInner: Bool
-        public let value: BigUInt // in wei
+        public let value: BigUInt // in sha
         public let token: Token
-        public let txFee: BigUInt // in wei
-        public let gasUsed: BigUInt // in wei
-        public let gasCost: BigUInt // in wei
+        public let txFee: BigUInt // in sha
+        public let gasUsed: BigUInt // in sha
+        public let gasCost: BigUInt // in sha
         
         /// Creates a new instance by decoding from the given decoder.
         ///

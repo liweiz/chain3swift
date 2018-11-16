@@ -1,5 +1,5 @@
 //
-//  EthURL.swift
+//  MCURL.swift
 //  chain3swift
 //
 //  Created by Dmitry on 02/10/2018.
@@ -11,7 +11,7 @@
 import BigInt
 import Foundation
 
-public class EthURL {
+public class MCURL {
     public enum Error: Swift.Error {
         case wrongScheme
         case addressCorrupted

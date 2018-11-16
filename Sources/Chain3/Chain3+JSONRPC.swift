@@ -268,7 +268,7 @@ public struct TransactionParameters: Codable {
     public var gasPrice: String?
     /// transaction recipient
     public var to: String?
-    /// ether value
+    /// MOAC value
     public var value: String? = "0x0"
     
     /// init with sender and recipient

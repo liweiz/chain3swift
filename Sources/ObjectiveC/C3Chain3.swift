@@ -74,7 +74,7 @@ extension Chain3 {
 		options = C3Options(object: self)
 	}
 	
-    @objc public lazy var eth = C3Eth(chain3: self)
+    @objc public lazy var mc = C3MC(chain3: self)
     @objc public lazy var personal = C3Personal(chain3: self)
     @objc public lazy var wallet = C3Wallet(chain3: self)
 	

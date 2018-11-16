@@ -20,15 +20,15 @@ public class Chain3Utils {
 }
 
 /// Various units used in MOAC ecosystem
-//typealias Chain3Units.kWei = Chain3Units.Kwei
+//typealias Chain3Units.kSha = Chain3Units.Ksha
 public enum Chain3Units: Int {
 	case mc = 18
-	case wei = 0
-	case kWei = 3
-	case mWei = 6
-	case gWei = 9
-	case microEther = 12
-	case finney = 15
+	case sha = 0
+	case kSha = 3
+	case mSha = 6
+	case gSha = 9
+	case micro = 12
+	case milli = 15
 	public var decimals: Int {
 		return rawValue
 	}

@@ -109,7 +109,7 @@ public class ERC888 {
         public func decimals() throws -> BigUInt {
             return try address.call("decimals(uint256)", id, options: options).wait().uint256()
         }
-        /// - returns: user balance in wei
+        /// - returns: user balance in sha
         public func balance(of user: Address) throws -> BigUInt {
             return try address.call("balanceOf(uint256,address)", id, user, options: options).wait().uint256()
         }
@@ -125,7 +125,7 @@ public class ERC888 {
          - important: Transaction | Requires password | Contract owner only.
          - returns: TransactionSendingResult
          - parameter user: recepient address
-         - parameter amount: amount in wei to send. If you want to send 1 token (not 0.00000000001) use NaturalUnits(amount) instead
+         - parameter amount: amount in sha to send. If you want to send 1 token (not 0.00000000001) use NaturalUnits(amount) instead
          */
         public func transfer(to user: Address, amount: BigUInt) throws -> TransactionSendingResult {
             return try address.send("transfer(uint256,address,uint256)", id, user, amount, password: password, options: options).wait()

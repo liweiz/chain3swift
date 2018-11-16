@@ -125,6 +125,7 @@
 		EE2C23F7219C997800E5F348 /* CryptoSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE2C23F2219C997800E5F348 /* CryptoSwift.framework */; };
 		EE2C23F8219C997800E5F348 /* SipHash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE2C23F3219C997800E5F348 /* SipHash.framework */; };
 		EE2C23FB219D3C9D00E5F348 /* Chain3+Infura.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2C23FA219D3C9D00E5F348 /* Chain3+Infura.swift */; };
+		EE3607BA219E504C00DCCED0 /* InquiryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2C23FC219E2A8C00E5F348 /* InquiryTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -840,6 +841,7 @@
 				13975205219AFA6D0044D2B0 /* TransactionTests.swift in Sources */,
 				139751F8219AFA6D0044D2B0 /* ContractV2Tests.swift in Sources */,
 				13975206219AFA6D0044D2B0 /* SECP256K1Tests.swift in Sources */,
+				EE3607BA219E504C00DCCED0 /* InquiryTests.swift in Sources */,
 				139751F5219AFA6D0044D2B0 /* ABITests.swift in Sources */,
 				139751F4219AFA6D0044D2B0 /* EIP67Tests.swift in Sources */,
 				139751FF219AFA6D0044D2B0 /* AdvancedABITests.swift in Sources */,

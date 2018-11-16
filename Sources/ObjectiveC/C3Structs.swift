@@ -248,7 +248,7 @@ extension TransactionParameters {
 	@objc public var gasPrice: String?
 	/// transaction recipient
 	@objc public var to: String?
-	/// ether value
+	/// MOAC value
 	@objc public var value: String? = "0x0"
 	
 	/// init with sender and recipient

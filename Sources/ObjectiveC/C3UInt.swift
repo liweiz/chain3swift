@@ -230,13 +230,13 @@ extension Chain3Units {
 	}
 }
 @objc public enum C3Units: Int, SwiftBridgeable {
-    case eth = 18
-    case wei = 0
-    case Kwei = 3
-    case Mwei = 6
-    case Gwei = 9
-    case Microether = 12
-    case Finney = 15
+    case mc = 18
+    case sha = 0
+    case Ksha = 3
+    case Msha = 6
+    case Gsha = 9
+    case Micro = 12
+    case Milli = 15
     public var swift: Chain3Units {
         return Chain3Units(rawValue: rawValue)!
     }

@@ -13,7 +13,7 @@ import Foundation
 import PromiseKit
 
 /// Extension located
-public class Chain3Eth: Chain3OptionsInheritable {
+public class Chain3MC: Chain3OptionsInheritable {
     /// provider for some functions
     var provider: Chain3Provider
     unowned var chain3: Chain3
@@ -220,7 +220,7 @@ public class Chain3Eth: Chain3OptionsInheritable {
      Convenience wrapper to send MOAC to another address. Internally it creates a virtual contract and encodes all the options and data.
      - Parameters:
      - to: Address to send funds to
-     - amount: BigUInt indicating the amount in wei
+     - amount: BigUInt indicating the amount in sha
      - extraData: Additional data to attach to the transaction
      - options: Chain3Options to override the default gas price, gas limit. "Value" field of the options is ignored and the "amount" parameter is used instead
 

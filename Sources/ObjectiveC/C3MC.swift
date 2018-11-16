@@ -1,5 +1,5 @@
 //
-//  C3Eth.swift
+//  C3MC.swift
 //  chain3swift
 //
 //  Created by Dmitry on 11/8/18.
@@ -10,8 +10,8 @@
 
 import Foundation
 
-@objc public class C3Eth: NSObject {
-    public var swift: Chain3Eth {
+@objc public class C3MC: NSObject {
+    public var swift: Chain3MC {
         return chain3.swift.mc
     }
     unowned var chain3: C3Chain3
@@ -189,7 +189,7 @@ import Foundation
     Convenience wrapper to send MOAC to another address. Internally it creates a virtual contract and encodes all the options and data.
     - Parameters:
     - to: C3Address to send funds to
-    - amount: C3UInt indicating the amount in wei
+    - amount: C3UInt indicating the amount in sha
     - extraData: Additional data to attach to the transaction
     - options: C3Options to override the default gas price, gas limit. "Value" field of the options is ignored and the "amount" parameter is used instead
 

@@ -59,7 +59,7 @@ public class ERC20 {
     public func decimals() throws -> BigUInt {
         return try address.call("decimals()", options: options).wait().uint256()
     }
-    /// - returns: user balance in wei
+    /// - returns: user balance in sha
     public func balance(of user: Address) throws -> BigUInt {
         return try address.call("balanceOf(address)", user, options: options).wait().uint256()
     }
@@ -81,7 +81,7 @@ public class ERC20 {
      - important: Transaction | Requires password | Contract owner only.
      - returns: TransactionSendingResult
      - parameter user: recepient address
-     - parameter amount: amount in wei to send. If you want to send 1 token (not 0.00000000001) use NaturalUnits(amount) instead
+     - parameter amount: amount in sha to send. If you want to send 1 token (not 0.00000000001) use NaturalUnits(amount) instead
      */
     public func transfer(to user: Address, amount: BigUInt) throws -> TransactionSendingResult {
         return try address.send("transfer(address,uint256)", user, amount, password: password, options: options).wait()
@@ -92,7 +92,7 @@ public class ERC20 {
      - important: Transaction | Requires password
      - returns: TransactionSendingResult
      - parameter user: recepient address
-     - parameter amount: amount in wei to send. If you want to send 1 token (not 0.00000000001) use NaturalUnits(amount) instead
+     - parameter amount: amount in sha to send. If you want to send 1 token (not 0.00000000001) use NaturalUnits(amount) instead
      */
     public func approve(to user: Address, amount: BigUInt) throws -> TransactionSendingResult {
         
@@ -107,7 +107,7 @@ public class ERC20 {
      ERC20(address).transferFrom(owner: me, to: user, amount: NaturalUnits(0.1))
      - returns: TransactionSendingResult
      - parameter user: recepient address
-     - parameter amount: amount in wei to send. If you want to send 1 token (not 0.00000000001) use NaturalUnits(amount) instead
+     - parameter amount: amount in sha to send. If you want to send 1 token (not 0.00000000001) use NaturalUnits(amount) instead
      */
     public func transferFrom(owner: Address, to: Address, amount: BigUInt) throws -> TransactionSendingResult {
         return try address.send("transferFrom(address,address,uint256)", owner, to, amount, password: password, options: options).wait()
