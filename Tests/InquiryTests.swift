@@ -150,12 +150,48 @@ class InquiryTests: XCTestCase {
         }
     }
     
-//    func testSendMCPromise() throws {
+    func testImportAndExport() throws {
+        let json = """
+{"address":"d04967d333fe17fe2707186608e5fc9d1447310c","crypto":{"cipher":"aes-128-ctr","ciphertext":"eb01902340c3fee86982a613cafb7a0eb0db26d9bf9bc35426e200c81b5a0a66","cipherparams":{"iv":"d755d852d8bdbecfe572865e894cdbe4"},"kdf":"scrypt","kdfparams":{"dklen":32,"n":262144,"p":1,"r":8,"salt":"d8ae42bf4021fa214ffce36dd175f95eaa93ce3a645898efdd91bc34b9e7f549"},"mac":"042fcbbaa48d8edc142d31e25cb6a8e413cae612326ef18791b7977241d6fc6a"},"id":"9f59ca5b-d3b9-47c0-81e5-14b89142498e","version":3}
+"""
+        let keystore = MOACKeystoreV3(json)!
+        let data = try keystore.serialize()!
+        let key = try keystore.UNSAFE_getPrivateKeyData(password: "1111", account: Address(addrOfBalanceCheck)).toHexString()
+        
+        let keystore2 = MOACKeystoreV3(data)!
+        let data2 = try keystore2.serialize()!
+        let key2 = try keystore2.UNSAFE_getPrivateKeyData(password: "1111", account: Address(addrOfBalanceCheck)).toHexString()
+        
+        XCTAssertEqual(data,data2)
+        XCTAssertEqual(key,key2)
+    }
+    
+    func testSendMC() throws {
+        let chain3 = Chain3(provider: provider!)
+        let fromAddr = Address(addrOfBalanceCheck)
+        _ = try chain3.personal.unlockAccountPromise(account: fromAddr, password: "1111").wait()
+        let gasPrice = try chain3.mc.getGasPrice()
+        let sendToAddress = Address(receivingTestnetAddr)
+        let intermediate = try chain3.mc.sendMC(to: sendToAddress, amount: BigUInt(1))
+        var options = Chain3Options.default
+        options.from = fromAddr
+        options.gasPrice = gasPrice
+        let result = try intermediate.sendPromise(options: options).wait()
+        print(result)
+    }
+    
+//    func testSendMC() throws {
+//        let json = """
+//{"address":"d04967d333fe17fe2707186608e5fc9d1447310c","crypto":{"cipher":"aes-128-ctr","ciphertext":"eb01902340c3fee86982a613cafb7a0eb0db26d9bf9bc35426e200c81b5a0a66","cipherparams":{"iv":"d755d852d8bdbecfe572865e894cdbe4"},"kdf":"scrypt","kdfparams":{"dklen":32,"n":262144,"p":1,"r":8,"salt":"d8ae42bf4021fa214ffce36dd175f95eaa93ce3a645898efdd91bc34b9e7f549"},"mac":"042fcbbaa48d8edc142d31e25cb6a8e413cae612326ef18791b7977241d6fc6a"},"id":"9f59ca5b-d3b9-47c0-81e5-14b89142498e","version":3}
+//"""
+//        guard let keystoreV3 = MOACKeystoreV3(json) else { return XCTFail() }
 //        let chain3 = Chain3(provider: provider!)
+//        let keystoreManager = KeystoreManager([keystoreV3])
+//        chain3.addKeystoreManager(keystoreManager)
 //        let gasPrice = try chain3.mc.getGasPrice()
 //        let fromAddr = Address(addrOfBalanceCheck)
 //        let sendToAddress = Address(receivingTestnetAddr)
-//        let intermediate = try chain3.mc.sendMC(to: sendToAddress, amount: "0.001")
+//        let intermediate = try chain3.mc.sendMC(to: sendToAddress, amount: BigUInt(0.001))
 //        var options = Chain3Options.default
 //        options.from = fromAddr
 //        options.gasPrice = gasPrice
