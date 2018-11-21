@@ -47,6 +47,9 @@ extension Chain3Options: Decodable {
         case gasPrice
         case gas
         case value
+        case systemContract
+        case shardingFlag
+        case via
     }
     
     /// Creates a new instance by decoding from the given decoder.
@@ -74,6 +77,19 @@ extension Chain3Options: Decodable {
             to = moacAddr
         }
         self.to = to
+        
+        let viaString = try container.decode(String?.self, forKey: .via)
+        var via: Address?
+        if viaString == nil || viaString == "0x" || viaString == "0x0" {
+            via = Address.contractDeployment
+        } else {
+            guard let addressString = viaString else { throw Chain3Error.dataError }
+            let moacAddr = Address(addressString)
+            guard moacAddr.isValid else { throw Chain3Error.dataError }
+            via = moacAddr
+        }
+        self.via = via
+        
         let from = try container.decodeIfPresent(Address.self, forKey: .to)
 //        var from: Address?
 //        if fromString != nil {
@@ -84,6 +100,12 @@ extension Chain3Options: Decodable {
 
         let value = try decodeHexToBigUInt(container, key: .value)
         self.value = value
+        
+        let systemContract = try decodeHexToBigUInt(container, key: .systemContract)
+        self.systemContract = systemContract
+        
+        let shardingFlag = try decodeHexToBigUInt(container, key: .shardingFlag)
+        self.shardingFlag = shardingFlag
     }
 }
 
@@ -97,6 +119,9 @@ extension MOACTransaction: Decodable {
         case r
         case s
         case value
+        case systemContract
+        case shardingFlag
+        case via
     }
     
     /// Creates a new instance by decoding from the given decoder.
@@ -123,6 +148,12 @@ extension MOACTransaction: Decodable {
 
         guard let nonce = try decodeHexToBigUInt(container, key: .nonce) else { throw Chain3Error.dataError }
         self.nonce = nonce
+        
+        guard let systemContract = try decodeHexToBigUInt(container, key: .systemContract) else { throw Chain3Error.dataError }
+        self.systemContract = systemContract
+        
+        guard let shardingFlag = try decodeHexToBigUInt(container, key: .shardingFlag) else { throw Chain3Error.dataError }
+        self.shardingFlag = shardingFlag
 
         guard let v = try decodeHexToBigUInt(container, key: .v) else { throw Chain3Error.dataError }
         self.v = v
@@ -139,6 +170,7 @@ extension MOACTransaction: Decodable {
         chainID = nil
         value = options.value!
         to = options.to!
+        via = options.via!
         gasPrice = options.gasPrice!
         gasLimit = options.gasLimit!
 

@@ -40,7 +40,11 @@ public struct Chain3Options {
     /// If set to nil it's equal to zero
     public var value: BigUInt?
     
-//    public var shardingFlag: Int?
+    public var systemContract: BigUInt?
+    
+    public var shardingFlag: BigUInt?
+    
+    public var via: Address?
     
     /// inits Chain3Options with all nil parameters
     public init() {}
@@ -51,7 +55,9 @@ public struct Chain3Options {
         options.gasLimit = BigUInt(0)
         options.gasPrice = BigUInt(0)
         options.value = BigUInt(0)
-//        options.shardingFlag = 0
+        options.shardingFlag = BigUInt(0)
+        options.systemContract = BigUInt(0)
+        options.via = Address("0x")
         return options
     }
     
@@ -61,7 +67,9 @@ public struct Chain3Options {
         gasPrice = try json.at("gasPrice").uint256()
         value = try json.at("value").uint256()
         from = try json.at("from").address()
-//        shardingFlag = try json.at("shardingFlag").int()
+        shardingFlag = try json.at("shardingFlag").uint256()
+        systemContract = try json.at("systemContract").uint256()
+        via = try json.at("via").address()
     }
 
     /// Merges two sets of opions by overriding the parameters from the first set by parameters from the second
@@ -76,6 +84,9 @@ public struct Chain3Options {
         merge(&new.gasLimit, old.gasLimit)
         merge(&new.gasPrice, old.gasPrice)
         merge(&new.value, old.value)
+        merge(&new.shardingFlag, old.shardingFlag)
+        merge(&new.systemContract, old.systemContract)
+        merge(&new.via, old.via)
         return new
     }
 

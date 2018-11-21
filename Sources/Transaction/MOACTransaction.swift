@@ -13,11 +13,14 @@ import Foundation
 
 public struct MOACTransaction: CustomStringConvertible {
     public var nonce: BigUInt
+    public var systemContract: BigUInt
     public var gasPrice: BigUInt = 0
     public var gasLimit: BigUInt = 0
     public var to: Address
     public var value: BigUInt
     public var data: Data
+    public var shardingFlag: BigUInt
+    public var via: Address
     public var v: BigUInt = 1
     public var r: BigUInt = 0
     public var s: BigUInt = 0
@@ -55,16 +58,19 @@ public struct MOACTransaction: CustomStringConvertible {
         return hash
     }
 
-    public init(gasPrice: BigUInt, gasLimit: BigUInt, to: Address, value: BigUInt, data: Data) {
+    public init(gasPrice: BigUInt, gasLimit: BigUInt, to: Address, value: BigUInt, data: Data, systemContract: BigUInt = 0, shardingFlag: BigUInt = 0, via: Address = Address("0x")) {
         nonce = BigUInt(0)
         self.gasPrice = gasPrice
         self.gasLimit = gasLimit
         self.value = value
         self.data = data
         self.to = to
+        self.systemContract = systemContract
+        self.shardingFlag = shardingFlag
+        self.via = via
     }
 
-    public init(to: Address, data: Data, options: Chain3Options) {
+    public init(to: Address, data: Data, options: Chain3Options, systemContract: BigUInt = 0, shardingFlag: BigUInt = 0, via: Address = Address("0x")) {
         let merged = Chain3Options.default.merge(with: options)
         nonce = BigUInt(0)
         gasLimit = merged.gasLimit!
@@ -72,9 +78,12 @@ public struct MOACTransaction: CustomStringConvertible {
         value = merged.value!
         self.to = to
         self.data = data
+        self.systemContract = systemContract
+        self.shardingFlag = shardingFlag
+        self.via = via
     }
 
-    public init(nonce: BigUInt, gasPrice: BigUInt, gasLimit: BigUInt, to: Address, value: BigUInt, data: Data, v: BigUInt, r: BigUInt, s: BigUInt) {
+    public init(nonce: BigUInt, gasPrice: BigUInt, gasLimit: BigUInt, to: Address, value: BigUInt, data: Data, v: BigUInt, r: BigUInt, s: BigUInt, systemContract: BigUInt = 0, shardingFlag: BigUInt = 0, via: Address = Address("0x")) {
         self.nonce = nonce
         self.gasPrice = gasPrice
         self.gasLimit = gasLimit
@@ -84,6 +93,9 @@ public struct MOACTransaction: CustomStringConvertible {
         self.v = v
         self.r = r
         self.s = s
+        self.systemContract = systemContract
+        self.shardingFlag = shardingFlag
+        self.via = via
     }
 
     public func mergedWithOptions(_ options: Chain3Options) -> MOACTransaction {
@@ -112,6 +124,9 @@ Gas limit: \(gasLimit)
 To: \(to.address)
 Value: \(value)
 Data: \(data.hex)
+systemContract: \(systemContract)
+shardingFlag: \(shardingFlag)
+via: \(via)
 v: \(v)
 r: \(r)
 s: \(s)
@@ -169,17 +184,17 @@ hash: \(String(describing: hash))
     public func encode(forSignature: Bool = false, chainId: NetworkId? = nil) -> Data? {
         if forSignature {
             if let chainId = chainId {
-                let fields = [nonce, gasPrice, gasLimit, to.addressData, value, data, chainId.rawValue, BigUInt(0), BigUInt(0)] as [AnyObject]
+                let fields = [nonce, systemContract, gasPrice, gasLimit, to.addressData, value, data, shardingFlag, via.addressData, chainId.rawValue, BigUInt(0), BigUInt(0)] as [AnyObject]
                 return RLP.encode(fields)
             } else if let chainId = self.chainID {
-                let fields = [nonce, gasPrice, gasLimit, to.addressData, value, data, chainId.rawValue, BigUInt(0), BigUInt(0)] as [AnyObject]
+                let fields = [nonce, systemContract, gasPrice, gasLimit, to.addressData, value, data, shardingFlag, via.addressData, chainId.rawValue, BigUInt(0), BigUInt(0)] as [AnyObject]
                 return RLP.encode(fields)
             } else {
-                let fields = [nonce, gasPrice, gasLimit, to.addressData, value, data] as [AnyObject]
+                let fields = [nonce, systemContract, gasPrice, gasLimit, to.addressData, value, data, shardingFlag, via.addressData] as [AnyObject]
                 return RLP.encode(fields)
             }
         } else {
-            let fields = [nonce, gasPrice, gasLimit, to.addressData, value, data, v, r, s] as [AnyObject]
+            let fields = [nonce, systemContract, gasPrice, gasLimit, to.addressData, value, data, shardingFlag, via.addressData, v, r, s] as [AnyObject]
             return RLP.encode(fields)
         }
     }
