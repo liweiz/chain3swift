@@ -5,3 +5,6 @@ xcuserdata
 /Package.pins
 /Package.resolved
 .DS_Store
+/Tests/**
+!/Tests/MOACTests.swift
+
