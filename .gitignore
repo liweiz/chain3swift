@@ -7,4 +7,5 @@ xcuserdata
 .DS_Store
 /Tests/**
 !/Tests/MOACTests.swift
+!/Tests/Info.plist
 
