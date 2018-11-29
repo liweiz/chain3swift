@@ -56,25 +56,25 @@ public extension Chain3 {
         return Chain3(provider: provider)
     }
 
-    /// Initialized Chain3 instance bound to Infura's mainnet provider.
-    @available (*, deprecated: 2.0, message: "use Chain3(infura: .mainnet, accessToken: String?)")
-    static func InfuraMainnetChain3(accessToken: String? = nil) -> Chain3 {
-        let infura = InfuraProvider(.mainnet, accessToken: accessToken)!
-        return Chain3(provider: infura)
+    /// Initialized Chain3 instance bound to Gateway's mainnet provider.
+    @available (*, deprecated: 2.0, message: "use Chain3(gateway: .mainnet, accessToken: String?)")
+    static func GatewayMainnetChain3(accessToken: String? = nil) -> Chain3 {
+        let gateway = GatewayProvider(.mainnet, accessToken: accessToken)!
+        return Chain3(provider: gateway)
     }
 
-    /// Initialized Chain3 instance bound to Infura's rinkeby provider.
-    @available (*, deprecated: 2.0, message: "use Chain3(infura: .rinkeby, accessToken: String?)")
-    static func InfuraRinkebyChain3(accessToken: String? = nil) -> Chain3 {
-        let infura = InfuraProvider(.rinkeby, accessToken: accessToken)!
-        return Chain3(provider: infura)
+    /// Initialized Chain3 instance bound to Gateway's rinkeby provider.
+    @available (*, deprecated: 2.0, message: "use Chain3(gateway: .rinkeby, accessToken: String?)")
+    static func GatewayRinkebyChain3(accessToken: String? = nil) -> Chain3 {
+        let gateway = GatewayProvider(.rinkeby, accessToken: accessToken)!
+        return Chain3(provider: gateway)
     }
 
-    /// Initialized Chain3 instance bound to Infura's ropsten provider.
-    @available (*, deprecated: 2.0, message: "use Chain3(infura: .ropsten, accessToken: String?)")
-    static func InfuraRopstenChain3(accessToken: String? = nil) -> Chain3 {
-        let infura = InfuraProvider(.ropsten, accessToken: accessToken)!
-        return Chain3(provider: infura)
+    /// Initialized Chain3 instance bound to Gateway's ropsten provider.
+    @available (*, deprecated: 2.0, message: "use Chain3(gateway: .ropsten, accessToken: String?)")
+    static func GatewayRopstenChain3(accessToken: String? = nil) -> Chain3 {
+        let gateway = GatewayProvider(.ropsten, accessToken: accessToken)!
+        return Chain3(provider: gateway)
     }
 }
 

@@ -39,7 +39,7 @@ public class Chain3HttpProvider: Chain3Provider {
     /// url session
     public var session = URLSession(configuration: .default)
     
-    /// default init with any address and network id. works with infura, localnode and any other node
+    /// default init with any address and network id. works with gateway, localnode and any other node
     public init?(_ httpProviderURL: URL, network net: NetworkId? = nil, keystoreManager manager: KeystoreManager? = nil) {
         do {
             guard httpProviderURL.scheme == "http" || httpProviderURL.scheme == "https" else { return nil }

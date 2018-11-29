@@ -48,9 +48,9 @@ extension Chain3HttpProvider {
 }
 
 
-//@objc public class C3InfuraProvider: C3Chain3HttpProvider {
+//@objc public class C3GatewayProvider: C3Chain3HttpProvider {
 //    @objc public init?(_ net: C3NetworkId, accessToken token: String? = nil, keystoreManager manager: C3KeystoreManager? = nil) {
-//        guard let swift = InfuraProvider(net.swift, accessToken: token, keystoreManager: manager?.swift) else { return nil }
+//        guard let swift = GatewayProvider(net.swift, accessToken: token, keystoreManager: manager?.swift) else { return nil }
 //        super.init(swift)
 //    }
 //

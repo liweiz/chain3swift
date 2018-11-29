@@ -7,9 +7,9 @@ Pod::Spec.new do |spec|
     spec.watchos.deployment_target = "2.0"
     spec.license      = { :type => 'Apache License 2.0', :file => 'LICENSE.md' }
     spec.summary      = 'Chain3 implementation in pure Swift for iOS, macOS, tvOS, watchOS and Linux'
-    spec.homepage     = 'https://github.com/bankex/web3swift'
+    spec.homepage     = 'https://github.com/liweiz/chain3swift'
     spec.author       = 'Liwei Zhang'
-    spec.source       = { :git => 'https://github.com/bankex/web3swift.git', :tag => 'v' + String(spec.version) }
+    spec.source       = { :git => 'https://github.com/liweiz/chain3swift.git', :tag => 'v' + String(spec.version) }
     spec.source_files = 'Sources/**/*.swift'
     spec.dependency 'PromiseKit', '~> 6.4'
     spec.dependency 'BigInt', '~> 3.1'

@@ -12,9 +12,9 @@ import BigInt
 import Foundation
 import PromiseKit
 
-/// A chain3 instance bound to provider. All further functionality is provided under web.*. namespaces.
+/// A chain3 instance bound to provider. All further functionality is provided under mc.*. namespaces.
 public class Chain3: Chain3OptionsInheritable {
-    public static var `default`: Chain3 = Chain3(infura: .mainnet)
+    public static var `default`: Chain3 = Chain3(gateway: .mainnet)
     public var provider: Chain3Provider
     public var options: Chain3Options = .default
     public var defaultBlock = "latest"

@@ -14,25 +14,25 @@ import BigInt
 
 /**
  Native realisation of txpool
- - important: Doesn't works with Infura provider
+ - important: Doesn't works with Gateway provider
  */
 public class TxPool {
     /**
-     - important: Doesn't works with Infura provider
+     - important: Doesn't works with Gateway provider
      */
     public static var `default`: TxPool {
         return TxPool(chain3: .default)
     }
     var chain3: Chain3
     /**
-     - important: Doesn't works with Infura provider
+     - important: Doesn't works with Gateway provider
      */
     public init(chain3: Chain3) {
         self.chain3 = chain3
     }
     
     /**
-     - important: Doesn't works with Infura provider | main thread friendly
+     - important: Doesn't works with Gateway provider | main thread friendly
      - returns: number of pending and queued transactions
      - throws:
      DictionaryReader.Error if server has different response than expected |
@@ -47,7 +47,7 @@ public class TxPool {
     }
     
     /**
-     - important: Doesn't works with Infura provider | main thread friendly
+     - important: Doesn't works with Gateway provider | main thread friendly
      - returns: main information about pending and queued transactions
      - throws:
      DictionaryReader.Error if server has different response than expected |
@@ -62,7 +62,7 @@ public class TxPool {
     }
     
     /**
-     - important: Doesn't works with Infura provider | main thread friendly
+     - important: Doesn't works with Gateway provider | main thread friendly
      - returns: full information for all pending and queued transactions
      - throws:
      DictionaryReader.Error if server has different response than expected |

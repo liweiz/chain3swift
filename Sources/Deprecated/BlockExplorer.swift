@@ -5,6 +5,8 @@
 //  Created by Георгий Фесенко on 19/06/2018.
 //  Copyright © 2018 Bankex Foundation. All rights reserved.
 //
+//  Modifications copyright © 2018 Liwei Zhang. All rights reserved.
+//
 
 import Foundation
 import BigInt
@@ -31,7 +33,7 @@ public class BlockExplorer {
     
     public func getTransactionsHistory(address publicAddress: String, tokenName name: String = "MOAC", page: Int = 1, size: Int = 50) -> Promise<[TransactionHistoryRecord]> {
         // Configuring http request
-        let listId: ListId = (name == "MOAC") ? .listOfETH : .listOfTokens
+        let listId: ListId = (name == "MOAC") ? .listOfMC : .listOfTokens
         let url = URL(string: urlStringList)!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -52,7 +54,7 @@ public class BlockExplorer {
                 do {
                     // Parsing JSON
                     let jsonResponce = try JSONDecoder().decode(Response.self, from: data)
-                    if listId == .listOfETH {
+                    if listId == .listOfMC {
                         seal.fulfill(jsonResponce.rows)
                     } else {
                         seal.fulfill(jsonResponce.rows.filter { $0.token.name == name })
@@ -121,7 +123,7 @@ public class BlockExplorer {
     }
     
     public enum ListId: String {
-        case listOfETH
+        case listOfMC
         case listOfTokens
     }
     

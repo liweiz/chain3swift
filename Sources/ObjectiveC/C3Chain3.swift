@@ -78,14 +78,14 @@ extension Chain3 {
     @objc public lazy var personal = C3Personal(chain3: self)
     @objc public lazy var wallet = C3Wallet(chain3: self)
 	
-	@objc public init(infura networkId: C3NetworkId) {
-		swift = Chain3(infura: networkId.swift)
+	@objc public init(gateway networkId: C3NetworkId) {
+		swift = Chain3(gateway: networkId.swift)
 		super.init()
 		options = C3Options(object: self)
 	}
 	
-	@objc public init(infura networkId: C3NetworkId, accessToken: String) {
-		swift = Chain3(infura: networkId.swift, accessToken: accessToken)
+	@objc public init(gateway networkId: C3NetworkId, accessToken: String) {
+		swift = Chain3(gateway: networkId.swift, accessToken: accessToken)
 		super.init()
 		options = C3Options(object: self)
 	}

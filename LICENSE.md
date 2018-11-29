@@ -1,4 +1,4 @@
-Copyright (c) 2018 Aleksandr Vlasov, Stichting Bankex Foundation <av@bankexfoundation.org>
+Copyright (c) 2018 Liwei Zhang <matt.z.lw@gmail.com>
 
                                  Apache License
                            Version 2.0, January 2004

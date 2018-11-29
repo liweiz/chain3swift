@@ -1,5 +1,4 @@
 //
-import BigInt
 //  Chain3+HookedWallet.swift
 //  chain3swift
 //
@@ -8,7 +7,9 @@ import BigInt
 //
 //  Modifications copyright © 2018 Liwei Zhang. All rights reserved.
 //
+
 import Foundation
+import BigInt
 
 public enum Chain3WalletError: Error {
     case attachadKeystoreNotFound
