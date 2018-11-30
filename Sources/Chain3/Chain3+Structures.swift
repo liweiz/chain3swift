@@ -47,7 +47,7 @@ extension Chain3Options: Decodable {
         case gasPrice
         case gas
         case value
-        case systemContract
+        case syscnt
         case shardingFlag
         case via
     }
@@ -78,17 +78,7 @@ extension Chain3Options: Decodable {
         }
         self.to = to
         
-        let viaString = try container.decode(String?.self, forKey: .via)
-        var via: Address?
-        if viaString == nil || viaString == "0x" || viaString == "0x0" {
-            via = Address.contractDeployment
-        } else {
-            guard let addressString = viaString else { throw Chain3Error.dataError }
-            let moacAddr = Address(addressString)
-            guard moacAddr.isValid else { throw Chain3Error.dataError }
-            via = moacAddr
-        }
-        self.via = via
+        self.via = "no via"
         
         let from = try container.decodeIfPresent(Address.self, forKey: .to)
 //        var from: Address?
@@ -101,7 +91,7 @@ extension Chain3Options: Decodable {
         let value = try decodeHexToBigUInt(container, key: .value)
         self.value = value
         
-        let systemContract = try decodeHexToBigUInt(container, key: .systemContract)
+        let systemContract = try decodeHexToBigUInt(container, key: .syscnt)
         self.systemContract = systemContract
         
         let shardingFlag = try decodeHexToBigUInt(container, key: .shardingFlag)

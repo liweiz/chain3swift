@@ -68,8 +68,7 @@ public struct Chain3Options {
         value = try json.at("value").uint256()
         from = try json.at("from").address()
         shardingFlag = try json.at("shardingFlag").uint256()
-        systemContract = try json.at("systemContract").uint256()
-        via = try json.at("via").address()
+        systemContract = try json.at("syscnt").uint256()
     }
 
     /// Merges two sets of opions by overriding the parameters from the first set by parameters from the second
