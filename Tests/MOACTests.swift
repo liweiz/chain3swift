@@ -176,7 +176,7 @@ class MOACTests: XCTestCase {
         var options = Chain3Options.default
         options.from = fromAddr
         options.gasPrice = gasPrice
-        // Have to use personal.unlock seperately first since the sendPromise's password param only work under signed tx
+        // Have to use personal.unlock seperately first since the sendPromise's password param only works under signed tx
         let result = try intermediate.sendPromise(options: options).wait()
         print(result)
     }
@@ -226,7 +226,7 @@ class MOACTests: XCTestCase {
         options.from = Address(addrOfBalanceCheck)
         let newUInt = UInt.random(in: 0 ..< 10)
         print(newUInt)
-        // Have to use personal.unlock seperately first since the sendPromise's password param only work under signed tx
+        // Have to use personal.unlock seperately first since the sendPromise's password param only works under signed tx
         _ = try chain3.personal.unlockAccountPromise(account: Address(addrOfBalanceCheck), password: "1111").wait()
         let transactionIntermediateForSet = try contract.method("set", args: newUInt, options: options)
         let result = try transactionIntermediateForSet.sendPromise(options: options).wait()
@@ -253,18 +253,15 @@ class MOACTests: XCTestCase {
     }
     
     func testContractGetterMethod() throws {
-        let jsonString = "[{\"constant\":false,\"inputs\":[{\"name\":\"x\",\"type\":\"uint256\"}],\"name\":\"set\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"get\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}]"
         let chain3 = Chain3(provider: provider!)
         let contractAddress = Address(contractAddrToCall)
-        let contract = try chain3.contract(jsonString, at: contractAddress)
+        let contract = try chain3.contract(contractJsonStr, at: contractAddress)
         var options = Chain3Options.default
         options.from = Address(addrOfBalanceCheck)
         let transactionIntermediateForGet = try contract.method("get", options: options)
         let value = try transactionIntermediateForGet.call(options: options).uint256()
         print(value)
     }
-    
-
     
 }
 
