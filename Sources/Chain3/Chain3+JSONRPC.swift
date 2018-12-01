@@ -157,15 +157,11 @@ public struct JsonRpcResponse: Decodable {
             result = rawValue
         } else if let rawValue = try? container.decodeIfPresent(TransactionReceipt.self, forKey: .result) {
             result = rawValue
-        } else if let rawValue = try? container.decodeIfPresent(TransactionDetails.self, forKey: .result) {
-            result = rawValue
         } else if let rawValue = try? container.decodeIfPresent([EventLog].self, forKey: .result) {
             result = rawValue
         } else if let rawValue = try? container.decodeIfPresent([Block].self, forKey: .result) {
             result = rawValue
         } else if let rawValue = try? container.decodeIfPresent([TransactionReceipt].self, forKey: .result) {
-            result = rawValue
-        } else if let rawValue = try? container.decodeIfPresent([TransactionDetails].self, forKey: .result) {
             result = rawValue
         } else if let rawValue = try? container.decodeIfPresent([Bool].self, forKey: .result) {
             result = rawValue
@@ -173,11 +169,15 @@ public struct JsonRpcResponse: Decodable {
             result = rawValue
         } else if let rawValue = try? container.decodeIfPresent([String].self, forKey: .result) {
             result = rawValue
+        } else if let rawValue = try? container.decodeIfPresent(TransactionInBlock.self, forKey: .result) {
+            result = rawValue
         } else if let rawValue = try? container.decodeIfPresent([String: String].self, forKey: .result) {
             result = rawValue
         } else if let rawValue = try? container.decodeIfPresent([String: Int].self, forKey: .result) {
             result = rawValue
         } else if let rawValue = try? container.decodeIfPresent([String: Any].self, forKey: .result) {
+            result = rawValue
+        } else if let rawValue = try? container.decodeIfPresent([TransactionInBlock].self, forKey: .result) {
             result = rawValue
         }
         self.init(id: id, jsonrpc: jsonrpc, result: result, error: nil)

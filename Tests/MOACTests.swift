@@ -100,8 +100,14 @@ class MOACTests: XCTestCase {
     
     func testTransactionDetails() throws {
         let chain3 = Chain3(provider: provider!)
-        _ = try chain3.mc.getTransactionDetails(hashOfTxToInspect)
-//        XCTAssert(response.gasLimit == BigUInt(7000000))
+        let response = try chain3.mc.getTransactionDetails(hashOfTxToInspect)
+        print(response)
+        switch response {
+        case let .transaction(x):
+            XCTAssert(x.gasLimit == BigUInt(7000000))
+        default:
+            print("not a transaction object")
+        }
     }
     
     func testGetTransactionDetailsPromise() {
@@ -109,7 +115,12 @@ class MOACTests: XCTestCase {
             let chain3 = Chain3(provider: provider!)
             let result = try chain3.mc.getTransactionDetailsPromise(hashOfTxToInspect).wait()
             print(result)
-//            XCTAssert(result.gasLimit == BigUInt(7000000))
+            switch result {
+            case let .transaction(x):
+                XCTAssert(x.gasLimit == BigUInt(7000000))
+            default:
+                print("not a transaction object")
+            }
         } catch {
             print(error)
         }

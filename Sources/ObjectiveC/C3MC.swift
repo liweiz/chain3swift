@@ -81,7 +81,7 @@ import Foundation
     /// as well as original transaction details such as value, gas limit, gas price, etc.
     ///
     /// This function is synchronous!
-    @objc public func getTransactionDetails(txHash: Data) throws -> C3TransactionDetails {
+    @objc public func getTransactionDetails(txHash: Data) throws -> C3TransactionInBlock {
         return try swift.getTransactionDetails(txHash).objc
     }
 
@@ -91,7 +91,7 @@ import Foundation
     /// This function is synchronous!
     ///
     /// Returns the Result object that indicates either success of failure.
-    @objc public func getTransactionDetails(txHashString: String) throws -> C3TransactionDetails {
+    @objc public func getTransactionDetails(txHashString: String) throws -> C3TransactionInBlock {
         return try swift.getTransactionDetails(txHashString).objc
     }
 
@@ -220,7 +220,7 @@ import Foundation
             .catch { completion(nil, $0) }
     }
 
-    @objc public func getTransactionDetailsPromise(_ txhash: Data, completion: @escaping (C3TransactionDetails?,Error?)->()) {
+    @objc public func getTransactionDetailsPromise(_ txhash: Data, completion: @escaping (C3TransactionInBlock?,Error?)->()) {
         swift.getTransactionDetailsPromise(txhash)
             .done { completion($0.objc,nil) }
             .catch { completion(nil, $0) }

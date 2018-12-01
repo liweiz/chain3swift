@@ -101,7 +101,7 @@ public class Chain3MC: Chain3OptionsInheritable {
     /// as well as original transaction details such as value, gas limit, gas price, etc.
     ///
     /// This function is synchronous!
-    public func getTransactionDetails(_ txhash: Data) throws -> TransactionDetails {
+    public func getTransactionDetails(_ txhash: Data) throws -> TransactionInBlock {
         return try getTransactionDetailsPromise(txhash).wait()
     }
 
@@ -111,7 +111,7 @@ public class Chain3MC: Chain3OptionsInheritable {
     /// This function is synchronous!
     ///
     /// Returns the Result object that indicates either success of failure.
-    public func getTransactionDetails(_ txhash: String) throws -> TransactionDetails {
+    public func getTransactionDetails(_ txhash: String) throws -> TransactionInBlock {
         return try getTransactionDetailsPromise(txhash).wait()
     }
 
@@ -287,17 +287,19 @@ public class Chain3MC: Chain3OptionsInheritable {
     }
     
     
-    public func getTransactionDetailsPromise(_ txhash: Data) -> Promise<TransactionDetails> {
+    public func getTransactionDetailsPromise(_ txhash: Data) -> Promise<TransactionInBlock> {
         let hashString = txhash.toHexString().withHex
         return getTransactionDetailsPromise(hashString)
     }
     
-    public func getTransactionDetailsPromise(_ txhash: String) -> Promise<TransactionDetails> {
+    public func getTransactionDetailsPromise(_ txhash: String) -> Promise<TransactionInBlock> {
         let request = JsonRpcRequestFabric.prepareRequest(.getTransactionByHash, parameters: [txhash])
         let rp = chain3.dispatch(request)
         let queue = chain3.requestDispatcher.queue
         return rp.map(on: queue) { response in
-            guard let value: TransactionDetails = response.getValue() else {
+//            let transactions = try container.decode([TransactionInBlock].self, forKey: .transactions)
+//            self.transactions = transactions
+            guard let value: TransactionInBlock = response.getValue() else {
                 if response.error != nil {
                     throw Chain3Error.nodeError(response.error!.message)
                 }
