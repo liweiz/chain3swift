@@ -32,24 +32,10 @@ Don't forget to set the iOS version in a Podfile, otherwise you get an error if 
 
 ## Installation
 
-- **Swift Package Manager:**
-  Although the Package Manager is still in its infancy, chain3swift provides full support for it.
-  Add this to the dependency section of your `Package.swift` manifest:
-
-  ```Swift
-  .package(url: "https://github.com/liweiz/chain3swift.git", from: "2.0.0")
-  ```
-
 - **CocoaPods:** Put this in your `Podfile`:
 
   ```Ruby
   pod 'chain3swift', :git => 'https://github.com/liweiz/chain3swift.git'
-  ```
-
-- **Carthage:** Put this in your `Cartfile`:
-
-  ```
-  github "liweiz/chain3swift" ~> 2.0
   ```
 
 ## Design decisions
