@@ -359,6 +359,9 @@ public struct SCSTransactionReceipt: Decodable {
         
         let logs = try container.decode([EventLog].self, forKey: .logs)
         self.logs = logs
+        
+        let transactionHash = try decodeHexToData(container, key: .transactionHash, allowOptional: true)
+        self.transactionHash = transactionHash!
     }
     
     public init(transactionHash: Data, logs: [EventLog], status: TXStatus, logsBloom: MOACBloomFilter?) {

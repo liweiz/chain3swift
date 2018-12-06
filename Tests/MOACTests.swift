@@ -263,6 +263,35 @@ class MOACTests: XCTestCase {
         print(value)
     }
     
+    func testGetVnodeAddress() throws {
+        let chain3 = Chain3(provider: provider!)
+        let address = try chain3.vnode.getVnodeAddress().wait()
+        print(address)
+    }
+    
+    func testScsServiceEnabled() throws {
+        let chain3 = Chain3(provider: provider!)
+        let result = try chain3.vnode.scsServiceEnabled().wait()
+        print(result)
+    }
+    
+    func testGetServiceCfg() throws {
+        let chain3 = Chain3(provider: provider!)
+        let result = try chain3.vnode.getServiceCfg().wait()
+        print(result)
+    }
+    
+    func testShowToPublicEnabled() throws {
+        let chain3 = Chain3(provider: provider!)
+        let result = try chain3.vnode.showToPublicEnabled().wait()
+        print(result)
+    }
+    
+    func testgetVnodeIP() throws {
+        let chain3 = Chain3(provider: provider!)
+        let result = try chain3.vnode.getVnodeIP().wait()
+        print(result)
+    }
 }
 
 

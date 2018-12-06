@@ -37,6 +37,12 @@ public class Chain3: Chain3OptionsInheritable {
     /// Public chain3.wallet.* namespace.
     public lazy var wallet = Chain3Wallet(provider: self.provider, chain3: self)
     
+    /// Public chain3.vnode.* namespace.
+    public lazy var vnode = Chain3Vnode(provider: self.provider, chain3: self)
+    
+    /// Public chain3.scs.* namespace.
+    public lazy var scs = Chain3SCS(provider: self.provider, chain3: self)
+    
     /// Public chain3.browserFunctions.* namespace.
     public lazy var browserFunctions = Chain3BrowserFunctions(provider: self.provider, chain3: self)
 

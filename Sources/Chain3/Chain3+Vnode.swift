@@ -42,7 +42,7 @@ public class Chain3Vnode: Chain3OptionsInheritable {
         }
     }
     
-    public func getScsService() -> Promise<Bool> {
+    public func scsServiceEnabled() -> Promise<Bool> {
         let queue = chain3.requestDispatcher.queue
         let request = JsonRpcRequestFabric.prepareRequest(.vnScsService, parameters: [])
         let rp = chain3.dispatch(request)
@@ -72,7 +72,7 @@ public class Chain3Vnode: Chain3OptionsInheritable {
         }
     }
     
-    public func getShowToPublic() -> Promise<Bool> {
+    public func showToPublicEnabled() -> Promise<Bool> {
         let queue = chain3.requestDispatcher.queue
         let request = JsonRpcRequestFabric.prepareRequest(.vnShowToPublic, parameters: [])
         let rp = chain3.dispatch(request)
