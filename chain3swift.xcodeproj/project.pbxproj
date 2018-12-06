@@ -103,6 +103,8 @@
 		EE2C23F8219C997800E5F348 /* SipHash.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EE2C23F3219C997800E5F348 /* SipHash.framework */; };
 		EE2C23FB219D3C9D00E5F348 /* Chain3+Infura.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2C23FA219D3C9D00E5F348 /* Chain3+Infura.swift */; };
 		EEE622AF21AEF20A00B68520 /* MOACTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2C23FC219E2A8C00E5F348 /* MOACTests.swift */; };
+		EEE622D121B7034800B68520 /* Chain3+Vnode.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEE622D021B7034800B68520 /* Chain3+Vnode.swift */; };
+		EEE622D321B862D800B68520 /* Chain3+SCS.swift in Sources */ = {isa = PBXBuildFile; fileRef = EEE622D221B862D800B68520 /* Chain3+SCS.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -210,6 +212,8 @@
 		EE2C23FA219D3C9D00E5F348 /* Chain3+Infura.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Chain3+Infura.swift"; sourceTree = "<group>"; };
 		EE2C23FC219E2A8C00E5F348 /* MOACTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MOACTests.swift; sourceTree = "<group>"; };
 		EEE622AD21AEF1EF00B68520 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EEE622D021B7034800B68520 /* Chain3+Vnode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Chain3+Vnode.swift"; sourceTree = "<group>"; };
+		EEE622D221B862D800B68520 /* Chain3+SCS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Chain3+SCS.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -461,6 +465,8 @@
 				EE2C23D8219C7D5400E5F348 /* Chain3+JSONRPC.swift */,
 				EE2C23FA219D3C9D00E5F348 /* Chain3+Infura.swift */,
 				EE2C23D9219C7D5400E5F348 /* Chain3+MC.swift */,
+				EEE622D021B7034800B68520 /* Chain3+Vnode.swift */,
+				EEE622D221B862D800B68520 /* Chain3+SCS.swift */,
 				EE2C23DA219C7D5400E5F348 /* Chain3+Contract.swift */,
 				EE2C23DB219C7D5400E5F348 /* Chain3+Instance.swift */,
 				EE2C23DC219C7D5400E5F348 /* Batching.swift */,
@@ -674,6 +680,7 @@
 				13765D6E21964A9B005C483C /* C3TransactionIntermediate.swift in Sources */,
 				1317BDC8218C526300D6D095 /* Base58.swift in Sources */,
 				EE2C23DF219C7D5400E5F348 /* Chain3+Options.swift in Sources */,
+				EEE622D321B862D800B68520 /* Chain3+SCS.swift in Sources */,
 				13765D7621964A9B005C483C /* C3Personal.swift in Sources */,
 				1317BDB0218C526300D6D095 /* KeystoreManager.swift in Sources */,
 				1317BDB3218C526300D6D095 /* BIP32HDNode.swift in Sources */,
@@ -711,6 +718,7 @@
 				13765D6B21964A9B005C483C /* C3Contracts.swift in Sources */,
 				1317BDB8218C526300D6D095 /* HDPath.swift in Sources */,
 				13765D7021964A9B005C483C /* C3MC.swift in Sources */,
+				EEE622D121B7034800B68520 /* Chain3+Vnode.swift in Sources */,
 				1317BDAA218C526300D6D095 /* SolidityFunction.swift in Sources */,
 				1317BDA6218C526300D6D095 /* ABIv2.swift in Sources */,
 				13765D7221964A9B005C483C /* C3UInt.swift in Sources */,

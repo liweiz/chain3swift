@@ -39,6 +39,22 @@ public struct JsonRpcMethod: Encodable, Equatable {
     public static let txPoolStatus = JsonRpcMethod(api: "txpool_status", parameters: 0)
     public static let txPoolInspect = JsonRpcMethod(api: "txpool_inspect", parameters: 0)
     public static let txPoolContent = JsonRpcMethod(api: "txpool_content", parameters: 0)
+    // vnode
+    public static let vnVnodeAddress = JsonRpcMethod(api: "vnode_address", parameters: 0)
+    public static let vnScsService = JsonRpcMethod(api: "vnode_scsService", parameters: 0)
+    public static let vnServiceCfg = JsonRpcMethod(api: "vnode_serviceCfg", parameters: 0)
+    public static let vnShowToPublic = JsonRpcMethod(api: "vnode_showToPublic", parameters: 0)
+    public static let vnVnodeIP = JsonRpcMethod(api: "vnode_vnodeIP", parameters: 0)
+    // scs
+    public static let scsDirectCall = JsonRpcMethod(api: "scs_directCall", parameters: 1)
+    public static let scsGetBlock = JsonRpcMethod(api: "scs_getBlock", parameters: 2)
+    public static let scsGetBlockNumber = JsonRpcMethod(api: "scs_getBlockNumber", parameters: 1)
+    public static let scsGetDappState = JsonRpcMethod(api: "scs_getDappState", parameters: 1)
+    public static let scsGetMicroChainList = JsonRpcMethod(api: "scs_getMicroChainList", parameters: 0)
+    public static let scsGetMicroChainInfo = JsonRpcMethod(api: "scs_getMicroChainInfo", parameters: 1)
+    public static let scsGetNonce = JsonRpcMethod(api: "scs_getNonce", parameters: 2)
+    public static let scsGetSCSId = JsonRpcMethod(api: "scs_getSCSId", parameters: 0)
+    public static let scsGetTransactionReceipt = JsonRpcMethod(api: "scs_getTransactionReceipt", parameters: 2)
 }
 
 public struct JsonRpcRequestFabric {
