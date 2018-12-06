@@ -202,7 +202,7 @@ public struct SCSBlock: Decodable {
     public var receiptsRoot: Data?
     public var stateRoot: Data?
     public var timestamp: BigUInt?
-    public var transactions: [String]?
+    public var transactions: [TransactionInBlock]?
     public var transactionsRoot: Data?
     
     enum CodingKeys: String, CodingKey {
@@ -244,25 +244,20 @@ public struct SCSBlock: Decodable {
         let transactionsRoot = try decodeHexToData(container, key: .transactionsRoot, allowOptional: true)
         self.transactionsRoot = transactionsRoot
         
-//        let scsStrings = try container.decode([String].self, forKey: .scsList)
-//        var scsList = [Address]()
-//        for scsString in scsStrings {
-//            let scs = Address(scsString)
-//            scsList.append(scs)
-//        }
-//        self.transactions = scsList
-        
-        self.transactions = []
+        let txs = try container.decode([TransactionInBlock].self, forKey: .transactions)
+        self.transactions = txs
     }
     
-    public init(balance: BigUInt, blockReward: BigUInt, bondLimit: BigUInt, owner: Address, scsList: [Address], txReward: BigUInt, viaReward: BigUInt) {
-        self.balance = balance
-        self.blockReward = blockReward
-        self.bondLimit = bondLimit
-        self.owner = owner
-        self.scsList = scsList
-        self.txReward = txReward
-        self.viaReward = viaReward
+    public init(extraData: Data, hash: Data, number: BigUInt, parentHash: Data, receiptsRoot: Data, stateRoot: Data, timestamp: BigUInt, transactions: [TransactionInBlock], transactionsRoot: Data) {
+        self.extraData = extraData
+        self.hash = hash
+        self.number = number
+        self.parentHash = parentHash
+        self.receiptsRoot = receiptsRoot
+        self.stateRoot = stateRoot
+        self.timestamp = timestamp
+        self.transactions = transactions
+        self.transactionsRoot = transactionsRoot
     }
 }
 
