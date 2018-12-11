@@ -347,6 +347,12 @@ class MOACTests: XCTestCase {
         print(result.description)
     }
     
+    func testSCSGetSCSId() throws {
+        let scsChain3 = Chain3(provider: scsProvider!)
+        let result = try scsChain3.scs.getSCSId().wait()
+        print(result)
+    }
+    
     func testSCSGetMicroChainInfo() throws {
         let scsChain3 = Chain3(provider: scsProvider!)
         let result = try scsChain3.scs.getMicroChainInfo(chainAddr: microChainAddressStr).wait()
