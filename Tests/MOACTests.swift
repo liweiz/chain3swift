@@ -341,6 +341,12 @@ class MOACTests: XCTestCase {
         print(result)
     }
     
+    func testSCSGetBlockNumber() throws {
+        let scsChain3 = Chain3(provider: scsProvider!)
+        let result = try scsChain3.scs.getBlockNumber(chainAddr: microChainAddressStr).wait()
+        print(result.description)
+    }
+    
     func testSCSGetMicroChainInfo() throws {
         let scsChain3 = Chain3(provider: scsProvider!)
         let result = try scsChain3.scs.getMicroChainInfo(chainAddr: microChainAddressStr).wait()
@@ -353,11 +359,7 @@ class MOACTests: XCTestCase {
 //        print(result)
 //    }
     
-    func testSCSGetBlockNumber() throws {
-        let scsChain3 = Chain3(provider: scsProvider!)
-        let result = try scsChain3.scs.getBlockNumber().wait()
-        print(result)
-    }
+
 }
 
 

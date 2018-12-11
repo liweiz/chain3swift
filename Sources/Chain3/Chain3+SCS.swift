@@ -116,9 +116,9 @@ public class Chain3SCS: Chain3OptionsInheritable {
         }
     }
     
-    public func getBlockNumber() -> Promise<BigUInt> {
+    public func getBlockNumber(chainAddr: String) -> Promise<BigUInt> {
         let queue = chain3.requestDispatcher.queue
-        let request = JsonRpcRequestFabric.prepareRequest(.scsGetBlockNumber, parameters: [])
+        let request = JsonRpcRequestFabric.prepareRequest(.scsGetBlockNumber, parameters: [chainAddr])
         let rp = chain3.dispatch(request)
         return rp.map(on: queue) { response in
             guard let value: BigUInt = response.getValue() else {
