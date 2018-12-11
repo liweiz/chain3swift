@@ -131,12 +131,12 @@ public class Chain3SCS: Chain3OptionsInheritable {
         }
     }
     
-    public func getDappState() -> Promise<Int> {
+    public func getDappState(chainAddr: String) -> Promise<Int> {
         let queue = chain3.requestDispatcher.queue
-        let request = JsonRpcRequestFabric.prepareRequest(.scsGetDappState, parameters: [])
+        let request = JsonRpcRequestFabric.prepareRequest(.scsGetDappState, parameters: [chainAddr])
         let rp = chain3.dispatch(request)
         return rp.map(on: queue) { response in
-            guard let value: Int = response.getValue() else {
+            guard let value = response.result as? Int else {
                 if response.error != nil {
                     throw Chain3Error.nodeError(response.error!.message)
                 }
@@ -161,9 +161,9 @@ public class Chain3SCS: Chain3OptionsInheritable {
         }
     }
     
-    public func getMicroChainInfo() -> Promise<MicroChainInfo> {
+    public func getMicroChainInfo(chainAddr: String) -> Promise<MicroChainInfo> {
         let queue = chain3.requestDispatcher.queue
-        let request = JsonRpcRequestFabric.prepareRequest(.scsGetMicroChainInfo, parameters: [])
+        let request = JsonRpcRequestFabric.prepareRequest(.scsGetMicroChainInfo, parameters: [chainAddr])
         let rp = chain3.dispatch(request)
         return rp.map(on: queue) { response in
             guard let value: MicroChainInfo = response.getValue() else {

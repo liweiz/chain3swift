@@ -155,6 +155,8 @@ public struct JsonRpcResponse: Decodable {
             result = rawValue
         } else if let rawValue = try? container.decodeIfPresent(Block.self, forKey: .result) {
             result = rawValue
+        } else if let rawValue = try? container.decodeIfPresent(MicroChainInfo.self, forKey: .result) {
+            result = rawValue
         } else if let rawValue = try? container.decodeIfPresent(TransactionReceipt.self, forKey: .result) {
             result = rawValue
         } else if let rawValue = try? container.decodeIfPresent([EventLog].self, forKey: .result) {

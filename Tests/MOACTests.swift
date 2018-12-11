@@ -26,6 +26,7 @@ class MOACTests: XCTestCase {
 {"address":"d04967d333fe17fe2707186608e5fc9d1447310c","crypto":{"cipher":"aes-128-ctr","ciphertext":"eb01902340c3fee86982a613cafb7a0eb0db26d9bf9bc35426e200c81b5a0a66","cipherparams":{"iv":"d755d852d8bdbecfe572865e894cdbe4"},"kdf":"scrypt","kdfparams":{"dklen":32,"n":262144,"p":1,"r":8,"salt":"d8ae42bf4021fa214ffce36dd175f95eaa93ce3a645898efdd91bc34b9e7f549"},"mac":"042fcbbaa48d8edc142d31e25cb6a8e413cae612326ef18791b7977241d6fc6a"},"id":"9f59ca5b-d3b9-47c0-81e5-14b89142498e","version":3}
 """
     let contractJsonStr = "[{\"constant\":false,\"inputs\":[{\"name\":\"x\",\"type\":\"uint256\"}],\"name\":\"set\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[],\"name\":\"get\",\"outputs\":[{\"name\":\"\",\"type\":\"uint256\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}]"
+    let microChainAddressStr = "0xa5fe1fFfF17eF856717448F9565A81edaA87601E";
     override func setUp() {
         let url = URL(string: "http://127.0.0.1:8545")!
         if let p = Chain3HttpProvider(url, network: 101, keystoreManager: nil) {
@@ -307,6 +308,18 @@ class MOACTests: XCTestCase {
     func testSCSGetMicroChainList() throws {
         let scsChain3 = Chain3(provider: scsProvider!)
         let result = try scsChain3.scs.getMicroChainList().wait()
+        print(result)
+    }
+    
+    func testSCSGetDappState() throws {
+        let scsChain3 = Chain3(provider: scsProvider!)
+        let result = try scsChain3.scs.getDappState(chainAddr: microChainAddressStr).wait()
+        print(result)
+    }
+    
+    func testSCSGetMicroChainInfo() throws {
+        let scsChain3 = Chain3(provider: scsProvider!)
+        let result = try scsChain3.scs.getMicroChainInfo(chainAddr: microChainAddressStr).wait()
         print(result)
     }
     
