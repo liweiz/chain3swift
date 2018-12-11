@@ -16,6 +16,8 @@ import BigInt
 class MOACTests: XCTestCase {
     var localNodeFound = false
     var provider: Chain3HttpProvider? = nil
+    var localSCSNodeFound = false
+    var scsProvider: Chain3HttpProvider? = nil
     let addrOfBalanceCheck = "0xd04967d333fe17fe2707186608e5fc9d1447310c"
     let receivingTestnetAddr = "0x4c18080dd971ffeb4bc32097353741deae9685f3"
     let hashOfTxToInspect = "0x14138b41d26b2925d3b9b66d916cf41dcd62b37756db98fd1d75b66ef1a122eb"
@@ -33,6 +35,15 @@ class MOACTests: XCTestCase {
         } else {
             localNodeFound = false
             print("local node not found")
+        }
+        let urlP = URL(string: "http://127.0.0.1:21000")!
+        // network if here for SCS Chain3 is meaningless since we do not need to sign any thing for SCS requests. Its sole purpose is for local signing.
+        if let scsP = Chain3HttpProvider(urlP, network: 101, keystoreManager: nil) {
+            scsProvider = scsP
+            localSCSNodeFound = true
+        } else {
+            localSCSNodeFound = false
+            print("local SCS node not found")
         }
     }
     
@@ -263,33 +274,51 @@ class MOACTests: XCTestCase {
         print(value)
     }
     
-    func testGetVnodeAddress() throws {
+    func testVnodeGetVnodeAddress() throws {
         let chain3 = Chain3(provider: provider!)
         let address = try chain3.vnode.getVnodeAddress().wait()
         print(address)
     }
     
-    func testScsServiceEnabled() throws {
+    func testVnodeScsServiceEnabled() throws {
         let chain3 = Chain3(provider: provider!)
         let result = try chain3.vnode.scsServiceEnabled().wait()
         print(result)
     }
     
-    func testGetServiceCfg() throws {
+    func testVnodeGetServiceCfg() throws {
         let chain3 = Chain3(provider: provider!)
         let result = try chain3.vnode.getServiceCfg().wait()
         print(result)
     }
     
-    func testShowToPublicEnabled() throws {
+    func testVnodeShowToPublicEnabled() throws {
         let chain3 = Chain3(provider: provider!)
         let result = try chain3.vnode.showToPublicEnabled().wait()
         print(result)
     }
     
-    func testgetVnodeIP() throws {
+    func testVnodeGetVnodeIP() throws {
         let chain3 = Chain3(provider: provider!)
         let result = try chain3.vnode.getVnodeIP().wait()
+        print(result)
+    }
+    
+    func testSCSGetMicroChainList() throws {
+        let scsChain3 = Chain3(provider: scsProvider!)
+        let result = try scsChain3.scs.getMicroChainList().wait()
+        print(result)
+    }
+    
+//    func testSCSGetBlock() throws {
+//        let scsChain3 = Chain3(provider: scsProvider!)
+//        let result = try scsChain3.scs.getBlock("latest").wait()
+//        print(result)
+//    }
+    
+    func testSCSGetBlockNumber() throws {
+        let scsChain3 = Chain3(provider: scsProvider!)
+        let result = try scsChain3.scs.getBlockNumber().wait()
         print(result)
     }
 }

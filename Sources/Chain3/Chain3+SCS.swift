@@ -66,22 +66,51 @@ public class Chain3SCS: Chain3OptionsInheritable {
                 if response.error != nil {
                     throw Chain3Error.nodeError(response.error!.message)
                 }
-                throw Chain3Error.nodeError("Invalid value from MOAC node")
+                throw Chain3Error.nodeError("Invalid value from SCS node")
             }
             return value
         }
     }
     
-    public func getBlock() -> Promise<SCSBlock> {
-        let queue = chain3.requestDispatcher.queue
-        let request = JsonRpcRequestFabric.prepareRequest(.scsGetBlock, parameters: [])
+    public func getBlock(chainAddr: String, _ number: UInt64) throws -> SCSBlock {
+        return try getBlockPromise(chainAddr: chainAddr, number).wait()
+    }
+    
+    public func getBlockPromise(chainAddr: String, _ number: UInt64) -> Promise<SCSBlock> {
+        let block = String(number, radix: 16).withHex
+        return getBlockPromise(chainAddr: chainAddr, block)
+    }
+    
+    public func getBlock(chainAddr: String, _ number: BigUInt) throws -> SCSBlock {
+        return try getBlockPromise(chainAddr: chainAddr, number).wait()
+    }
+    
+    public func getBlockPromise(chainAddr: String, _ number: BigUInt) -> Promise<SCSBlock> {
+        let block = String(number, radix: 16).withHex
+        return getBlockPromise(chainAddr: chainAddr, block)
+    }
+    
+    public func getBlock(chainAddr: String, _ mark: String) throws -> SCSBlock {
+        return try getBlockPromise(chainAddr: chainAddr, mark: mark).wait()
+    }
+    
+    public func getBlockPromise(chainAddr: String, mark: String) throws -> Promise<SCSBlock> {
+        if mark == "earliest" || mark == "latest" {
+            return getBlockPromise(chainAddr: chainAddr, mark)
+        }
+        throw Chain3Error.nodeError("SCS node only supports 'earliest' and 'latest'")
+    }
+    
+    public func getBlockPromise(chainAddr: String, _ number: String) -> Promise<SCSBlock> {
+        let request = JsonRpcRequestFabric.prepareRequest(.scsGetBlock, parameters: [chainAddr, number])
         let rp = chain3.dispatch(request)
+        let queue = chain3.requestDispatcher.queue
         return rp.map(on: queue) { response in
             guard let value: SCSBlock = response.getValue() else {
                 if response.error != nil {
                     throw Chain3Error.nodeError(response.error!.message)
                 }
-                throw Chain3Error.nodeError("Invalid value from MOAC node")
+                throw Chain3Error.nodeError("Invalid value from SCS node")
             }
             return value
         }
@@ -96,7 +125,7 @@ public class Chain3SCS: Chain3OptionsInheritable {
                 if response.error != nil {
                     throw Chain3Error.nodeError(response.error!.message)
                 }
-                throw Chain3Error.nodeError("Invalid value from MOAC node")
+                throw Chain3Error.nodeError("Invalid value from SCS node")
             }
             return value
         }
@@ -111,7 +140,7 @@ public class Chain3SCS: Chain3OptionsInheritable {
                 if response.error != nil {
                     throw Chain3Error.nodeError(response.error!.message)
                 }
-                throw Chain3Error.nodeError("Invalid value from MOAC node")
+                throw Chain3Error.nodeError("Invalid value from SCS node")
             }
             return value
         }
@@ -126,7 +155,7 @@ public class Chain3SCS: Chain3OptionsInheritable {
                 if response.error != nil {
                     throw Chain3Error.nodeError(response.error!.message)
                 }
-                throw Chain3Error.nodeError("Invalid value from MOAC node")
+                throw Chain3Error.nodeError("Invalid value from SCS node")
             }
             return value
         }
@@ -141,7 +170,7 @@ public class Chain3SCS: Chain3OptionsInheritable {
                 if response.error != nil {
                     throw Chain3Error.nodeError(response.error!.message)
                 }
-                throw Chain3Error.nodeError("Invalid value from MOAC node")
+                throw Chain3Error.nodeError("Invalid value from SCS node")
             }
             return value
         }
@@ -156,7 +185,7 @@ public class Chain3SCS: Chain3OptionsInheritable {
                 if response.error != nil {
                     throw Chain3Error.nodeError(response.error!.message)
                 }
-                throw Chain3Error.nodeError("Invalid value from MOAC node")
+                throw Chain3Error.nodeError("Invalid value from SCS node")
             }
             return value
         }
@@ -171,7 +200,7 @@ public class Chain3SCS: Chain3OptionsInheritable {
                 if response.error != nil {
                     throw Chain3Error.nodeError(response.error!.message)
                 }
-                throw Chain3Error.nodeError("Invalid value from MOAC node")
+                throw Chain3Error.nodeError("Invalid value from SCS node")
             }
             return value
         }
@@ -186,7 +215,7 @@ public class Chain3SCS: Chain3OptionsInheritable {
                 if response.error != nil {
                     throw Chain3Error.nodeError(response.error!.message)
                 }
-                throw Chain3Error.nodeError("Invalid value from MOAC node")
+                throw Chain3Error.nodeError("Invalid value from SCS node")
             }
             return value
         }
