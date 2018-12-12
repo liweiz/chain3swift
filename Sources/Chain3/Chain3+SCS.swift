@@ -176,12 +176,12 @@ public class Chain3SCS: Chain3OptionsInheritable {
         }
     }
     
-    public func getNonce() -> Promise<BigUInt> {
+    public func getNonce(chainAddr: String, scsAddr: String) -> Promise<Int> {
         let queue = chain3.requestDispatcher.queue
-        let request = JsonRpcRequestFabric.prepareRequest(.scsGetNonce, parameters: [])
+        let request = JsonRpcRequestFabric.prepareRequest(.scsGetNonce, parameters: [chainAddr, scsAddr])
         let rp = chain3.dispatch(request)
         return rp.map(on: queue) { response in
-            guard let value: BigUInt = response.getValue() else {
+            guard let value: Int = response.getValue() else {
                 if response.error != nil {
                     throw Chain3Error.nodeError(response.error!.message)
                 }

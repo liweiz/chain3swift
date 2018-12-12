@@ -359,6 +359,14 @@ class MOACTests: XCTestCase {
         print(result)
     }
     
+    func testSCSGetNonce() throws {
+        let scsChain3 = Chain3(provider: scsProvider!)
+        let nonce = try scsChain3.scs.getSCSId().wait()
+        print(nonce.description)
+        let result = try scsChain3.scs.getNonce(chainAddr: microChainAddressStr, scsAddr: nonce.description).wait()
+        print(result)
+    }
+    
 //    func testSCSGetBlock() throws {
 //        let scsChain3 = Chain3(provider: scsProvider!)
 //        let result = try scsChain3.scs.getBlock("latest").wait()
