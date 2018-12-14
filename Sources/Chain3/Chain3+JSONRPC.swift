@@ -161,6 +161,8 @@ public struct JsonRpcResponse: Decodable {
             result = rawValue
         } else if let rawValue = try? container.decodeIfPresent(TransactionReceipt.self, forKey: .result) {
             result = rawValue
+        } else if let rawValue = try? container.decodeIfPresent(SCSTransactionReceipt.self, forKey: .result) {
+            result = rawValue
         } else if let rawValue = try? container.decodeIfPresent([EventLog].self, forKey: .result) {
             result = rawValue
         } else if let rawValue = try? container.decodeIfPresent([Block].self, forKey: .result) {
@@ -279,6 +281,18 @@ public struct TransactionParameters: Codable {
     public init(from _from: String?, to _to: String?) {
         from = _from
         to = _to
+    }
+    
+    /// init with sender and recipient and data
+    public init(to _to: String?, from _from: String? = nil, data _data: String? = nil) {
+        to = _to
+        if _from != nil {
+            from = _from
+        }
+        if _data != nil {
+            data = _data
+        }
+        value = nil
     }
 }
 

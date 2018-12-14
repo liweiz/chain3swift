@@ -57,9 +57,12 @@ public class Chain3SCS: Chain3OptionsInheritable {
     }
     
     
-    public func directCall() -> Promise<Data> {
+    public func directCall(to: String, from: String? = nil, data: String? = nil) -> Promise<Data> {
         let queue = chain3.requestDispatcher.queue
-        let request = JsonRpcRequestFabric.prepareRequest(.scsDirectCall, parameters: [])
+        
+        let paramObj = TransactionParameters(to: to, from: from, data: data)
+        
+        let request = JsonRpcRequestFabric.prepareRequest(.scsDirectCall, parameters: [paramObj])
         let rp = chain3.dispatch(request)
         return rp.map(on: queue) { response in
             guard let value: Data = response.getValue() else {
@@ -206,9 +209,9 @@ public class Chain3SCS: Chain3OptionsInheritable {
         }
     }
     
-    public func getTransactionReceipt() -> Promise<SCSTransactionReceipt> {
+    public func getTransactionReceipt(chainAddr: String, txHash: String) -> Promise<SCSTransactionReceipt> {
         let queue = chain3.requestDispatcher.queue
-        let request = JsonRpcRequestFabric.prepareRequest(.scsGetTransactionReceipt, parameters: [])
+        let request = JsonRpcRequestFabric.prepareRequest(.scsGetTransactionReceipt, parameters: [chainAddr, txHash])
         let rp = chain3.dispatch(request)
         return rp.map(on: queue) { response in
             guard let value: SCSTransactionReceipt = response.getValue() else {
