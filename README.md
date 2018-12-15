@@ -47,6 +47,8 @@ Don't forget to set the iOS version in a Podfile, otherwise you get an error if 
 
 ## Available functions
 
+### MC
+
 - [Chain3 instance with RPC connection](#chain3-instance-with-rpc-connection)
 - [mc.getBalance](#mcgetbalance)
 - [mc.getBlockByHash](#mcgetblockbyhash)
@@ -61,6 +63,28 @@ Don't forget to set the iOS version in a Podfile, otherwise you get an error if 
 - [Call unsigned state-changing method on deployed contract](#call-unsigned-state-changing-method-on-deployed-contract)
 - [Call signed state-changing method on deployed contract](#call-signed-state-changing-method-on-deployed-contract)
 - [Call unsigned non-state-changing method on deployed contract](#call-unsigned-non-state-changing-method-on-deployed-contract)
+
+### VNODE
+
+- [Returns the VNODE benificial address](#returns-the-VNODE-benificial-address)
+- [Returns if the VNODE enable the service for SCS servers](#returns-if-the-VNODE-enable-the-service-for-SCS-servers)
+- [Returns the VNODE SCS service port to connect](#returns-the-VNODE-SCS-service-port-to-connect)
+- [Returns if the VNODE enables the public view](#returns-if-the-VNODE-enables-the-public-view)
+- [Returns VNODE IP for users to access](#returns-VNODE-IP-for-users-to-access)
+
+### SCS
+
+- [Chain3 instance with SCS RPC connection](#chain3-instance-with-SCS-RPC-connection)
+- [Returns the list of MicroChains on the connecting SCS](#returns-the-list-of-MicroChains-on-the-connecting-SCS)
+- [Returns the Dapp state on the MicroChain](#returns-the-Dapp-state-on-the-MicroChain)
+- [Returns information about a MicroChain block by block number](#returns-information-about-a-MicroChain-block-by-block-number)
+- [Returns the number of most recent block on the MicroChain](#returns-the-number-of-most-recent-block-on-the-MicroChain)
+- [Returns the SCS id](#returns-the-SCS-id)
+- [Returns the requested MicroChain information on the connecting SCS](#returns-the-requested-MicroChain-information-on-the-connecting-SCS)
+- [Returns the nonce of scsid](#returns-the-nonce-of-scsid)
+- [Returns the receipt of a transaction by transaction hash](#returns-the-receipt-of-a-transaction-by-transaction-hash)
+- [Executes a new constant call of the MicroChain Dapp function without creating a transaction on the MicroChain](#executes-a-new-constant-call-of-the-MicroChain-Dapp-function-without-creating-a-transaction-on-the-MicroChain)
+
 
 ### Chain3 instance with RPC connection
 
