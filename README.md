@@ -208,6 +208,106 @@ let transactionIntermediateForGet = try contract.method(getterNameString, option
 let value = try transactionIntermediateForGet.call(options: options)
 ```
 
+### Returns the VNODE benificial address
+
+```swift
+let address = try chain3.vnode.getVnodeAddress().wait()
+```
+
+### Returns if the VNODE enable the service for SCS servers
+
+```swift
+let result = try chain3.vnode.scsServiceEnabled().wait()
+```
+
+### Returns the VNODE SCS service port to connect
+
+```swift
+let result = try chain3.vnode.getServiceCfg().wait()
+```
+
+### Returns if the VNODE enables the public view
+
+```swift
+let result = try chain3.vnode.showToPublicEnabled().wait()
+```
+
+### Returns VNODE IP for users to access
+
+```swift
+let result = try chain3.vnode.getVnodeIP().wait()
+```
+
+### Chain3 instance with SCS RPC connection
+
+```swift
+let url = URL(string: "http://127.0.0.1:23456")!
+// network if here for SCS Chain3 is meaningless since we do not need to sign any thing for SCS requests. Its sole purpose is for local signing.
+var provider: Chain3HttpProvider? = nil
+if let p = Chain3HttpProvider(url, network: 101, keystoreManager: nil) {
+    provider = p
+    let scsChain3 = Chain3(provider: provider!)
+} else {
+    // Handle error
+}
+```
+
+### Returns the list of MicroChains on the connecting SCS
+
+```swift
+let result = try scsChain3.scs.getMicroChainList().wait()
+```
+
+### Returns the Dapp state on the MicroChain
+
+```swift
+let result = try scsChain3.scs.getDappState(chainAddr: microChainAddressStr).wait()
+```
+
+### Returns information about a MicroChain block by block number
+
+```swift
+let resultA = try scsChain3.scs.getBlock(chainAddr: microChainAddressStr, UInt64(99))
+let resultB = try scsChain3.scs.getBlock(chainAddr: microChainAddressStr, BigUInt(99))
+```
+
+### Returns the number of most recent block on the MicroChain
+
+```swift
+let result = try scsChain3.scs.getBlockNumber(chainAddr: microChainAddressStr).wait()
+```
+
+### Returns the SCS id
+
+```swift
+let result = try scsChain3.scs.getSCSId().wait()
+```
+
+### Returns the requested MicroChain information on the connecting SCS
+
+```swift
+let result = try scsChain3.scs.getMicroChainInfo(chainAddr: microChainAddressStr).wait()
+```
+
+### Returns the nonce of scsid
+
+```swift
+let scsid = try scsChain3.scs.getSCSId().wait()
+let result = try scsChain3.scs.getNonce(chainAddr: microChainAddressStr, scsAddr: scsid.description).wait()
+```
+
+### Returns the receipt of a transaction by transaction hash
+
+```swift
+let result = try scsChain3.scs.getTransactionReceipt(chainAddr: microChainAddressStr, txHash: scsTxHash).wait()
+```
+
+### Executes a new constant call of the MicroChain Dapp function without creating a transaction on the MicroChain
+
+```swift
+let result = try scsChain3.scs.directCall(to: "0xA4A1A503a02077146C620cb431B589a9d1DA55B6", data: "0x6d4ce63c").wait()
+```
+
 ## Future plans
 
 - Full reference `chain3js` functionality
